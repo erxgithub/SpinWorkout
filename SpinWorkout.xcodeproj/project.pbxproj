@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5854341220503D1E008C6163 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5854341120503D1E008C6163 /* AppDelegate.swift */; };
+		5854341420503D1E008C6163 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5854341320503D1E008C6163 /* ViewController.swift */; };
+		5854341720503D1E008C6163 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5854341520503D1E008C6163 /* Main.storyboard */; };
+		5854341A20503D1E008C6163 /* SpinWorkout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5854341820503D1E008C6163 /* SpinWorkout.xcdatamodeld */; };
+		5854341C20503D1E008C6163 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5854341B20503D1E008C6163 /* Assets.xcassets */; };
+		5854341F20503D1E008C6163 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5854341D20503D1E008C6163 /* LaunchScreen.storyboard */; };
+		5854342A20503D1E008C6163 /* SpinWorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5854342920503D1E008C6163 /* SpinWorkoutTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5854342620503D1E008C6163 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5854340620503D1E008C6163 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5854340D20503D1E008C6163;
+			remoteInfo = SpinWorkout;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5854340E20503D1E008C6163 /* SpinWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpinWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5854341120503D1E008C6163 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5854341320503D1E008C6163 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5854341620503D1E008C6163 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5854341920503D1E008C6163 /* SpinWorkout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpinWorkout.xcdatamodel; sourceTree = "<group>"; };
+		5854341B20503D1E008C6163 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5854341E20503D1E008C6163 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5854342020503D1E008C6163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5854342520503D1E008C6163 /* SpinWorkoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinWorkoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5854342920503D1E008C6163 /* SpinWorkoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWorkoutTests.swift; sourceTree = "<group>"; };
+		5854342B20503D1E008C6163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5854340B20503D1E008C6163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5854342220503D1E008C6163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5854340520503D1E008C6163 = {
+			isa = PBXGroup;
+			children = (
+				5854341020503D1E008C6163 /* SpinWorkout */,
+				5854342820503D1E008C6163 /* SpinWorkoutTests */,
+				5854340F20503D1E008C6163 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5854340F20503D1E008C6163 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5854340E20503D1E008C6163 /* SpinWorkout.app */,
+				5854342520503D1E008C6163 /* SpinWorkoutTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5854341020503D1E008C6163 /* SpinWorkout */ = {
+			isa = PBXGroup;
+			children = (
+				5854341120503D1E008C6163 /* AppDelegate.swift */,
+				5854341320503D1E008C6163 /* ViewController.swift */,
+				5854341520503D1E008C6163 /* Main.storyboard */,
+				5854341B20503D1E008C6163 /* Assets.xcassets */,
+				5854341D20503D1E008C6163 /* LaunchScreen.storyboard */,
+				5854342020503D1E008C6163 /* Info.plist */,
+				5854341820503D1E008C6163 /* SpinWorkout.xcdatamodeld */,
+			);
+			path = SpinWorkout;
+			sourceTree = "<group>";
+		};
+		5854342820503D1E008C6163 /* SpinWorkoutTests */ = {
+			isa = PBXGroup;
+			children = (
+				5854342920503D1E008C6163 /* SpinWorkoutTests.swift */,
+				5854342B20503D1E008C6163 /* Info.plist */,
+			);
+			path = SpinWorkoutTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5854340D20503D1E008C6163 /* SpinWorkout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5854342E20503D1E008C6163 /* Build configuration list for PBXNativeTarget "SpinWorkout" */;
+			buildPhases = (
+				5854340A20503D1E008C6163 /* Sources */,
+				5854340B20503D1E008C6163 /* Frameworks */,
+				5854340C20503D1E008C6163 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpinWorkout;
+			productName = SpinWorkout;
+			productReference = 5854340E20503D1E008C6163 /* SpinWorkout.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5854342420503D1E008C6163 /* SpinWorkoutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5854343120503D1E008C6163 /* Build configuration list for PBXNativeTarget "SpinWorkoutTests" */;
+			buildPhases = (
+				5854342120503D1E008C6163 /* Sources */,
+				5854342220503D1E008C6163 /* Frameworks */,
+				5854342320503D1E008C6163 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5854342720503D1E008C6163 /* PBXTargetDependency */,
+			);
+			name = SpinWorkoutTests;
+			productName = SpinWorkoutTests;
+			productReference = 5854342520503D1E008C6163 /* SpinWorkoutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5854340620503D1E008C6163 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Eric Gregor";
+				TargetAttributes = {
+					5854340D20503D1E008C6163 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					5854342420503D1E008C6163 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5854340D20503D1E008C6163;
+					};
+				};
+			};
+			buildConfigurationList = 5854340920503D1E008C6163 /* Build configuration list for PBXProject "SpinWorkout" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5854340520503D1E008C6163;
+			productRefGroup = 5854340F20503D1E008C6163 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5854340D20503D1E008C6163 /* SpinWorkout */,
+				5854342420503D1E008C6163 /* SpinWorkoutTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5854340C20503D1E008C6163 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5854341F20503D1E008C6163 /* LaunchScreen.storyboard in Resources */,
+				5854341C20503D1E008C6163 /* Assets.xcassets in Resources */,
+				5854341720503D1E008C6163 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5854342320503D1E008C6163 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5854340A20503D1E008C6163 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5854341420503D1E008C6163 /* ViewController.swift in Sources */,
+				5854341A20503D1E008C6163 /* SpinWorkout.xcdatamodeld in Sources */,
+				5854341220503D1E008C6163 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5854342120503D1E008C6163 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5854342A20503D1E008C6163 /* SpinWorkoutTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5854342720503D1E008C6163 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5854340D20503D1E008C6163 /* SpinWorkout */;
+			targetProxy = 5854342620503D1E008C6163 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5854341520503D1E008C6163 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5854341620503D1E008C6163 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5854341D20503D1E008C6163 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5854341E20503D1E008C6163 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5854342C20503D1E008C6163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5854342D20503D1E008C6163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5854342F20503D1E008C6163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 573K3JNJS6;
+				INFOPLIST_FILE = SpinWorkout/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericgregor.SpinWorkout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5854343020503D1E008C6163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 573K3JNJS6;
+				INFOPLIST_FILE = SpinWorkout/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericgregor.SpinWorkout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5854343220503D1E008C6163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 573K3JNJS6;
+				INFOPLIST_FILE = SpinWorkoutTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericgregor.SpinWorkoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpinWorkout.app/SpinWorkout";
+			};
+			name = Debug;
+		};
+		5854343320503D1E008C6163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 573K3JNJS6;
+				INFOPLIST_FILE = SpinWorkoutTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericgregor.SpinWorkoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpinWorkout.app/SpinWorkout";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5854340920503D1E008C6163 /* Build configuration list for PBXProject "SpinWorkout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5854342C20503D1E008C6163 /* Debug */,
+				5854342D20503D1E008C6163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5854342E20503D1E008C6163 /* Build configuration list for PBXNativeTarget "SpinWorkout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5854342F20503D1E008C6163 /* Debug */,
+				5854343020503D1E008C6163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5854343120503D1E008C6163 /* Build configuration list for PBXNativeTarget "SpinWorkoutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5854343220503D1E008C6163 /* Debug */,
+				5854343320503D1E008C6163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5854341820503D1E008C6163 /* SpinWorkout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5854341920503D1E008C6163 /* SpinWorkout.xcdatamodel */,
+			);
+			currentVersion = 5854341920503D1E008C6163 /* SpinWorkout.xcdatamodel */;
+			path = SpinWorkout.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5854340620503D1E008C6163 /* Project object */;
+}
