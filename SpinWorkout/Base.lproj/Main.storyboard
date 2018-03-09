@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Master View Controller-->
         <scene sceneID="QYX-gK-xCT">
             <objects>
-                <viewController id="P9G-ZL-vJC" sceneMemberID="viewController">
+                <viewController id="P9G-ZL-vJC" customClass="MasterViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LQ5-KT-gAa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="92" id="6FO-RH-9B3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WorkoutCell" rowHeight="92" id="6FO-RH-9B3" customClass="WorkoutTableViewCell" customModule="SpinWorkout" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6FO-RH-9B3" id="kOd-lc-2da">
@@ -47,10 +47,16 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="8TN-7I-g1g" kind="show" id="kLc-va-0EE"/>
+                                            <outlet property="totalDurationLabel" destination="Rc1-eF-pWv" id="ayk-gH-MVp"/>
+                                            <outlet property="workoutTitleLabel" destination="W1m-8t-k1h" id="yD1-w7-53g"/>
+                                            <segue destination="8TN-7I-g1g" kind="show" identifier="workout" id="kLc-va-0EE"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="P9G-ZL-vJC" id="FYw-AD-6TV"/>
+                                    <outlet property="delegate" destination="P9G-ZL-vJC" id="TMN-hf-S8H"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -59,19 +65,22 @@
                     <navigationItem key="navigationItem" id="Hlu-Le-LRC">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mLd-Oc-lMg">
                             <connections>
-                                <segue destination="8j8-Qy-V3m" kind="show" id="cA0-Mv-hhp"/>
+                                <segue destination="8j8-Qy-V3m" kind="show" identifier="detail" id="cA0-Mv-hhp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="wve-TJ-bsC" id="1N9-TJ-zNd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UOT-em-xiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-223.19999999999999" y="-81.409295352323838"/>
         </scene>
-        <!--View Controller-->
+        <!--Workout View Controller-->
         <scene sceneID="7Dl-3q-f7q">
             <objects>
-                <viewController id="8TN-7I-g1g" sceneMemberID="viewController">
+                <viewController id="8TN-7I-g1g" customClass="WorkoutViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4vQ-oL-P66">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -150,20 +159,30 @@
                                 <rect key="frame" x="170" y="340" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="startButtonTapped:" destination="8TN-7I-g1g" eventType="touchUpInside" id="69I-8c-W01"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ijw-cm-fuS"/>
                     </view>
+                    <connections>
+                        <outlet property="cadenceLabel" destination="VMm-FW-Ft0" id="hxh-dw-5dM"/>
+                        <outlet property="gearLabel" destination="lmA-ga-4LJ" id="A6Q-uL-pKV"/>
+                        <outlet property="setTimerLabel" destination="VNM-B8-Kt8" id="k6P-kl-gFJ"/>
+                        <outlet property="startButtonLabel" destination="0RN-E3-hW4" id="LmI-Ms-sX8"/>
+                        <outlet property="workoutTimerLabel" destination="2lT-3o-tb4" id="QWA-7M-ISs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qk4-8L-3EN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="677.60000000000002" y="220.83958020989508"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="sVF-JF-vwb">
             <objects>
-                <viewController id="8j8-Qy-V3m" sceneMemberID="viewController">
+                <viewController id="8j8-Qy-V3m" customClass="DetailViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8eU-bN-lcE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,7 +192,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="94" id="tUA-QC-SkV">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetCell" rowHeight="94" id="tUA-QC-SkV">
                                         <rect key="frame" x="0.0" y="28" width="375" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tUA-QC-SkV" id="1Ae-XB-3cj">
@@ -211,7 +230,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="4zg-X7-llc" kind="show" id="86z-4z-JCJ"/>
+                                            <segue destination="4zg-X7-llc" kind="show" identifier="edit" id="86z-4z-JCJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -237,7 +256,7 @@
                     <navigationItem key="navigationItem" id="xbH-Uv-lGB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WLx-So-Z4V">
                             <connections>
-                                <segue destination="4zg-X7-llc" kind="show" id="aWs-Iu-khz"/>
+                                <segue destination="4zg-X7-llc" kind="show" identifier="add" id="aWs-Iu-khz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -246,10 +265,10 @@
             </objects>
             <point key="canvasLocation" x="677.60000000000002" y="-511.39430284857576"/>
         </scene>
-        <!--View Controller-->
+        <!--Add View Controller-->
         <scene sceneID="wCN-td-eo7">
             <objects>
-                <viewController id="4zg-X7-llc" sceneMemberID="viewController">
+                <viewController id="4zg-X7-llc" customClass="AddViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Db-vh-E0k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
