@@ -81,6 +81,8 @@ class WorkoutViewController: UIViewController {
         sender.setTitle(titleLabel, for: .normal)
         sender.setTitle(titleLabel, for: .selected)
         sender.setTitle(titleLabel, for: .highlighted)
+        
+        sender.sizeToFit()
 
     }
     
@@ -156,7 +158,7 @@ class WorkoutViewController: UIViewController {
         if format.lowercased() == "hm" {
             return String(format: "%d h %0.2d m", hours, minutes)
         } else {
-            return String(format: "%0.2d.%0.2d.%0.2d", hours, minutes, seconds)
+            return String(format: "%d.%0.2d.%0.2d", hours, minutes, seconds)
         }
     }
     
@@ -174,8 +176,15 @@ class WorkoutViewController: UIViewController {
                     nextWorkoutSet()
                 }
             } else {
-                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
-                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
+//                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
+//                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
+                let timer1 = timeString(interval: workoutTimeCount, format: "hms")
+                let timer2 = timeString(interval: setTimeCount, format: "hms")
+                if timer1 != workoutTimerLabel.text && timer2 != setTimerLabel.text {
+                    workoutTimerLabel.text = timer1
+                    setTimerLabel.text = timer2
+                }
+
             }
         } else {
             // timer that counts up
@@ -190,8 +199,15 @@ class WorkoutViewController: UIViewController {
                     nextWorkoutSet()
                 }
             } else {
-                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
-                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
+//                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
+//                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
+                let timer1 = timeString(interval: workoutTimeCount, format: "hms")
+                let timer2 = timeString(interval: setTimeCount, format: "hms")
+                if timer1 != workoutTimerLabel.text && timer2 != setTimerLabel.text {
+                    workoutTimerLabel.text = timer1
+                    setTimerLabel.text = timer2
+                }
+
             }
         }
     }
