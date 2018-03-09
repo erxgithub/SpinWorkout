@@ -112,7 +112,7 @@ class WorkoutViewController: UIViewController {
         }
         
         if setNumber == 0 {
-            workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
+            workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hms")
             setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
         }
         
