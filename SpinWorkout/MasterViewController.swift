@@ -8,32 +8,32 @@
 
 import UIKit
 
-class MasterViewController: UIViewController {
+class MasterViewController: UIViewController, WorkoutDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var workouts: [Workout]? = []
+    var workouts: [SpinWorkout]? = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let set1 = Set(number: 1, gear: 3, cadence: 80, seconds: 5.0)
-        let set2 = Set(number: 2, gear: 4, cadence: 85, seconds: 5.0)
-        let set3 = Set(number: 3, gear: 5, cadence: 90, seconds: 5.0)
+        let set1 = SpinSet(sequence: 1, gear: 3, cadence: 80, seconds: 5.0)
+        let set2 = SpinSet(sequence: 2, gear: 4, cadence: 85, seconds: 5.0)
+        let set3 = SpinSet(sequence: 3, gear: 5, cadence: 90, seconds: 5.0)
         
-        let sets1 = [set1, set2, set3] as? [Set]
+        let sets1 = [set1, set2, set3] as? [SpinSet]
         
-        let workout1 = Workout(title: "Workout 1", sets: sets1)
+        let workout1 = SpinWorkout(title: "Workout 1", sets: sets1)
         
-        let set4 = Set(number: 1, gear: 3, cadence: 80, seconds: 5.0)
-        let set5 = Set(number: 2, gear: 4, cadence: 85, seconds: 5.0)
-        let set6 = Set(number: 3, gear: 5, cadence: 90, seconds: 5.0)
+        let set4 = SpinSet(sequence: 1, gear: 3, cadence: 80, seconds: 5.0)
+        let set5 = SpinSet(sequence: 2, gear: 4, cadence: 85, seconds: 5.0)
+        let set6 = SpinSet(sequence: 3, gear: 5, cadence: 90, seconds: 5.0)
         
-        let sets2 = [set4, set5, set6] as? [Set]
+        let sets2 = [set4, set5, set6] as? [SpinSet]
         
-        let workout2 = Workout(title: "Workout 2", sets: sets2)
+        let workout2 = SpinWorkout(title: "Workout 2", sets: sets2)
 
         workouts?.append(workout1!)
         workouts?.append(workout2!)
@@ -74,6 +74,12 @@ class MasterViewController: UIViewController {
 
         }
 
+    }
+    
+    func updateTableView(sets: [SpinSet]) {
+        let workout = SpinWorkout(title: "New Workout", sets: sets)
+        workouts?.append(workout!)
+        tableView.reloadData()
     }
 
 }

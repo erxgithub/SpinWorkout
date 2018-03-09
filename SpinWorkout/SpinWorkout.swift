@@ -8,16 +8,16 @@
 
 import Foundation
 
-class Workout {
+class SpinWorkout {
     
     //MARK: Properties
     
     var title: String
-    var sets: [Set]?
+    var sets: [SpinSet]?
     
     //MARK: Initialization
     
-    init?(title: String?, sets: [Set]?) {
+    init?(title: String?, sets: [SpinSet]?) {
         self.title = title ?? ""
         self.sets = sets ?? []
     }
