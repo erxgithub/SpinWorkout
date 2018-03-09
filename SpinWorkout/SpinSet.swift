@@ -8,20 +8,20 @@
 
 import Foundation
 
-class Set {
+class SpinSet {
     
     //MARK: Properties
     
-    var number: Int
+    var sequence: Int
     var gear: Int
     var cadence: Int
     var seconds: Double
     
     //MARK: Initialization
     
-    init?(number: Int, gear: Int, cadence: Int, seconds: Double) {
+    init?(sequence: Int, gear: Int, cadence: Int, seconds: Double) {
         
-        self.number = number
+        self.sequence = sequence
         self.gear = gear
         self.cadence = cadence
         self.seconds = seconds

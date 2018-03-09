@@ -26,7 +26,7 @@ class WorkoutViewController: UIViewController {
     var workoutTimeCount: TimeInterval = 0.0
     var setTimeCount: TimeInterval = 0.0
     
-    var workout: Workout?
+    var workout: SpinWorkout?
     
     var setNumber: Int = 0
     var setCount: Int = 0
@@ -135,7 +135,7 @@ class WorkoutViewController: UIViewController {
         startButtonLabel.setTitle(titleLabel, for: .selected)
         startButtonLabel.setTitle(titleLabel, for: .highlighted)
     }
-    
+
     func startTimer() {
         // prevent more than one timer on the thread
         if !timer.isValid {

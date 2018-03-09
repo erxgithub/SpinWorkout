@@ -8,7 +8,18 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+protocol WorkoutDelegate {
+    func updateTableView(sets: [SpinSet])
+}
+
+class DetailViewController: UIViewController, SetDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var workout: SpinWorkout?
+    var sets: [SpinSet]? = []
+
+    var delegate : WorkoutDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +32,14 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    func updateTableView(set: SpinSet) {
+        sets?.append(set)
+        tableView.reloadData()
+    }
 
     /*
     // MARK: - Navigation
@@ -32,4 +51,33 @@ class DetailViewController: UIViewController {
     }
     */
 
+}
+
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    //MARK: - Table view data source
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sets!.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SetCell", for: indexPath) as? DetailTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of UITableViewCell.")
+        }
+        
+        // Fetches the appropriate meal for the data source layout.
+        //let workoutSet = sets![indexPath.row]
+        
+        //cell.workoutTitleLabel.text = workout.title
+        //cell.workoutTitleLabel.sizeToFit()
+        
+        return cell
+        
+    }
+    
 }

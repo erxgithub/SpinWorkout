@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol SetDelegate {
+    func updateTableView(set: SpinSet)
+}
+
 class AddViewController: UIViewController {
+
+    var workoutSet: SpinSet?
+
+    var delegate : SetDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +29,17 @@ class AddViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        if delegate != nil {
+            delegate?.updateTableView(set: self.workoutSet!)
+            //dismiss the modal
+            dismiss(animated: true, completion: nil)
+        }
+        
+        navigationController?.popToRootViewController(animated: true)
 
+    }
+    
     /*
     // MARK: - Navigation
 
