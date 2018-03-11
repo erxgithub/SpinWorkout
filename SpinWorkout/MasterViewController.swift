@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class MasterViewController: UIViewController, WorkoutDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var workouts: [SpinWorkout]? = []
-
+    var people: [NSManagedObject] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,13 +74,19 @@ class MasterViewController: UIViewController, WorkoutDelegate {
             let selectedWorkout = workouts![indexPath.row]
             workoutViewController.workout = selectedWorkout
 
+        } else if segue.identifier == "detail" {
+            guard let detailViewController = segue.destination as? DetailViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            detailViewController.delegate = self
+
         }
 
     }
     
-    func updateTableView(sets: [SpinSet]) {
-        let workout = SpinWorkout(title: "New Workout", sets: sets)
-        workouts?.append(workout!)
+    func updateTableView(workout: SpinWorkout) {
+        workouts?.append(workout)
         tableView.reloadData()
     }
 
@@ -94,6 +102,7 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workouts!.count
+        //return people.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,9 +112,16 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
         
         // Fetches the appropriate meal for the data source layout.
         let workout = workouts![indexPath.row]
+        //let person = people[indexPath.row]
+        
+        let duration = workout.sets?.reduce(0) { $0 + $1.seconds }
         
         cell.workoutTitleLabel.text = workout.title
-        cell.workoutTitleLabel.sizeToFit()
+        cell.setCountLabel.text = "\(workout.sets?.count ?? 0)"
+        cell.totalDurationLabel.text = "\(duration ?? 0.0)"
+        
+        //cell.workoutTitleLabel.text = person.value(forKeyPath: "title") as? String
+        //cell.workoutTitleLabel.sizeToFit()
         
         return cell
 

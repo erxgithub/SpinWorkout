@@ -31,23 +31,39 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="91.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1m-8t-k1h">
-                                                    <rect key="frame" x="15" y="35" width="133" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Duration" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rc1-eF-pWv">
-                                                    <rect key="frame" x="220" y="35" width="140" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dQu-7E-5Nk">
+                                                    <rect key="frame" x="24" y="0.0" width="327" height="91.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1m-8t-k1h">
+                                                            <rect key="frame" x="0.0" y="0.0" width="102" height="91.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Sx-7d-o88">
+                                                            <rect key="frame" x="123" y="0.0" width="76.5" height="91.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Duration" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rc1-eF-pWv">
+                                                            <rect key="frame" x="220" y="0.0" width="107" height="91.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="dQu-7E-5Nk" secondAttribute="bottom" id="ENU-Uy-MCp"/>
+                                                <constraint firstItem="dQu-7E-5Nk" firstAttribute="leading" secondItem="kOd-lc-2da" secondAttribute="leading" constant="24" id="hma-k6-H85"/>
+                                                <constraint firstAttribute="trailing" secondItem="dQu-7E-5Nk" secondAttribute="trailing" constant="24" id="iDP-7d-49Y"/>
+                                                <constraint firstItem="dQu-7E-5Nk" firstAttribute="top" secondItem="kOd-lc-2da" secondAttribute="top" id="qji-Q2-VgY"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="setCountLabel" destination="3Sx-7d-o88" id="chr-W3-p2V"/>
                                             <outlet property="totalDurationLabel" destination="Rc1-eF-pWv" id="ayk-gH-MVp"/>
                                             <outlet property="workoutTitleLabel" destination="W1m-8t-k1h" id="yD1-w7-53g"/>
                                             <segue destination="8TN-7I-g1g" kind="show" identifier="workout" id="kLc-va-0EE"/>
@@ -200,38 +216,49 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="93.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85D-wJ-Hur">
-                                                    <rect key="frame" x="15" y="36" width="26" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIp-sf-Wet">
-                                                    <rect key="frame" x="96" y="35" width="37" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBg-2g-fjR">
-                                                    <rect key="frame" x="294" y="36" width="66" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cadence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hii-pw-aM5">
-                                                    <rect key="frame" x="187" y="36" width="69" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="r2m-Ta-bmo">
+                                                    <rect key="frame" x="24" y="0.0" width="327" height="93.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85D-wJ-Hur">
+                                                            <rect key="frame" x="0.0" y="0.0" width="26" height="93.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIp-sf-Wet">
+                                                            <rect key="frame" x="69.5" y="0.0" width="37" height="93.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cadence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hii-pw-aM5">
+                                                            <rect key="frame" x="149.5" y="0.0" width="68.5" height="93.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBg-2g-fjR">
+                                                            <rect key="frame" x="261.5" y="0.0" width="65.5" height="93.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="r2m-Ta-bmo" firstAttribute="leading" secondItem="1Ae-XB-3cj" secondAttribute="leading" constant="24" id="DH5-8U-eMb"/>
+                                                <constraint firstAttribute="trailing" secondItem="r2m-Ta-bmo" secondAttribute="trailing" constant="24" id="Hx7-zd-3fL"/>
+                                                <constraint firstAttribute="bottom" secondItem="r2m-Ta-bmo" secondAttribute="bottom" id="UND-AJ-J4W"/>
+                                                <constraint firstItem="r2m-Ta-bmo" firstAttribute="top" secondItem="1Ae-XB-3cj" secondAttribute="top" id="fHV-11-oM8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="4zg-X7-llc" kind="show" identifier="edit" id="86z-4z-JCJ"/>
+                                            <outlet property="cadenceLabel" destination="Hii-pw-aM5" id="VKQ-sL-iyO"/>
+                                            <outlet property="durationLabel" destination="oBg-2g-fjR" id="BBB-KH-Vxr"/>
+                                            <outlet property="gearLabel" destination="fIp-sf-Wet" id="wbj-aD-kZz"/>
+                                            <outlet property="setLabel" destination="85D-wJ-Hur" id="vCU-0J-hPO"/>
+                                            <segue destination="4zg-X7-llc" kind="show" identifier="editSet" id="86z-4z-JCJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -247,13 +274,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLS-C6-tl3">
-                                <rect key="frame" x="16" y="82" width="343" height="21"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Workout Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MUH-9m-fIR">
+                                <rect key="frame" x="16" y="91" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="nQc-YU-G5A"/>
@@ -262,7 +289,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="WLx-So-Z4V">
                                 <connections>
-                                    <segue destination="4zg-X7-llc" kind="show" identifier="add" id="aWs-Iu-khz"/>
+                                    <segue destination="4zg-X7-llc" kind="show" identifier="addSets" id="aWs-Iu-khz"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="save" id="MkS-wu-igq">
@@ -274,6 +301,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="dmf-d9-eqV" id="MUA-Af-e0D"/>
+                        <outlet property="totalDurationLabel" destination="ur5-bW-fBl" id="uZC-tH-Ti1"/>
+                        <outlet property="workoutTitleTextField" destination="MUH-9m-fIR" id="ZAG-dd-36k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pTD-VU-6bU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -309,15 +338,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Workout Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T9a-2h-PYD">
-                                <rect key="frame" x="29" y="127" width="316" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puY-nu-4vc">
                                 <rect key="frame" x="29" y="204" width="41" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdF-wz-tNm">
+                                <rect key="frame" x="29" y="120" width="316" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -330,14 +359,21 @@
                     <navigationItem key="navigationItem" id="R5e-kX-qvL">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="5Cf-cn-7Rn">
                             <connections>
-                                <action selector="saveButtonTapped:" destination="4zg-X7-llc" id="w76-36-LZT"/>
+                                <action selector="saveButtonTapped:" destination="4zg-X7-llc" id="VX4-kf-dQ1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cadenceTextField" destination="SzC-AM-1Tk" id="TK4-10-cNm"/>
+                        <outlet property="durationTextField" destination="Kax-6u-dQi" id="Vvc-16-FtB"/>
+                        <outlet property="gearTextField" destination="0ub-lK-bGO" id="4AG-44-2cR"/>
+                        <outlet property="setNumberLabel" destination="puY-nu-4vc" id="Jhe-sc-cr3"/>
+                        <outlet property="workoutTitleLabel" destination="mdF-wz-tNm" id="YIA-Bf-X4e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mgt-hS-4We" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1820" y="-511"/>
+            <point key="canvasLocation" x="1820" y="-511.39430284857576"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Q6-t1-Moz">
@@ -359,6 +395,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="86z-4z-JCJ"/>
+        <segue reference="aWs-Iu-khz"/>
     </inferredMetricsTieBreakers>
 </document>

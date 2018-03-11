@@ -10,6 +10,11 @@ import UIKit
 
 class DetailTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var setLabel: UILabel!
+    @IBOutlet weak var gearLabel: UILabel!
+    @IBOutlet weak var cadenceLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
