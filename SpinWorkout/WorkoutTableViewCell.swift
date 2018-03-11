@@ -11,6 +11,7 @@ import UIKit
 class WorkoutTableViewCell: UITableViewCell {
 
     @IBOutlet weak var workoutTitleLabel: UILabel!
+    @IBOutlet weak var setCountLabel: UILabel!
     @IBOutlet weak var totalDurationLabel: UILabel!
     
     override func awakeFromNib() {

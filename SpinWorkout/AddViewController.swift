@@ -8,20 +8,30 @@
 
 import UIKit
 
-protocol SetDelegate {
+protocol SpinSetDelegate {
     func updateTableView(set: SpinSet)
 }
 
 class AddViewController: UIViewController {
 
-    var workoutSet: SpinSet?
+    @IBOutlet weak var workoutTitleLabel: UILabel!
+    @IBOutlet weak var setNumberLabel: UILabel!
+    @IBOutlet weak var gearTextField: UITextField!
+    @IBOutlet weak var cadenceTextField: UITextField!
+    @IBOutlet weak var durationTextField: UITextField!
+    
+    var workoutTitle: String = ""
+    var setNumber:Int = 0
 
-    var delegate : SetDelegate?
+    var delegate : SpinSetDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        workoutTitleLabel.text = workoutTitle
+        setNumberLabel.text = "\(setNumber)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,13 +41,30 @@ class AddViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         if delegate != nil {
-            delegate?.updateTableView(set: self.workoutSet!)
-            //dismiss the modal
-            dismiss(animated: true, completion: nil)
-        }
-        
-        navigationController?.popToRootViewController(animated: true)
+            if let gear = Int(gearTextField.text ?? ""),
+            let cadence = Int(cadenceTextField.text ?? ""),
+                let duration = Double(durationTextField.text ?? "") {
+                
+                let workoutSet = SpinSet(sequence: setNumber, gear: gear, cadence: cadence, seconds: duration)
+                delegate?.updateTableView(set: workoutSet!)
+                
+                let alert = UIAlertController(title: "Workout Set \(setNumber) added.", message: nil, preferredStyle: .alert)
+                
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
+                    // If appropriate, configure the new managed object.
+                    
+                    self.setNumber += 1
+                    self.setNumberLabel.text = "\(self.setNumber)"
+                })
+                alert.addAction(ok)
+                
+                self.present(alert, animated: true)
+                
+            }
 
+            //dismiss the modal
+            //dismiss(animated: true, completion: nil)
+        }
     }
     
     /*
