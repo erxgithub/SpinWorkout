@@ -75,6 +75,7 @@ class WorkoutViewController: UIViewController {
             basicAnimation.fromValue = 0
             basicAnimation.toValue = 1
             basicAnimation.duration = maxWorkoutTime
+            print(maxWorkoutTime)
             basicAnimation.fillMode = kCAFillModeForwards
             basicAnimation.isRemovedOnCompletion = false
             
