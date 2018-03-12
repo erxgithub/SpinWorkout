@@ -15,6 +15,10 @@ class WorkoutViewController: UIViewController {
     @IBOutlet weak var setTimerLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
     @IBOutlet weak var cadenceLabel: UILabel!
+    @IBOutlet weak var nextCadenceLabel: UILabel!
+    @IBOutlet weak var nextGearLabel: UILabel!
+    @IBOutlet weak var circleContainerView: UIView!
+    @IBOutlet weak var currentSetLabel: UILabel!
     
     var timer = Timer()
     var timerCountDown: Bool = true
@@ -30,11 +34,17 @@ class WorkoutViewController: UIViewController {
     
     var setNumber: Int = 0
     var setCount: Int = 0
+    
+    var gradientLayer: CAGradientLayer!
+    let shapeLayer = CAShapeLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        createGradientLayer()
+        createRingLayer()
+        
+        circleContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         
         setCount = workout?.sets?.count ?? 0
         
@@ -49,7 +59,6 @@ class WorkoutViewController: UIViewController {
         
         resetWorkout()
         nextWorkoutSet()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,36 +66,116 @@ class WorkoutViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Private Methods
+    
+    @objc private func handleTap() {
+    
+            ///////// start stroke animation
+            let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+            basicAnimation.fromValue = 0
+            basicAnimation.toValue = 1
+            basicAnimation.duration = maxWorkoutTime
+            basicAnimation.fillMode = kCAFillModeForwards
+            basicAnimation.isRemovedOnCompletion = false
+            
+            shapeLayer.add(basicAnimation, forKey: "strokeAnimation")
+        
+        /////////
+        
+        timerPause = !timerPause
+        
+        if timerPause == true {
+            startTimer()
+        } else {
+            stopTimer()
+        }
+    
+    }
+
+    private func createRingLayer() {
+        
+        let center = circleContainerView.center
+
+        let trackLayer = CAShapeLayer()
+        let circularPath = UIBezierPath(arcCenter: center, radius: 145, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor(red: 214.0/255.0, green: 150.0/255.0, blue: 56.0/255.0, alpha: 0.25).cgColor
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineWidth = 10
+        trackLayer.lineCap = kCALineCapRound
+        view.layer.addSublayer(trackLayer)
+        
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor(red: 214.0/255.0, green: 150.0/255.0, blue: 56.0/255.0, alpha: 1.0).cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.lineCap = kCALineCapRound
+        shapeLayer.strokeEnd = 0
+    
+        view.layer.addSublayer(shapeLayer)
+    }
+    
+    private func createGradientLayer() {
+        
+        let topColor = UIColor(red: 37.0/255.0, green: 48.0/255.0, blue: 74.0/255.0, alpha: 1.0).cgColor
+        let middleColor = UIColor (red: 61.0/255.0, green: 64.0/255.0, blue: 86.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 37.0/255.0, green: 48.0/255.0, blue: 74.0/255.0, alpha: 1.0).cgColor
+        
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [topColor, middleColor, bottomColor]
+        gradientLayer.locations = [0.0, 0.75]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    
     //MARK: Workouts
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
-        var titleLabel = ""
-        
-        if sender.titleLabel?.text == "Start" || sender.titleLabel?.text == "Resume"{
-            startTimer()
-            if timerPause {
-                timerPause = false
-            } else {
-                nextWorkoutSet()
-            }
-            
-            titleLabel = "Pause"
-        } else {
-            stopTimer()
-            timerPause = true
-            
-            titleLabel = "Resume"
-        }
-        
-        sender.setTitle(titleLabel, for: .normal)
-        sender.setTitle(titleLabel, for: .selected)
-        sender.setTitle(titleLabel, for: .highlighted)
-        
-        sender.sizeToFit()
+
+//        /////// start stroke animation
+//        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+//        basicAnimation.fromValue = 0
+//        basicAnimation.toValue = 1
+//        basicAnimation.duration = maxWorkoutTime
+//        basicAnimation.fillMode = kCAFillModeForwards
+//        basicAnimation.isRemovedOnCompletion = false
+//
+//        shapeLayer.add(basicAnimation, forKey: "strokeAnimation")
+//        ///////
+//
+//        var titleLabel = ""
+//
+//        if sender.titleLabel?.text == "Start" || sender.titleLabel?.text == "Resume"{
+//            startTimer()
+//            if timerPause {
+//                timerPause = false
+//
+//            } else {
+//                nextWorkoutSet()
+//
+//            }
+//
+//            titleLabel = "Pause"
+//        } else {
+//            stopTimer()
+//
+//            timerPause = true
+//
+//            titleLabel = "Resume"
+//        }
+//
+//        sender.setTitle(titleLabel, for: .normal)
+//        sender.setTitle(titleLabel, for: .selected)
+//        sender.setTitle(titleLabel, for: .highlighted)
+//
+//        sender.sizeToFit()
 
     }
     
     func nextWorkoutSet() {
+        
         if setNumber >= setCount {
             return
         }
@@ -95,15 +184,29 @@ class WorkoutViewController: UIViewController {
         let cadence = workout?.sets![setNumber].cadence ?? 0
         let seconds = workout?.sets![setNumber].seconds ?? 0.0
         
-        maxSetTime = seconds
         
-        //setLabel.text = "\(setNumber + 1)"
+        if (setNumber + 1) < setCount {
+            
+            let nextGear = workout?.sets![setNumber + 1 ].gear ?? 0
+            let nextCadence = workout?.sets![setNumber + 1].cadence ?? 0
+            
+            nextGearLabel.text = "\(nextGear)"
+            nextCadenceLabel.text = "\(nextCadence)"
+    
+        } else {
+            nextGearLabel.text = " - "
+            nextCadenceLabel.text = " --"
+        }
+
+        maxSetTime = seconds
         
         gearLabel.text = "\(gear)"
         gearLabel.sizeToFit()
         
         cadenceLabel.text = "\(cadence)"
         cadenceLabel.sizeToFit()
+       
+        currentSetLabel.text = "SET \(setNumber + 1) / \(setCount)"
         
         if timerCountDown {
             setTimeCount = maxSetTime
@@ -112,7 +215,7 @@ class WorkoutViewController: UIViewController {
         }
         
         if setNumber == 0 {
-            workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hms")
+            workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
             setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
         }
         
@@ -129,11 +232,11 @@ class WorkoutViewController: UIViewController {
         
         timerPause = false
         
-        let titleLabel = "Start"
-        
-        startButtonLabel.setTitle(titleLabel, for: .normal)
-        startButtonLabel.setTitle(titleLabel, for: .selected)
-        startButtonLabel.setTitle(titleLabel, for: .highlighted)
+        //        let titleLabel = "Start"
+        //
+        //        startButtonLabel.setTitle(titleLabel, for: .normal)
+        //        startButtonLabel.setTitle(titleLabel, for: .selected)
+        //        startButtonLabel.setTitle(titleLabel, for: .highlighted)
     }
 
     func startTimer() {
@@ -176,14 +279,14 @@ class WorkoutViewController: UIViewController {
                     nextWorkoutSet()
                 }
             } else {
-//                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
-//                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
-                let timer1 = timeString(interval: workoutTimeCount, format: "hms")
-                let timer2 = timeString(interval: setTimeCount, format: "hms")
-                if timer1 != workoutTimerLabel.text && timer2 != setTimerLabel.text {
-                    workoutTimerLabel.text = timer1
-                    setTimerLabel.text = timer2
-                }
+                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
+                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
+//                let timer1 = timeString(interval: workoutTimeCount, format: "hms")
+//                let timer2 = timeString(interval: setTimeCount, format: "hms")
+//                if timer1 != workoutTimerLabel.text && timer2 != setTimerLabel.text {
+//                    workoutTimerLabel.text = timer1
+//                    setTimerLabel.text = timer2
+//                }
 
             }
         } else {
@@ -199,27 +302,17 @@ class WorkoutViewController: UIViewController {
                     nextWorkoutSet()
                 }
             } else {
-//                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
-//                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
-                let timer1 = timeString(interval: workoutTimeCount, format: "hms")
-                let timer2 = timeString(interval: setTimeCount, format: "hms")
-                if timer1 != workoutTimerLabel.text && timer2 != setTimerLabel.text {
-                    workoutTimerLabel.text = timer1
-                    setTimerLabel.text = timer2
-                }
+                workoutTimerLabel.text = timeString(interval: workoutTimeCount, format: "hm")
+                setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
+//                let timer1 = timeString(interval: workoutTimeCount, format: "hms")
+//                let timer2 = timeString(interval: setTimeCount, format: "hms")
+//                if timer1 != workoutTimerLabel.text && timer2 != setTimerLabel.text {
+//                    workoutTimerLabel.text = timer1
+//                    setTimerLabel.text = timer2
+//                }
 
             }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
