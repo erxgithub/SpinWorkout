@@ -21,6 +21,7 @@
 		58B6727220520B1100A46E22 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6727120520B1100A46E22 /* AddViewController.swift */; };
 		58B6727420520B3600A46E22 /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6727320520B3600A46E22 /* WorkoutViewController.swift */; };
 		58B67276205217F100A46E22 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */; };
+		97F5DF6A2055DA58000AD016 /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F5DF692055DA58000AD016 /* RadialGradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		58B6727120520B1100A46E22 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		58B6727320520B3600A46E22 /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 		58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		97F5DF692055DA58000AD016 /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				5854341120503D1E008C6163 /* AppDelegate.swift */,
-				5854341520503D1E008C6163 /* Main.storyboard */,
 				58B6726920520A0500A46E22 /* MasterViewController.swift */,
 				58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */,
 				58B6727320520B3600A46E22 /* WorkoutViewController.swift */,
@@ -103,6 +104,8 @@
 				58B6727120520B1100A46E22 /* AddViewController.swift */,
 				58B6726B20520A2000A46E22 /* SpinWorkout.swift */,
 				58B6726D20520A2F00A46E22 /* SpinSet.swift */,
+				97F5DF692055DA58000AD016 /* RadialGradientView.swift */,
+				5854341520503D1E008C6163 /* Main.storyboard */,
 				5854341B20503D1E008C6163 /* Assets.xcassets */,
 				5854341D20503D1E008C6163 /* LaunchScreen.storyboard */,
 				5854342020503D1E008C6163 /* Info.plist */,
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58B6727420520B3600A46E22 /* WorkoutViewController.swift in Sources */,
+				97F5DF6A2055DA58000AD016 /* RadialGradientView.swift in Sources */,
 				58B6726E20520A2F00A46E22 /* SpinSet.swift in Sources */,
 				5854341A20503D1E008C6163 /* SpinWorkout.xcdatamodeld in Sources */,
 				58B6727220520B1100A46E22 /* AddViewController.swift in Sources */,

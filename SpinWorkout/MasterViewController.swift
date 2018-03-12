@@ -27,6 +27,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         // Do any additional setup after loading the view.
         
         //***
+
 //        let set1 = SpinSet(sequence: 1, gear: 3, cadence: 80, seconds: 5.0)
 //        let set2 = SpinSet(sequence: 2, gear: 4, cadence: 85, seconds: 5.0)
 //        let set3 = SpinSet(sequence: 3, gear: 5, cadence: 90, seconds: 5.0)
