@@ -13,10 +13,14 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        let nc = self.window!.rootViewController as! UINavigationController
+        let vc = nc.viewControllers[0] as! MasterViewController
+        vc.context = self.persistentContainer.viewContext
+
         return true
     }
 

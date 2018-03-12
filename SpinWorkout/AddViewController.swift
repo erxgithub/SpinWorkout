@@ -9,7 +9,8 @@
 import UIKit
 
 protocol SpinSetDelegate {
-    func updateTableView(set: SpinSet)
+    func addTableView(set: SpinSet)
+    func updateTableView(set: SpinSet, index: Int)
 }
 
 class AddViewController: UIViewController {
@@ -21,9 +22,13 @@ class AddViewController: UIViewController {
     @IBOutlet weak var durationTextField: UITextField!
     
     var workoutTitle: String = ""
-    var setNumber:Int = 0
+    var setNumber: Int = 0
+    var gear: String = ""
+    var cadence: String = ""
+    var duration: String = ""
 
-    var delegate : SpinSetDelegate?
+    var delegate: SpinSetDelegate?
+    var updateMode: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,10 @@ class AddViewController: UIViewController {
         
         workoutTitleLabel.text = workoutTitle
         setNumberLabel.text = "\(setNumber)"
+        
+        gearTextField.text = gear
+        cadenceTextField.text = cadence
+        durationTextField.text = duration
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,15 +55,26 @@ class AddViewController: UIViewController {
                 let duration = Double(durationTextField.text ?? "") {
                 
                 let workoutSet = SpinSet(sequence: setNumber, gear: gear, cadence: cadence, seconds: duration)
-                delegate?.updateTableView(set: workoutSet!)
                 
-                let alert = UIAlertController(title: "Workout Set \(setNumber) added.", message: nil, preferredStyle: .alert)
+                var alertTitle = ""
+                
+                if updateMode {
+                    delegate?.updateTableView(set: workoutSet!, index: self.setNumber - 1)
+                    alertTitle = "Workout set \(setNumber) updated."
+                } else {
+                    delegate?.addTableView(set: workoutSet!)
+                    alertTitle = "Workout set \(setNumber) added."
+                }
+                
+                let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
                 
                 let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
                     // If appropriate, configure the new managed object.
                     
-                    self.setNumber += 1
-                    self.setNumberLabel.text = "\(self.setNumber)"
+                    if !self.updateMode {
+                        self.setNumber += 1
+                        self.setNumberLabel.text = "\(self.setNumber)"
+                    }
                 })
                 alert.addAction(ok)
                 

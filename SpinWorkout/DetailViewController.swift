@@ -9,7 +9,8 @@
 import UIKit
 
 protocol WorkoutDelegate {
-    func updateTableView(workout: SpinWorkout)
+    func addTableView(spinWorkout: SpinWorkout)
+    func updateTableView(spinWorkout: SpinWorkout, index: Int)
 }
 
 class DetailViewController: UIViewController, SpinSetDelegate {
@@ -21,12 +22,20 @@ class DetailViewController: UIViewController, SpinSetDelegate {
     var workout: SpinWorkout?
     var sets: [SpinSet]? = []
 
-    var delegate : WorkoutDelegate?
+    var delegate: WorkoutDelegate?
+    var updateMode: Bool = false
+    var workoutNumber: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if workout != nil {
+            workoutTitleTextField.text = workout?.title
+            sets = workout?.sets
+            sets?.sort(by: {$0.sequence < $1.sequence})
+        }
 
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
         totalDurationLabel.text = "\(duration ?? 0.0)"
@@ -44,7 +53,11 @@ class DetailViewController: UIViewController, SpinSetDelegate {
             let titleLength = workoutTitle?.count ?? 0
             if titleLength > 0 {
                 let workout = SpinWorkout(title: workoutTitle, sets: sets)
-                delegate?.updateTableView(workout: workout!)
+                if updateMode {
+                    delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
+                } else {
+                    delegate?.addTableView(spinWorkout: workout!)
+                }
                 
                 let alert = UIAlertController(title: "Workout saved.", message: nil, preferredStyle: .alert)
                 
@@ -66,8 +79,7 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         
     }
     
-    func updateTableView(set: SpinSet) {
-        print("updateTableView")
+    func addTableView(set: SpinSet) {
         self.sets?.append(set)
         tableView.reloadData()
 
@@ -75,6 +87,21 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         totalDurationLabel.text = "\(duration ?? 0.0)"
     }
     
+    func updateTableView(set: SpinSet, index: Int) {
+        if index < 0 || index >= self.sets!.count {
+            return
+        }
+        
+        self.sets![index].gear = set.gear
+        self.sets![index].cadence = set.cadence
+        self.sets![index].seconds = set.seconds
+
+        tableView.reloadData()
+        
+        let duration = self.sets?.reduce(0) { $0 + $1.seconds }
+        totalDurationLabel.text = "\(duration ?? 0.0)"
+    }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -83,29 +110,41 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         // Pass the selected object to the new view controller.
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "addSets" {
-            //let controller = segue.destination as! WorkoutViewController
-            //controller.delegate = self
-            
+        if segue.identifier == "addSet" {
             guard let addViewController = segue.destination as? AddViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-//            guard let setCell = sender as? DetailTableViewCell else {
-//                fatalError("Unexpected sender: \(String(describing: sender))")
-//            }
-            
-//            guard let indexPath = tableView.indexPath(for: setCell) else {
-//                fatalError("The selected cell is not being displayed by the table")
-//            }
-            
-            //let selectedSet = sets![indexPath.row]
-            //addViewController.workoutTitleLabel.text = workoutTitleTextField.text
-            
             addViewController.delegate = self
-            addViewController.workoutTitle = workoutTitleTextField.text ?? ""
             addViewController.setNumber = (sets?.count ?? 0) + 1
+            addViewController.updateMode = false
+            
+            addViewController.workoutTitle = workoutTitleTextField.text ?? ""
 
+        } else if segue.identifier == "editSet" {
+            guard let addViewController = segue.destination as? AddViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let setCell = sender as? DetailTableViewCell else {
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: setCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedSet = sets![indexPath.row]
+
+            addViewController.delegate = self
+            addViewController.setNumber = selectedSet.sequence
+            addViewController.updateMode = true
+
+            addViewController.workoutTitle = workoutTitleTextField.text ?? ""
+            addViewController.gear = "\(selectedSet.gear)"
+            addViewController.cadence = "\(selectedSet.cadence)"
+            addViewController.duration = "\(selectedSet.seconds)"
+            
         }
     }
 
@@ -122,7 +161,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sets!.count
     }
-    
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SetCell", for: indexPath) as? DetailTableViewCell  else {
             fatalError("The dequeued cell is not an instance of UITableViewCell.")
@@ -132,9 +175,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.gearLabel.text = "\(sets?[indexPath.row].gear ?? 0)"
         cell.cadenceLabel.text = "\(sets?[indexPath.row].cadence ?? 0)"
         cell.durationLabel.text = "\(sets?[indexPath.row].seconds ?? 0.0)"
-        
-        // Fetches the appropriate meal for the data source layout.
-        //let workoutSet = sets![indexPath.row]
         
         return cell
         

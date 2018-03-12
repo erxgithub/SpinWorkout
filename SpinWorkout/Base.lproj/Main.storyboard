@@ -80,13 +80,19 @@
                         <viewLayoutGuide key="safeArea" id="m8X-cL-aua"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hlu-Le-LRC">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="hXW-PS-X1P">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="P9G-ZL-vJC" id="t2i-Me-3Ly"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mLd-Oc-lMg">
                             <connections>
-                                <segue destination="8j8-Qy-V3m" kind="show" identifier="detail" id="cA0-Mv-hhp"/>
+                                <segue destination="8j8-Qy-V3m" kind="show" identifier="detail" id="73H-Qy-ZUS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addDetailButton" destination="mLd-Oc-lMg" id="no9-ZR-87b"/>
                         <outlet property="tableView" destination="wve-TJ-bsC" id="1N9-TJ-zNd"/>
                     </connections>
                 </viewController>
@@ -289,7 +295,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="WLx-So-Z4V">
                                 <connections>
-                                    <segue destination="4zg-X7-llc" kind="show" identifier="addSets" id="aWs-Iu-khz"/>
+                                    <segue destination="4zg-X7-llc" kind="show" identifier="addSet" id="aWs-Iu-khz"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="save" id="MkS-wu-igq">
@@ -395,6 +401,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aWs-Iu-khz"/>
+        <segue reference="86z-4z-JCJ"/>
     </inferredMetricsTieBreakers>
 </document>
