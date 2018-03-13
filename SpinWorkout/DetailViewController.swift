@@ -41,13 +41,8 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         totalDurationLabel.text = "\(duration ?? 0.0)"
 
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+    override func viewWillDisappear(_ animated: Bool) {
         if delegate != nil {
             let workoutTitle = workoutTitleTextField.text
             let titleLength = workoutTitle?.count ?? 0
@@ -58,26 +53,46 @@ class DetailViewController: UIViewController, SpinSetDelegate {
                 } else {
                     delegate?.addTableView(spinWorkout: workout!)
                 }
-                
-                let alert = UIAlertController(title: "Workout saved.", message: nil, preferredStyle: .alert)
-                
-                let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                    // If appropriate, configure the new managed object.
-                    
-                    //dismiss the modal
-                    self.dismiss(animated: true, completion: nil)
-                    self.navigationController?.popToRootViewController(animated: true)
-                    
-                })
-                alert.addAction(ok)
-                
-                self.present(alert, animated: true)
-
             }
-            
         }
-        
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+//    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+//        if delegate != nil {
+//            let workoutTitle = workoutTitleTextField.text
+//            let titleLength = workoutTitle?.count ?? 0
+//            if titleLength > 0 {
+//                let workout = SpinWorkout(title: workoutTitle, sets: sets)
+//                if updateMode {
+//                    delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
+//                } else {
+//                    delegate?.addTableView(spinWorkout: workout!)
+//                }
+//
+//                let alert = UIAlertController(title: "Workout saved.", message: nil, preferredStyle: .alert)
+//
+//                let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
+//                    // If appropriate, configure the new managed object.
+//
+//                    //dismiss the modal
+//                    self.dismiss(animated: true, completion: nil)
+//                    self.navigationController?.popToRootViewController(animated: true)
+//
+//                })
+//                alert.addAction(ok)
+//
+//                self.present(alert, animated: true)
+//
+//            }
+//
+//        }
+//
+//    }
     
     func addTableView(set: SpinSet) {
         self.sets?.append(set)
@@ -162,10 +177,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return sets!.count
     }
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SetCell", for: indexPath) as? DetailTableViewCell  else {
             fatalError("The dequeued cell is not an instance of UITableViewCell.")
@@ -179,5 +190,57 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
         
     }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (UITableViewRowAction, IndexPath) -> Void in
+//            self.performSegue(withIdentifier: "detail", sender: tableView.cellForRow(at: indexPath))
+            
+        })
+        editAction.backgroundColor = UIColor.blue
+        
+        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete", handler: { (UITableViewRowAction, IndexPath) -> Void in
+//            self.context.delete(self.workouts[indexPath.row])
+//
+//            do {
+//                try self.context.save()
+//            } catch {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//
+//            self.fetchWorkout()
+            
+        })
+        deleteAction.backgroundColor = UIColor.red
+        
+        if tableView.isEditing {
+            return [deleteAction]
+        } else {
+            return [deleteAction, editAction]
+        }
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+//            context.delete(workouts[indexPath.row])
+//
+//            do {
+//                try context.save()
+//            } catch {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//
+//            fetchWorkout()
+        }
+    }
+
 }

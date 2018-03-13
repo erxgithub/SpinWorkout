@@ -190,10 +190,10 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
             workout.removeFromSets(ws)
         }
         
-        workouts.remove(at: index)
+        context.delete(workouts[index])
         
-        //context.delete(workout)
- 
+        workouts.remove(at: index)
+
         workout.title = spinWorkout.title
 
         for set in spinWorkout.sets! {
@@ -209,6 +209,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         }
 
         try? context.save()
+        //tableView.reloadData()
         fetchWorkout()
     }
 
