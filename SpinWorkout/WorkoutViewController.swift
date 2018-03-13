@@ -11,7 +11,6 @@ import UIKit
 class WorkoutViewController: UIViewController {
     
     @IBOutlet weak var workoutTimerLabel: UILabel!
-    @IBOutlet weak var startButtonLabel: UIButton!
     @IBOutlet weak var setTimerLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
     @IBOutlet weak var cadenceLabel: UILabel!
@@ -19,6 +18,9 @@ class WorkoutViewController: UIViewController {
     @IBOutlet weak var nextGearLabel: UILabel!
     @IBOutlet weak var circleContainerView: UIView!
     @IBOutlet weak var currentSetLabel: UILabel!
+    
+    @IBOutlet weak var cadenceImageView: UIImageView!
+    @IBOutlet weak var gearImageView: UIImageView!
     
     var timer = Timer()
     var timerCountDown: Bool = true
@@ -29,7 +31,7 @@ class WorkoutViewController: UIViewController {
     var lastStartTime : Date? = nil
     
     var paused = true
-    var firstTime = false
+    var firstTime = true
     
     var totalTime: TimeInterval = 0.0 // total of everything
     var currentSetTotalTime: TimeInterval = 0.0 // total duration of each as its currently running
@@ -72,18 +74,18 @@ class WorkoutViewController: UIViewController {
     
     // MARK: Private Methods
     
-    
-    
     @objc private func handleTap() {
-        
+
         if paused == true {
-            // start/resume
-            if firstTime == false {
-            perform(#selector(startTimer), with: nil, afterDelay: 0.0)
-            startAnimation()
             
+            if firstTime == true {   // only ever fired once when it first starts timer
+                firstTime = false
+                
+                startTimer()
+                startAnimation()
+                
             } else {
-                perform(#selector(startTimer), with: nil, afterDelay: 0.0)
+                startTimer()
                 resumeAnimation()
             }
             lastStartTime = Date()
@@ -190,8 +192,8 @@ class WorkoutViewController: UIViewController {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    @objc private func startTimer() {
-        firstTime = true
+    private func startTimer() {
+        
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: (#selector(self.timerDidEnd)), userInfo: nil, repeats: true)
     }
     
@@ -229,10 +231,41 @@ class WorkoutViewController: UIViewController {
         currentSetTotalTime = seconds
         
         gearLabel.text = "\(gear)"
-        gearLabel.sizeToFit()
+        
+        UIView.transition(with: gearImageView, duration: 1.5, options: .transitionCrossDissolve, animations: {
+            
+            switch gear {
+            case 1:
+                self.gearImageView.image = UIImage(named: "GEAR1")
+            case 2:
+                self.gearImageView.image = UIImage(named: "GEAR2")
+            case 3:
+                self.gearImageView.image = UIImage(named: "GEAR3")
+            case 4:
+                self.gearImageView.image = UIImage(named: "GEAR4")
+            case 5:
+                self.gearImageView.image = UIImage(named: "GEAR5")
+            case 6:
+                self.gearImageView.image = UIImage(named: "GEAR6")
+            case 7:
+                self.gearImageView.image = UIImage(named: "GEAR7")
+            case 8:
+                self.gearImageView.image = UIImage(named: "GEAR8")
+            case 9:
+                self.gearImageView.image = UIImage(named: "GEAR9")
+            case 10:
+                self.gearImageView.image = UIImage(named: "GEAR10")
+            default:
+                self.gearImageView.image = UIImage(named: "GEAR0")
+            }
+        }, completion: nil)
+        
+        
+        
         
         cadenceLabel.text = "\(cadence)"
-        cadenceLabel.sizeToFit()
+        
+        
         
         currentSetLabel.text = "SET \(setIndex + 1) / \(setCount)"
         
