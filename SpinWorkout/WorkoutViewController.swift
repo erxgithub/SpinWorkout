@@ -10,6 +10,7 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
+    @IBOutlet weak var workoutTitleLabel: UILabel!
     @IBOutlet weak var workoutTimerLabel: UILabel!
     @IBOutlet weak var setTimerLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
@@ -21,6 +22,8 @@ class WorkoutViewController: UIViewController {
     
     @IBOutlet weak var cadenceImageView: UIImageView!
     @IBOutlet weak var gearImageView: UIImageView!
+    @IBOutlet weak var nextCadenceImageView: UIImageView!
+    @IBOutlet weak var nextGearImageView: UIImageView!
     
     var timer = Timer()
     var timerCountDown: Bool = true
@@ -51,6 +54,8 @@ class WorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        workoutTitleLabel.text = workout?.title
+        
         createGradientLayer()
         createRingLayer()
         
@@ -71,6 +76,18 @@ class WorkoutViewController: UIViewController {
         nextWorkoutSet()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    @IBAction func backButtonTapped(_ sender: UIButton) {
+        
+        self.navigationController?.popViewController(animated: true)
+    }
     
     // MARK: Private Methods
     
@@ -155,6 +172,50 @@ class WorkoutViewController: UIViewController {
         shapeLayer.add(basicAnimation, forKey: "strokeAnimation")
     }
     
+    private func transitionImageWithCrossDissolve(imageView: UIImageView, setAttribute: Int) {
+            
+            UIView.transition(with: imageView, duration: 1, options: .transitionCrossDissolve, animations: {
+                
+                if imageView == self.gearImageView {
+                    
+                    imageView.image = UIImage(named: "GEAR\(setAttribute)")
+                    
+                } else {
+                
+                    if setAttribute >= 50 && setAttribute <= 66 {
+                        imageView.image = UIImage(named: "CADENCE1")
+                    } else if setAttribute >= 67 && setAttribute <= 83 {
+                        imageView.image = UIImage(named: "CADENCE2")
+                    } else if setAttribute >= 84 && setAttribute <= 100 {
+                        imageView.image = UIImage(named: "CADENCE3")
+                    } else if setAttribute >= 101 && setAttribute <= 117 {
+                        imageView.image = UIImage(named: "CADENCE4")
+                    } else if setAttribute >= 118 && setAttribute <= 134 {
+                        imageView.image = UIImage(named: "CADENCE5")
+                    } else {
+                        imageView.image = UIImage(named: "CADENCE6")
+                    }
+                }
+            }, completion: nil)
+    }
+    
+    private func transitionImageWithFlip(imageView: UIImageView, setAttribute: Int, nextSetAttribute: Int) {
+        
+        if setAttribute < nextSetAttribute && imageView.image == UIImage(named: "ARROWDOWN") {
+            
+            UIView.transition(with: imageView, duration: 1, options: .transitionFlipFromBottom , animations: {
+                imageView.image = UIImage(named: "ARROWUP")
+            }, completion: nil)
+            
+        } else if setAttribute > nextSetAttribute && imageView.image == UIImage(named: "ARROWUP") {
+            
+            UIView.transition(with: imageView, duration: 1, options: .transitionFlipFromTop , animations: {
+                imageView.image = UIImage(named: "ARROWDOWN")
+            }, completion: nil)
+            
+        }
+    }
+    
     private func createRingLayer() {
         
         let center = circleContainerView.center
@@ -214,14 +275,20 @@ class WorkoutViewController: UIViewController {
         let cadence = workout?.sets![setIndex].cadence ?? 0
         let seconds = workout?.sets![setIndex].seconds ?? 0.0
         
+        gearLabel.text = "\(gear)"
+        cadenceLabel.text = "\(cadence)"
+        transitionImageWithCrossDissolve(imageView: gearImageView, setAttribute: gear)
+        transitionImageWithCrossDissolve(imageView: cadenceImageView, setAttribute: cadence)
         
         if (setIndex + 1) < setCount {
             
             let nextGear = workout?.sets![setIndex + 1 ].gear ?? 0
             let nextCadence = workout?.sets![setIndex + 1].cadence ?? 0
-            
+        
             nextGearLabel.text = "\(nextGear)"
             nextCadenceLabel.text = "\(nextCadence)"
+            transitionImageWithFlip(imageView: nextGearImageView, setAttribute: gear, nextSetAttribute: nextGear)
+            transitionImageWithFlip(imageView: nextCadenceImageView, setAttribute: cadence, nextSetAttribute: nextCadence)
             
         } else {
             nextGearLabel.text = " - "
@@ -229,43 +296,6 @@ class WorkoutViewController: UIViewController {
         }
         
         currentSetTotalTime = seconds
-        
-        gearLabel.text = "\(gear)"
-        
-        UIView.transition(with: gearImageView, duration: 1.5, options: .transitionCrossDissolve, animations: {
-            
-            switch gear {
-            case 1:
-                self.gearImageView.image = UIImage(named: "GEAR1")
-            case 2:
-                self.gearImageView.image = UIImage(named: "GEAR2")
-            case 3:
-                self.gearImageView.image = UIImage(named: "GEAR3")
-            case 4:
-                self.gearImageView.image = UIImage(named: "GEAR4")
-            case 5:
-                self.gearImageView.image = UIImage(named: "GEAR5")
-            case 6:
-                self.gearImageView.image = UIImage(named: "GEAR6")
-            case 7:
-                self.gearImageView.image = UIImage(named: "GEAR7")
-            case 8:
-                self.gearImageView.image = UIImage(named: "GEAR8")
-            case 9:
-                self.gearImageView.image = UIImage(named: "GEAR9")
-            case 10:
-                self.gearImageView.image = UIImage(named: "GEAR10")
-            default:
-                self.gearImageView.image = UIImage(named: "GEAR0")
-            }
-        }, completion: nil)
-        
-        
-        
-        
-        cadenceLabel.text = "\(cadence)"
-        
-        
         
         currentSetLabel.text = "SET \(setIndex + 1) / \(setCount)"
         
