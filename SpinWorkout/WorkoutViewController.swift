@@ -56,6 +56,15 @@ class WorkoutViewController: UIViewController {
         
         workoutTitleLabel.text = workout?.title
         
+        styleTextLabel(textLabel: workoutTitleLabel)
+        styleTextLabel(textLabel: workoutTimerLabel)
+        styleTextLabel(textLabel: setTimerLabel)
+        styleTextLabel(textLabel: currentSetLabel)
+        styleTextLabel(textLabel: gearLabel)
+        styleTextLabel(textLabel: nextGearLabel)
+        styleTextLabel(textLabel: cadenceLabel)
+        styleTextLabel(textLabel: nextCadenceLabel)
+        
         createGradientLayer()
         createRingLayer()
         
@@ -131,6 +140,15 @@ class WorkoutViewController: UIViewController {
     
     // UI RELATED PRIVATE METHODS //
     
+    private func styleTextLabel(textLabel: UILabel) {
+        
+        textLabel.layer.shadowColor = UIColor.black.cgColor
+        textLabel.layer.shadowOpacity = 0.75
+        textLabel.layer.shadowRadius = 3.0
+        textLabel.layer.shadowOffset = CGSize(width: 1.5, height: 2.5)
+        textLabel.layer.masksToBounds = false
+        
+    }
     
     private func pauseAnimation() {
         
