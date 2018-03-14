@@ -25,6 +25,9 @@ class DetailViewController: UIViewController, SpinSetDelegate {
     var delegate: WorkoutDelegate?
     var updateMode: Bool = false
     var workoutNumber: Int = 0
+    
+    var addingWorkoutSets: Bool = false
+    var editingWorkoutSets: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,30 +42,46 @@ class DetailViewController: UIViewController, SpinSetDelegate {
 
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
         totalDurationLabel.text = "\(duration ?? 0.0)"
+        
+        addingWorkoutSets = false
+        editingWorkoutSets = false
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if delegate != nil {
-            let workoutTitle = workoutTitleTextField.text
-            let titleLength = workoutTitle?.count ?? 0
-            if titleLength > 0 {
-                let workout = SpinWorkout(title: workoutTitle, sets: sets)
-                if updateMode {
-                    delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
-                } else {
-                    delegate?.addTableView(spinWorkout: workout!)
+        if addingWorkoutSets || editingWorkoutSets {
+            addingWorkoutSets = false
+            editingWorkoutSets = false
+        } else {
+            if delegate != nil {
+                let workoutTitle = workoutTitleTextField.text
+                let titleLength = workoutTitle?.count ?? 0
+                if titleLength > 0 {
+                    let workout = SpinWorkout(title: workoutTitle, sets: sets)
+                    if updateMode {
+                        delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
+                    } else {
+                        delegate?.addTableView(spinWorkout: workout!)
+                    }
                 }
             }
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-//    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
+        if !self.tableView.isEditing {
+            self.tableView.isEditing = true
+        } else {
+            self.tableView.isEditing = false
+        }
+    }
+    
+    //    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
 //        if delegate != nil {
 //            let workoutTitle = workoutTitleTextField.text
 //            let titleLength = workoutTitle?.count ?? 0
@@ -118,14 +137,14 @@ class DetailViewController: UIViewController, SpinSetDelegate {
     }
 
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         super.prepare(for: segue, sender: sender)
-        
         if segue.identifier == "addSet" {
+            addingWorkoutSets = true
             guard let addViewController = segue.destination as? AddViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -137,6 +156,7 @@ class DetailViewController: UIViewController, SpinSetDelegate {
             addViewController.workoutTitle = workoutTitleTextField.text ?? ""
 
         } else if segue.identifier == "editSet" {
+            editingWorkoutSets = true
             guard let addViewController = segue.destination as? AddViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -197,25 +217,14 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (UITableViewRowAction, IndexPath) -> Void in
-//            self.performSegue(withIdentifier: "detail", sender: tableView.cellForRow(at: indexPath))
+            self.performSegue(withIdentifier: "editSet", sender: tableView.cellForRow(at: indexPath))
             
         })
         editAction.backgroundColor = UIColor.blue
         
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete", handler: { (UITableViewRowAction, IndexPath) -> Void in
-//            self.context.delete(self.workouts[indexPath.row])
-//
-//            do {
-//                try self.context.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//
-//            self.fetchWorkout()
-            
+            self.sets?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         })
         deleteAction.backgroundColor = UIColor.red
         
@@ -228,19 +237,23 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-//            context.delete(workouts[indexPath.row])
-//
-//            do {
-//                try context.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//
-//            fetchWorkout()
+            sets?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.sets![sourceIndexPath.row]
+        sets?.remove(at: sourceIndexPath.row)
+        sets?.insert(movedObject, at: destinationIndexPath.row)
+        
+        let count = sets?.count ?? 0
+        for i in 0..<count {
+            sets![i].sequence = i + 1
+        }
+        
+        tableView.reloadData()
+        
     }
 
 }
