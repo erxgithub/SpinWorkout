@@ -113,16 +113,24 @@ class WorkoutViewController: UIViewController {
                 self.lastStartTime = nil
             }
             
-            pauseTimer()
+            stopTimer()
             pauseAnimation()
         }
         paused = !paused
     }
     
-    private func pauseTimer() {
-        stopTimer()
-        pauseAnimation()
+    private func startTimer() {
+        
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: (#selector(self.timerDidEnd)), userInfo: nil, repeats: true)
     }
+    
+    private func stopTimer() {
+        timer.invalidate()
+    }
+    
+    
+    // UI RELATED PRIVATE METHODS //
+    
     
     private func pauseAnimation() {
         
@@ -177,7 +185,7 @@ class WorkoutViewController: UIViewController {
             UIView.transition(with: imageView, duration: 1, options: .transitionCrossDissolve, animations: {
                 
                 if imageView == self.gearImageView {
-                    
+
                     imageView.image = UIImage(named: "GEAR\(setAttribute)")
                     
                 } else {
@@ -253,14 +261,6 @@ class WorkoutViewController: UIViewController {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    private func startTimer() {
-        
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: (#selector(self.timerDidEnd)), userInfo: nil, repeats: true)
-    }
-    
-    private func stopTimer() {
-        timer.invalidate()
-    }
     
     
     //MARK: Workouts
