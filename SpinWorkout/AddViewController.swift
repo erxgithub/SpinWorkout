@@ -50,6 +50,10 @@ class AddViewController: UIViewController {
         workoutTitleLabel.text = workoutTitle
         setNumberLabel.text = "\(setNumber)"
         
+        if duration == "" {
+            duration = "1"
+        }
+
         //gearTextField.text = gear
         //cadenceTextField.text = cadence
         durationTextField.text = duration
@@ -59,7 +63,7 @@ class AddViewController: UIViewController {
         createCadencePicker(centreX: view.center.x, centreY: cadenceLabel.center.y + 40, tag: 2, value: cadence)
 
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -91,7 +95,6 @@ class AddViewController: UIViewController {
                     if !self.updateMode {
                         self.setNumber += 1
                         self.setNumberLabel.text = "\(self.setNumber)"
-                        print("gear \(self.gearSelected) cadence \(self.cadenceSelected)")
                     }
                 })
                 alert.addAction(ok)
@@ -160,8 +163,14 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         if tag == 2 {
             index = cadenceList.index(of: value) ?? 0
+            if index == 0 {
+                cadence = cadenceList[0]
+            }
         } else {
             index = gearList.index(of: value) ?? 0
+            if index == 0 {
+                gear = gearList[0]
+            }
         }
 
         pickerView.selectRow(index, inComponent: 0, animated: true)

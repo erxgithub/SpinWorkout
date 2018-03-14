@@ -427,11 +427,18 @@
                         <viewLayoutGuide key="safeArea" id="nQc-YU-G5A"/>
                     </view>
                     <navigationItem key="navigationItem" id="xbH-Uv-lGB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WLx-So-Z4V">
-                            <connections>
-                                <segue destination="4zg-X7-llc" kind="show" identifier="addSet" id="aWs-Iu-khz"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="WLx-So-Z4V">
+                                <connections>
+                                    <segue destination="4zg-X7-llc" kind="show" identifier="addSet" id="aWs-Iu-khz"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="jVA-i0-aGb">
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="8j8-Qy-V3m" id="RdR-20-oAL"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="dmf-d9-eqV" id="MUA-Af-e0D"/>
