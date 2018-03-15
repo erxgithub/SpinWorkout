@@ -89,16 +89,6 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func timeString(interval: TimeInterval) -> String {
-        let ti = Int(interval)
-        
-        let seconds = ti % 60
-        let minutes = (ti / 60) % 60
-        let hours = (ti / 3600)
-        
-        return String(format: "%dh %0.2dm %0.2ds", hours, minutes, seconds)
-    }
-    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -294,7 +284,7 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.workoutTitleLabel.text = workout.title?.uppercased()
         cell.setCountLabel.text = "SETS - \(count)"
-        cell.totalDurationLabel.text = timeString(interval: duration)
+        cell.totalDurationLabel.text = "\(duration)"
         
         //***
 //        let workout = workouts![indexPath.row]
