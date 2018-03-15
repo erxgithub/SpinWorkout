@@ -37,7 +37,7 @@ class DetailViewController: UIViewController, SpinSetDelegate {
 
         // Do any additional setup after loading the view.
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DetailViewController.longPressGestureRecognized(longPress:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(longPress:)))
         self.tableView.addGestureRecognizer(longPress)
         
         if workout != nil {
