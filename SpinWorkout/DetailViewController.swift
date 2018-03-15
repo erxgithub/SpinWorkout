@@ -25,6 +25,9 @@ class DetailViewController: UIViewController, SpinSetDelegate {
     var delegate: WorkoutDelegate?
     var updateMode: Bool = false
     var workoutNumber: Int = 0
+
+    fileprivate var sourceIndexPath: IndexPath?
+    fileprivate var snapshot: UIView?
     
     var addingWorkoutSets: Bool = false
     var editingWorkoutSets: Bool = false
@@ -34,6 +37,9 @@ class DetailViewController: UIViewController, SpinSetDelegate {
 
         // Do any additional setup after loading the view.
         
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DetailViewController.longPressGestureRecognized(longPress:)))
+        self.tableView.addGestureRecognizer(longPress)
+        
         if workout != nil {
             workoutTitleTextField.text = workout?.title
             sets = workout?.sets
@@ -41,8 +47,8 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         }
 
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
-        totalDurationLabel.text = "\(duration ?? 0.0)"
-        
+        totalDurationLabel.text = timeString(interval: duration ?? 0.0, format: "hms")
+
         addingWorkoutSets = false
         editingWorkoutSets = false
 
@@ -73,52 +79,113 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
-        if !self.tableView.isEditing {
-            self.tableView.isEditing = true
-        } else {
-            self.tableView.isEditing = false
+    @objc func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
+        let state = longPress.state
+        let location = longPress.location(in: self.tableView)
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else {
+            tableView.reloadData()
+            self.cleanup()
+            return
+        }
+        switch state {
+        case .began:
+            sourceIndexPath = indexPath
+            guard let cell = self.tableView.cellForRow(at: indexPath) else { return }
+            // take a snapshot of the selected row using helper method
+            snapshot = self.customSnapshotFromView(inputView: cell)
+            guard let snapshot = self.snapshot else { return }
+            var center = cell.center
+            snapshot.center = center
+            snapshot.alpha = 0.0
+            self.tableView.addSubview(snapshot)
+            UIView.animate(withDuration: 0.25, animations: {
+                center.y = location.y
+                snapshot.center = center
+                snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                snapshot.alpha = 0.98
+                cell.alpha = 0.0
+            }, completion: { (finished) in
+                cell.isHidden = true
+            })
+            break
+        case .changed:
+            guard let snapshot = self.snapshot else {
+                return
+            }
+            var center = snapshot.center
+            center.y = location.y
+            snapshot.center = center
+            guard let sourceIndexPath = self.sourceIndexPath  else {
+                return
+            }
+            if indexPath != sourceIndexPath {
+                sets?.swapAt(indexPath.row, sourceIndexPath.row)
+                self.tableView.moveRow(at: sourceIndexPath, to: indexPath)
+                self.sourceIndexPath = indexPath
+
+                let count = sets?.count ?? 0
+                for i in 0..<count {
+                    sets![i].sequence = i + 1
+                }
+
+                tableView.reloadData()
+
+            }
+            break
+        default:
+            guard let cell = self.tableView.cellForRow(at: indexPath) else {
+                return
+            }
+            guard let snapshot = self.snapshot else {
+                return
+            }
+            cell.isHidden = false
+            cell.alpha = 0.0
+            UIView.animate(withDuration: 0.25, animations: {
+                snapshot.center = cell.center
+                snapshot.transform = CGAffineTransform.identity
+                snapshot.alpha = 0
+                cell.alpha = 1
+            }, completion: { (finished) in
+                self.cleanup()
+            })
+
         }
     }
     
-    //    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-//        if delegate != nil {
-//            let workoutTitle = workoutTitleTextField.text
-//            let titleLength = workoutTitle?.count ?? 0
-//            if titleLength > 0 {
-//                let workout = SpinWorkout(title: workoutTitle, sets: sets)
-//                if updateMode {
-//                    delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
-//                } else {
-//                    delegate?.addTableView(spinWorkout: workout!)
-//                }
-//
-//                let alert = UIAlertController(title: "Workout saved.", message: nil, preferredStyle: .alert)
-//
-//                let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-//                    // If appropriate, configure the new managed object.
-//
-//                    //dismiss the modal
-//                    self.dismiss(animated: true, completion: nil)
-//                    self.navigationController?.popToRootViewController(animated: true)
-//
-//                })
-//                alert.addAction(ok)
-//
-//                self.present(alert, animated: true)
-//
-//            }
-//
-//        }
-//
-//    }
+    private func customSnapshotFromView(inputView: UIView) -> UIView? {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+        if let CurrentContext = UIGraphicsGetCurrentContext() {
+            inputView.layer.render(in: CurrentContext)
+        }
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0
+        snapshot.layer.shadowOffset = CGSize(width: -5, height: 0)
+        snapshot.layer.shadowRadius = 5
+        snapshot.layer.shadowOpacity = 0.4
+        return snapshot
+    }
     
+    private func cleanup() {
+        self.sourceIndexPath = nil
+        snapshot?.removeFromSuperview()
+        self.snapshot = nil
+    }
+    
+    // MARK: - Delegates
+
     func addTableView(set: SpinSet) {
         self.sets?.append(set)
         tableView.reloadData()
 
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
-        totalDurationLabel.text = "\(duration ?? 0.0)"
+        totalDurationLabel.text = timeString(interval: duration ?? 0.0, format: "hms")
     }
     
     func updateTableView(set: SpinSet, index: Int) {
@@ -133,7 +200,7 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         tableView.reloadData()
         
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
-        totalDurationLabel.text = "\(duration ?? 0.0)"
+        totalDurationLabel.text = timeString(interval: duration ?? 0.0, format: "hms")
     }
 
     // MARK: - Navigation
@@ -176,9 +243,9 @@ class DetailViewController: UIViewController, SpinSetDelegate {
             addViewController.updateMode = true
 
             addViewController.workoutTitle = workoutTitleTextField.text ?? ""
-            addViewController.gear = "\(selectedSet.gear)"
-            addViewController.cadence = "\(selectedSet.cadence)"
-            addViewController.duration = "\(selectedSet.seconds)"
+            addViewController.gear = selectedSet.gear
+            addViewController.cadence = selectedSet.cadence
+            addViewController.duration = selectedSet.seconds
             
         }
     }
@@ -205,7 +272,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setLabel.text = "\(sets?[indexPath.row].sequence ?? 0)"
         cell.gearLabel.text = "\(sets?[indexPath.row].gear ?? 0)"
         cell.cadenceLabel.text = "\(sets?[indexPath.row].cadence ?? 0)"
-        cell.durationLabel.text = "\(sets?[indexPath.row].seconds ?? 0.0)"
+        
+        let duration = sets?[indexPath.row].seconds ?? 0.0
+        cell.durationLabel.text = timeString(interval: duration, format: "hms")
         
         return cell
         
@@ -242,18 +311,4 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedObject = self.sets![sourceIndexPath.row]
-        sets?.remove(at: sourceIndexPath.row)
-        sets?.insert(movedObject, at: destinationIndexPath.row)
-        
-        let count = sets?.count ?? 0
-        for i in 0..<count {
-            sets![i].sequence = i + 1
-        }
-        
-        tableView.reloadData()
-        
-    }
-
 }

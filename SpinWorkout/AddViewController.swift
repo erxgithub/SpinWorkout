@@ -19,13 +19,19 @@ class AddViewController: UIViewController {
     @IBOutlet weak var setNumberLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
     @IBOutlet weak var cadenceLabel: UILabel!
-    @IBOutlet weak var durationTextField: UITextField!
+    @IBOutlet weak var hoursLabel: UILabel!
+    @IBOutlet weak var minutesLabel: UILabel!
+    @IBOutlet weak var secondsLabel: UILabel!
     
     var workoutTitle: String = ""
     var setNumber: Int = 0
-    var gear: String = ""
-    var cadence: String = ""
-    var duration: String = ""
+    var gear: Int = 0
+    var cadence: Int = 0
+    var duration: Double = 0.0
+
+    var hours: Int = 0
+    var minutes: Int = 0
+    var seconds: Int = 0
 
     var delegate: SpinSetDelegate?
     var updateMode: Bool = false
@@ -37,6 +43,15 @@ class AddViewController: UIViewController {
     
     var cadenceList: [String] = []
     var cadenceSelected: String = ""
+    
+    var hourList: [String] = []
+    var hourSelected: String = ""
+    
+    var minuteList: [String] = []
+    var minuteSelected: String = ""
+    
+    var secondList: [String] = []
+    var secondSelected: String = ""
 
     var rotationAngle: CGFloat!
     let width: CGFloat = 50
@@ -50,17 +65,23 @@ class AddViewController: UIViewController {
         workoutTitleLabel.text = workoutTitle
         setNumberLabel.text = "\(setNumber)"
         
-        if duration == "" {
-            duration = "1"
+        if duration == 0.0 {
+            duration = 1.0
         }
-
-        //gearTextField.text = gear
-        //cadenceTextField.text = cadence
-        durationTextField.text = duration
 
         createGearPicker(centreX: view.center.x, centreY: gearLabel.center.y + 40, tag: 1, value: gear)
 
         createCadencePicker(centreX: view.center.x, centreY: cadenceLabel.center.y + 40, tag: 2, value: cadence)
+        
+        hours = timeComponent(value: duration, component: "h")
+        minutes = timeComponent(value: duration, component: "m")
+        seconds = timeComponent(value: duration, component: "s")
+
+        createHoursPicker(centreX: view.center.x, centreY: hoursLabel.center.y + 40, tag: 3, value: hours)
+        
+        createMinutesPicker(centreX: view.center.x, centreY: minutesLabel.center.y + 40, tag: 4, value: minutes)
+        
+        createSecondsPicker(centreX: view.center.x, centreY: secondsLabel.center.y + 40, tag: 5, value: seconds)
 
     }
     
@@ -71,9 +92,8 @@ class AddViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         if delegate != nil {
-            if let gear = Int(gear),
-            let cadence = Int(cadence),
-                let duration = Double(durationTextField.text ?? "") {
+            if gear > 0 && cadence > 0 && duration > 0.0 {
+                let duration = timeValue(hours: hours, minutes: minutes, seconds: seconds)
                 
                 let workoutSet = SpinSet(sequence: setNumber, gear: gear, cadence: cadence, seconds: duration)
                 
@@ -90,8 +110,6 @@ class AddViewController: UIViewController {
                 let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
                 
                 let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                    // If appropriate, configure the new managed object.
-                    
                     if !self.updateMode {
                         self.setNumber += 1
                         self.setNumberLabel.text = "\(self.setNumber)"
@@ -102,12 +120,9 @@ class AddViewController: UIViewController {
                 self.present(alert, animated: true)
                 
             }
-
-            //dismiss the modal
-            //dismiss(animated: true, completion: nil)
         }
     }
-    
+
     /*
     // MARK: - Navigation
 
@@ -122,29 +137,82 @@ class AddViewController: UIViewController {
 
 extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
-    func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: String) {
+    func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
         for i in 1...10 {
             gearList.append("\(i)")
         }
-        
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, value: value)
+
+        let index = gearList.index(of: "\(value)") ?? 0
+        if index == 0 {
+            gear = Int(gearList[0])!
+        }
+
+        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
     
-    func createCadencePicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: String) {
+    func createCadencePicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
         var i = 50
         while i <= 150 {
             cadenceList.append("\(i)")
             i += 5
         }
-        
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, value: value)
+
+        let index = cadenceList.index(of: "\(value)") ?? 0
+        if index == 0 {
+            cadence = Int(cadenceList[0])!
+        }
+
+        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
+    
+    func createHoursPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
+        for i in 0...5 {
+            hourList.append("\(i)")
+        }
 
-    func createCustomPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: String) {
+        let index = hourList.index(of: "\(value)") ?? 0
+        if index == 0 {
+            hours = Int(hourList[0])!
+        }
+
+        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+    }
+    
+    func createMinutesPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
+        for i in 0...59 {
+            minuteList.append("\(i)")
+        }
+
+        let index = minuteList.index(of: "\(value)") ?? 0
+        if index == 0 {
+            minutes = Int(minuteList[0])!
+        }
+
+        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+    }
+    
+    func createSecondsPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
+        var i = 0
+        while i <= 55 {
+            secondList.append("\(i)")
+            i += 5
+        }
+
+        let index = secondList.index(of: "\(value)") ?? 0
+        if index == 0 {
+            seconds = Int(secondList[0])!
+        }
+
+        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+    }
+    
+    func createCustomPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, index: Int) {
         let pickerView = UIPickerView()
-
+        
         pickerView.dataSource = self
         pickerView.delegate = self
+        
+        pickerView.tag = tag
         
         pickerView.layer.borderColor = UIColor.black.cgColor
         pickerView.layer.borderWidth = 1.5
@@ -159,35 +227,29 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         pickerView.tag = tag
         
-        var index = 0
-        
-        if tag == 2 {
-            index = cadenceList.index(of: value) ?? 0
-            if index == 0 {
-                cadence = cadenceList[0]
-            }
-        } else {
-            index = gearList.index(of: value) ?? 0
-            if index == 0 {
-                gear = gearList[0]
-            }
-        }
-
         pickerView.selectRow(index, inComponent: 0, animated: true)
         
         self.view.addSubview(pickerView)
-        
     }
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 2 {
-            return cadenceList.count
-        } else {
+        switch pickerView.tag {
+        case 1:
             return gearList.count
+        case 2:
+            return cadenceList.count
+        case 3:
+            return hourList.count
+        case 4:
+            return minuteList.count
+        case 5:
+            return secondList.count
+        default:
+            return 0
         }
     }
     
@@ -201,6 +263,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let view = UIView()
+        
         view.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         let label = UILabel()
@@ -208,13 +271,23 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
         
-        if pickerView.tag == 2 {
-            label.text = cadenceList[row]
-        } else {
+        switch pickerView.tag {
+        case 1:
             label.text = gearList[row]
+        case 2:
+            label.text = cadenceList[row]
+        case 3:
+            label.text = hourList[row]
+        case 4:
+            label.text = minuteList[row]
+        case 5:
+            label.text = secondList[row]
+        default:
+            label.text = ""
         }
+        
         label.adjustsFontSizeToFitWidth = true
-
+        
         view.addSubview(label)
         
         view.transform = CGAffineTransform(rotationAngle: 90 * (.pi / 180))
@@ -223,11 +296,20 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView.tag == 2 {
-            cadence = cadenceList[row]
-        } else {
-            gear = gearList[row]
+        switch pickerView.tag {
+        case 1:
+            gear = Int(gearList[row])!
+        case 2:
+            cadence = Int(cadenceList[row])!
+        case 3:
+            hours = Int(hourList[row])!
+        case 4:
+            minutes = Int(minuteList[row])!
+        case 5:
+            seconds = Int(secondList[row])!
+        default:
+            print("Tag not recognized.")
         }
     }
-    
+
 }

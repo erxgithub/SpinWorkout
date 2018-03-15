@@ -21,8 +21,14 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
     var context : NSManagedObjectContext!
     //***
 
+    fileprivate var sourceIndexPath: IndexPath?
+    fileprivate var snapshot: UIView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DetailViewController.longPressGestureRecognized(longPress:)))
+        self.tableView.addGestureRecognizer(longPress)
 
         // Do any additional setup after loading the view.
         
@@ -56,20 +62,103 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
-        var titleLabel = ""
-
-        if !tableView.isEditing {
-            tableView.setEditing(true, animated: true)
-            titleLabel = "Done"
-        } else {
-            tableView.setEditing(false, animated: true)
-            titleLabel = "Edit"
+    @objc func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
+        let state = longPress.state
+        let location = longPress.location(in: self.tableView)
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else {
+            tableView.reloadData()
+            self.cleanup()
+            return
         }
-        
-        sender.title = titleLabel
+        switch state {
+        case .began:
+            sourceIndexPath = indexPath
+            guard let cell = self.tableView.cellForRow(at: indexPath) else { return }
+            // take a snapshot of the selected row using helper method
+            snapshot = self.customSnapshotFromView(inputView: cell)
+            guard let snapshot = self.snapshot else { return }
+            var center = cell.center
+            snapshot.center = center
+            snapshot.alpha = 0.0
+            self.tableView.addSubview(snapshot)
+            UIView.animate(withDuration: 0.25, animations: {
+                center.y = location.y
+                snapshot.center = center
+                snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                snapshot.alpha = 0.98
+                cell.alpha = 0.0
+            }, completion: { (finished) in
+                cell.isHidden = true
+            })
+            break
+        case .changed:
+            guard let snapshot = self.snapshot else {
+                return
+            }
+            var center = snapshot.center
+            center.y = location.y
+            snapshot.center = center
+            guard let sourceIndexPath = self.sourceIndexPath  else {
+                return
+            }
+            if indexPath != sourceIndexPath {
+                workouts.swapAt(indexPath.row, sourceIndexPath.row)
+                self.tableView.moveRow(at: sourceIndexPath, to: indexPath)
+                self.sourceIndexPath = indexPath
+                
+                tableView.reloadData()
+                
+                //try? context.save()
+                //fetchWorkout()
+
+            }
+            break
+        default:
+            guard let cell = self.tableView.cellForRow(at: indexPath) else {
+                return
+            }
+            guard let snapshot = self.snapshot else {
+                return
+            }
+            cell.isHidden = false
+            cell.alpha = 0.0
+            UIView.animate(withDuration: 0.25, animations: {
+                snapshot.center = cell.center
+                snapshot.transform = CGAffineTransform.identity
+                snapshot.alpha = 0
+                cell.alpha = 1
+            }, completion: { (finished) in
+                self.cleanup()
+            })
+            
+        }
     }
     
+    private func customSnapshotFromView(inputView: UIView) -> UIView? {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+        if let CurrentContext = UIGraphicsGetCurrentContext() {
+            inputView.layer.render(in: CurrentContext)
+        }
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0
+        snapshot.layer.shadowOffset = CGSize(width: -5, height: 0)
+        snapshot.layer.shadowRadius = 5
+        snapshot.layer.shadowOpacity = 0.4
+        return snapshot
+    }
+    
+    private func cleanup() {
+        self.sourceIndexPath = nil
+        snapshot?.removeFromSuperview()
+        self.snapshot = nil
+    }
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,6 +187,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 let spinSet = SpinSet(sequence: Int(ws.sequence), gear: Int(ws.gear), cadence: Int(ws.cadence), seconds: ws.seconds)
                 workoutSets.append(spinSet!)
             }
+            
+            workoutSets.sort(by: {$0.sequence < $1.sequence})
 
             let spinWorkout = SpinWorkout(title: workoutTitle, sets: workoutSets)
             workoutViewController.workout = spinWorkout
@@ -151,6 +242,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
 
     }
     
+    // MARK: - Delegates
+
     func addTableView(spinWorkout: SpinWorkout) {
         //***
 //        workouts?.append(workout)
@@ -217,8 +310,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
 
     func fetchWorkout() {
         let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
-        let alphabetSort = NSSortDescriptor(key: "title", ascending: true)
-        fetchRequest.sortDescriptors = [alphabetSort]
+        //let alphabetSort = NSSortDescriptor(key: "title", ascending: true)
+        //fetchRequest.sortDescriptors = [alphabetSort]
         
         do {
             let workoutArray = try self.context.fetch(fetchRequest)
@@ -263,7 +356,7 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.workoutTitleLabel.text = workout.title
         cell.setCountLabel.text = "\(count)"
-        cell.totalDurationLabel.text = "\(duration)"
+        cell.totalDurationLabel.text = timeString(interval: duration, format: "")
         
         //***
 //        let workout = workouts![indexPath.row]

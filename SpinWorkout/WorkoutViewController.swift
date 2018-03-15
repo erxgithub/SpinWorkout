@@ -342,20 +342,6 @@ class WorkoutViewController: UIViewController {
         timerPause = false
     }
     
-    func timeString(interval: TimeInterval, format: String) -> String {
-        let ti = Int(interval)
-        
-        let seconds = ti % 60
-        let minutes = (ti / 60) % 60
-        let hours = (ti / 3600)
-        
-        if format.lowercased() == "hm" {
-            return String(format: "%d h %0.2d m", hours, minutes)
-        } else {
-            return String(format: "%d.%0.2d.%0.2d", hours, minutes, seconds)
-        }
-    }
-    
     private func percentElapsedTime()-> TimeInterval {
     
             totalTimeRemaining = (totalTime - currentTimeElapsed)

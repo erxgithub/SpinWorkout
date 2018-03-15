@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -98,18 +97,11 @@
                         <viewLayoutGuide key="safeArea" id="m8X-cL-aua"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hlu-Le-LRC">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="mLd-Oc-lMg">
-                                <connections>
-                                    <segue destination="8j8-Qy-V3m" kind="show" identifier="detail" id="73H-Qy-ZUS"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Edit" id="hXW-PS-X1P">
-                                <connections>
-                                    <action selector="editButtonTapped:" destination="P9G-ZL-vJC" id="t2i-Me-3Ly"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mLd-Oc-lMg">
+                            <connections>
+                                <segue destination="8j8-Qy-V3m" kind="show" identifier="detail" id="73H-Qy-ZUS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addDetailButton" destination="mLd-Oc-lMg" id="no9-ZR-87b"/>
@@ -427,18 +419,11 @@
                         <viewLayoutGuide key="safeArea" id="nQc-YU-G5A"/>
                     </view>
                     <navigationItem key="navigationItem" id="xbH-Uv-lGB">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="WLx-So-Z4V">
-                                <connections>
-                                    <segue destination="4zg-X7-llc" kind="show" identifier="addSet" id="aWs-Iu-khz"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="edit" id="jVA-i0-aGb">
-                                <connections>
-                                    <action selector="editButtonTapped:" destination="8j8-Qy-V3m" id="RdR-20-oAL"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WLx-So-Z4V">
+                            <connections>
+                                <segue destination="4zg-X7-llc" kind="show" identifier="addSet" id="aWs-Iu-khz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="dmf-d9-eqV" id="MUA-Af-e0D"/>
@@ -458,36 +443,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Duration" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kax-6u-dQi">
-                                <rect key="frame" x="29" y="460" width="316" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puY-nu-4vc">
-                                <rect key="frame" x="29" y="204" width="41" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdF-wz-tNm">
+                                <rect key="frame" x="29" y="104" width="316" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdF-wz-tNm">
-                                <rect key="frame" x="29" y="120" width="316" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGR-9n-V9J">
+                                <rect key="frame" x="29" y="150" width="26" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDq-j2-Vzk">
+                                <rect key="frame" x="29" y="428" width="46" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhK-Z3-ocL">
+                                <rect key="frame" x="28" y="508" width="61" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Seconds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUv-QQ-hrg">
+                                <rect key="frame" x="28" y="590" width="67" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puY-nu-4vc">
+                                <rect key="frame" x="63" y="150" width="41" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCv-Wr-GGn">
-                                <rect key="frame" x="28" y="247" width="37" height="21"/>
+                                <rect key="frame" x="28" y="215" width="37" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cadence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uc-2e-5Dg">
-                                <rect key="frame" x="28" y="334" width="69" height="21"/>
+                                <rect key="frame" x="28" y="302" width="69" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -506,8 +512,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cadenceLabel" destination="6uc-2e-5Dg" id="0Em-ur-8c6"/>
-                        <outlet property="durationTextField" destination="Kax-6u-dQi" id="Vvc-16-FtB"/>
                         <outlet property="gearLabel" destination="LCv-Wr-GGn" id="wYD-Z7-4Ze"/>
+                        <outlet property="hoursLabel" destination="LDq-j2-Vzk" id="fF4-9t-lj0"/>
+                        <outlet property="minutesLabel" destination="HhK-Z3-ocL" id="CoL-kp-5bO"/>
+                        <outlet property="secondsLabel" destination="TUv-QQ-hrg" id="DVr-Bw-5kY"/>
                         <outlet property="setNumberLabel" destination="puY-nu-4vc" id="dVP-f5-A8N"/>
                         <outlet property="workoutTitleLabel" destination="mdF-wz-tNm" id="YIA-Bf-X4e"/>
                     </connections>
