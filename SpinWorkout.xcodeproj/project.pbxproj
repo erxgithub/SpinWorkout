@@ -21,6 +21,7 @@
 		58B6727220520B1100A46E22 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6727120520B1100A46E22 /* AddViewController.swift */; };
 		58B6727420520B3600A46E22 /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6727320520B3600A46E22 /* WorkoutViewController.swift */; };
 		58B67276205217F100A46E22 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */; };
+		58BD5B5B2059A9530052E8FF /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BD5B5A2059A9530052E8FF /* Functions.swift */; };
 		97F5DF6A2055DA58000AD016 /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F5DF692055DA58000AD016 /* RadialGradientView.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		58B6727120520B1100A46E22 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		58B6727320520B3600A46E22 /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 		58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		58BD5B5A2059A9530052E8FF /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		97F5DF692055DA58000AD016 /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				58B6726920520A0500A46E22 /* MasterViewController.swift */,
 				58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */,
 				58B6727320520B3600A46E22 /* WorkoutViewController.swift */,
+				58BD5B5A2059A9530052E8FF /* Functions.swift */,
 				58B6726F20520AD700A46E22 /* DetailViewController.swift */,
 				5849D5512053177700AEB6A6 /* DetailTableViewCell.swift */,
 				58B6727120520B1100A46E22 /* AddViewController.swift */,
@@ -237,6 +240,7 @@
 				58B67276205217F100A46E22 /* WorkoutTableViewCell.swift in Sources */,
 				5849D5522053177700AEB6A6 /* DetailTableViewCell.swift in Sources */,
 				58B6726C20520A2000A46E22 /* SpinWorkout.swift in Sources */,
+				58BD5B5B2059A9530052E8FF /* Functions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
