@@ -20,6 +20,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
     var workouts: [Workout] = []
     var context : NSManagedObjectContext!
     //***
+    
+    var gradientLayer: CAGradientLayer!
 
     fileprivate var sourceIndexPath: IndexPath?
     fileprivate var snapshot: UIView?
@@ -29,6 +31,11 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DetailViewController.longPressGestureRecognized(longPress:)))
         self.tableView.addGestureRecognizer(longPress)
+        createGradientLayer()
+        tableView.backgroundView = nil
+        tableView.isOpaque = false
+        tableView.backgroundColor = UIColor.clear
+        tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
 
         // Do any additional setup after loading the view.
         
@@ -159,6 +166,17 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         self.snapshot = nil
     }
 
+    func createGradientLayer() {
+        
+        let topColor = UIColor(red: 61.0/255.0, green: 65.0/255.0, blue: 86.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 36.0/255.0, green: 48.0/255.0, blue: 74.0/255.0, alpha: 1.0).cgColor
+        
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [topColor, bottomColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -190,6 +208,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
             
             workoutSets.sort(by: {$0.sequence < $1.sequence})
 
+            workoutSets.sort(by: {$0.sequence < $1.sequence})
+            
             let spinWorkout = SpinWorkout(title: workoutTitle, sets: workoutSets)
             workoutViewController.workout = spinWorkout
 
