@@ -20,9 +20,17 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
     var workouts: [Workout] = []
     var context : NSManagedObjectContext!
     //***
+    
+    var gradientLayer: CAGradientLayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createGradientLayer()
+        tableView.backgroundView = nil
+        tableView.isOpaque = false
+        tableView.backgroundColor = UIColor.clear
+        tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
 
         // Do any additional setup after loading the view.
         
@@ -70,6 +78,27 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         sender.title = titleLabel
     }
     
+    func createGradientLayer() {
+        
+        let topColor = UIColor(red: 61.0/255.0, green: 65.0/255.0, blue: 86.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 36.0/255.0, green: 48.0/255.0, blue: 74.0/255.0, alpha: 1.0).cgColor
+        
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [topColor, bottomColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func timeString(interval: TimeInterval) -> String {
+        let ti = Int(interval)
+        
+        let seconds = ti % 60
+        let minutes = (ti / 60) % 60
+        let hours = (ti / 3600)
+        
+        return String(format: "%dh %0.2dm %0.2ds", hours, minutes, seconds)
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -99,6 +128,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 workoutSets.append(spinSet!)
             }
 
+            workoutSets.sort(by: {$0.sequence < $1.sequence})
+            
             let spinWorkout = SpinWorkout(title: workoutTitle, sets: workoutSets)
             workoutViewController.workout = spinWorkout
 
@@ -261,9 +292,9 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
             duration += ws.seconds
         }
         
-        cell.workoutTitleLabel.text = workout.title
-        cell.setCountLabel.text = "\(count)"
-        cell.totalDurationLabel.text = "\(duration)"
+        cell.workoutTitleLabel.text = workout.title?.uppercased()
+        cell.setCountLabel.text = "SETS - \(count)"
+        cell.totalDurationLabel.text = timeString(interval: duration)
         
         //***
 //        let workout = workouts![indexPath.row]
