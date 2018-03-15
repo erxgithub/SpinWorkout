@@ -29,7 +29,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DetailViewController.longPressGestureRecognized(longPress:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(longPress:)))
         self.tableView.addGestureRecognizer(longPress)
         createGradientLayer()
         tableView.backgroundView = nil
@@ -113,10 +113,18 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 self.tableView.moveRow(at: sourceIndexPath, to: indexPath)
                 self.sourceIndexPath = indexPath
                 
+                workouts[indexPath.row].sequence = Int16(sourceIndexPath.row)
+                workouts[sourceIndexPath.row].sequence = Int16(indexPath.row)
+
+                let maxRow = workouts.count
+                for i in 0..<maxRow {
+                    workouts[i].sequence = Int16(i) + 1
+                }
+                
                 tableView.reloadData()
                 
-                //try? context.save()
-                //fetchWorkout()
+                try? context.save()
+                fetchWorkout()
 
             }
             break
@@ -225,11 +233,9 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
             
             if let senderId = sender as? UIBarButtonItem {
                 if senderId === addDetailButton {
-                    print("add")
+
                 }
             } else {
-                print("edit")
-                
                 guard let workoutCell = sender as? WorkoutTableViewCell else {
                     fatalError("Unexpected sender: \(String(describing: sender))")
                 }
@@ -270,9 +276,12 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
 //        tableView.reloadData()
         
         //***
+        let sequence = Int16(workouts.count + 1)
+        
         let workout = Workout(context: context)
 
         workout.title = spinWorkout.title
+        workout.sequence = sequence
 
         for set in spinWorkout.sets! {
             let newSet = Set(context: context)
@@ -295,19 +304,22 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         if index < 0 || index >= self.workouts.count {
             return
         }
-        
-        let workout = Workout(context: context)
-        
-        for workoutSet in workout.sets! {
-            let ws = workoutSet as! Set
-            workout.removeFromSets(ws)
-        }
+
+//        let workout = Workout(context: context)
+//
+//        for workoutSet in workout.sets! {
+//            let ws = workoutSet as! Set
+//            workout.removeFromSets(ws)
+//        }
         
         context.delete(workouts[index])
         
         workouts.remove(at: index)
 
+        let workout = Workout(context: context)
+        
         workout.title = spinWorkout.title
+        workout.sequence = Int16(index) + 1
 
         for set in spinWorkout.sets! {
             let newSet = Set(context: context)
@@ -322,7 +334,6 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         }
 
         try? context.save()
-        //tableView.reloadData()
         fetchWorkout()
     }
 
@@ -330,8 +341,8 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
 
     func fetchWorkout() {
         let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
-        //let alphabetSort = NSSortDescriptor(key: "title", ascending: true)
-        //fetchRequest.sortDescriptors = [alphabetSort]
+        let alphabetSort = NSSortDescriptor(key: "sequence", ascending: true)
+        fetchRequest.sortDescriptors = [alphabetSort]
         
         do {
             let workoutArray = try self.context.fetch(fetchRequest)

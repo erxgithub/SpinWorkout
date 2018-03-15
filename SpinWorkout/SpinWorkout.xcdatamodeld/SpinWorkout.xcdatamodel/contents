@@ -8,11 +8,12 @@
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="sets" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <entity name="Workout" representedClassName="Workout" syncable="YES" codeGenerationType="class">
+        <attribute name="sequence" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="sets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="workout" inverseEntity="Set" syncable="YES"/>
     </entity>
     <elements>
         <element name="Set" positionX="594" positionY="8" width="128" height="118"/>
-        <element name="Workout" positionX="358" positionY="26" width="128" height="73"/>
+        <element name="Workout" positionX="358" positionY="26" width="128" height="90"/>
     </elements>
 </model>
