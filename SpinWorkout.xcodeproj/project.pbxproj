@@ -22,6 +22,7 @@
 		58B6727420520B3600A46E22 /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6727320520B3600A46E22 /* WorkoutViewController.swift */; };
 		58B67276205217F100A46E22 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */; };
 		58BD5B5B2059A9530052E8FF /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BD5B5A2059A9530052E8FF /* Functions.swift */; };
+		97250119205B353E005D9CD2 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97250118205B353E005D9CD2 /* FloatLabelTextField.swift */; };
 		9768158E2059E1B6007BACCA /* Univers LT 67 Condensed Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9768158D2059E1B5007BACCA /* Univers LT 67 Condensed Bold.ttf */; };
 		97F5DF6A2055DA58000AD016 /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F5DF692055DA58000AD016 /* RadialGradientView.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		58B6727320520B3600A46E22 /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 		58B67275205217F100A46E22 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		58BD5B5A2059A9530052E8FF /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		97250118205B353E005D9CD2 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
 		9768158D2059E1B5007BACCA /* Univers LT 67 Condensed Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Univers LT 67 Condensed Bold.ttf"; sourceTree = "<group>"; };
 		97F5DF692055DA58000AD016 /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				58B6726B20520A2000A46E22 /* SpinWorkout.swift */,
 				58B6726D20520A2F00A46E22 /* SpinSet.swift */,
 				97F5DF692055DA58000AD016 /* RadialGradientView.swift */,
+				97250118205B353E005D9CD2 /* FloatLabelTextField.swift */,
 				5854341520503D1E008C6163 /* Main.storyboard */,
 				5854341B20503D1E008C6163 /* Assets.xcassets */,
 				5854341D20503D1E008C6163 /* LaunchScreen.storyboard */,
@@ -247,6 +250,7 @@
 				5854341A20503D1E008C6163 /* SpinWorkout.xcdatamodeld in Sources */,
 				58B6727220520B1100A46E22 /* AddViewController.swift in Sources */,
 				5854341220503D1E008C6163 /* AppDelegate.swift in Sources */,
+				97250119205B353E005D9CD2 /* FloatLabelTextField.swift in Sources */,
 				58B6727020520AD700A46E22 /* DetailViewController.swift in Sources */,
 				58B6726A20520A0500A46E22 /* MasterViewController.swift in Sources */,
 				58B67276205217F100A46E22 /* WorkoutTableViewCell.swift in Sources */,

@@ -13,18 +13,19 @@ protocol WorkoutDelegate {
     func updateTableView(spinWorkout: SpinWorkout, index: Int)
 }
 
-class DetailViewController: UIViewController, SpinSetDelegate {
+class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var workoutTitleTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var totalDurationLabel: UILabel!
-    
+
     var workout: SpinWorkout?
     var sets: [SpinSet]? = []
 
     var delegate: WorkoutDelegate?
     var updateMode: Bool = false
     var workoutNumber: Int = 0
+    var gradientLayer: CAGradientLayer!
 
     fileprivate var sourceIndexPath: IndexPath?
     fileprivate var snapshot: UIView?
@@ -35,6 +36,18 @@ class DetailViewController: UIViewController, SpinSetDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        workoutTitleTextField.delegate = self
+        createGradientLayer()
+        
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = UIColor.white.cgColor
+        border.frame = CGRect(x: 0, y: workoutTitleTextField.frame.size.height - width, width:  workoutTitleTextField.frame.size.width, height: workoutTitleTextField.frame.size.height)
+        
+        border.borderWidth = width
+        workoutTitleTextField.layer.addSublayer(border)
+        workoutTitleTextField.layer.masksToBounds = true
+        
         // Do any additional setup after loading the view.
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DetailViewController.longPressGestureRecognized(longPress:)))
@@ -47,7 +60,9 @@ class DetailViewController: UIViewController, SpinSetDelegate {
         }
 
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
-        totalDurationLabel.text = timeString(interval: duration ?? 0.0, format: "hms")
+        let durationStringFormat = timeString(interval: duration ?? 0.0, format: "")
+        totalDurationLabel.text = "Total Duration - \(durationStringFormat)"
+        totalDurationLabel.sizeToFit()
 
         addingWorkoutSets = false
         editingWorkoutSets = false
@@ -77,6 +92,22 @@ class DetailViewController: UIViewController, SpinSetDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        workoutTitleTextField.resignFirstResponder()
+        return false
+    }
+    
+    func createGradientLayer() {
+        
+        let topColor = UIColor(red: 53.0/255.0, green: 72.0/255.0, blue: 118.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 32.0/255.0, green: 41.0/255.0, blue: 62.0/255.0, alpha: 1.0).cgColor
+        
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [topColor, bottomColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     @objc func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
@@ -274,7 +305,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.cadenceLabel.text = "\(sets?[indexPath.row].cadence ?? 0)"
         
         let duration = sets?[indexPath.row].seconds ?? 0.0
-        cell.durationLabel.text = timeString(interval: duration, format: "hms")
+        cell.durationLabel.text = timeString(interval: duration, format: "")
         
         return cell
         

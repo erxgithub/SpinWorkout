@@ -374,8 +374,8 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
             duration += ws.seconds
         }
         
-        cell.workoutTitleLabel.text = workout.title
-        cell.setCountLabel.text = "\(count)"
+        cell.workoutTitleLabel.text = workout.title?.uppercased()
+        cell.setCountLabel.text = "SETS - \(count)"
         cell.totalDurationLabel.text = timeString(interval: duration, format: "")
         
         //***
