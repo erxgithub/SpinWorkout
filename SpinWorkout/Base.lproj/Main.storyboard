@@ -6,8 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -120,6 +118,11 @@
                         <viewLayoutGuide key="safeArea" id="m8X-cL-aua"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hlu-Le-LRC">
+                        <barButtonItem key="leftBarButtonItem" title="Graph" id="hsx-9F-QSL">
+                            <connections>
+                                <segue destination="fRo-7d-GuL" kind="show" id="e6G-UB-jMG"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mLd-Oc-lMg">
                             <connections>
                                 <segue destination="8j8-Qy-V3m" kind="show" identifier="detail" id="73H-Qy-ZUS"/>
@@ -135,10 +138,24 @@
             </objects>
             <point key="canvasLocation" x="-224.63768115942031" y="-81.521739130434796"/>
         </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="OEc-TJ-pQV">
+            <objects>
+                <viewController id="fRo-7d-GuL" customClass="GraphViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g4d-0d-4bx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="TL3-H8-oLE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fse-pd-bPA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-194" y="588"/>
+        </scene>
         <!--Workout View Controller-->
         <scene sceneID="7Dl-3q-f7q">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qk4-8L-3EN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="8TN-7I-g1g" customClass="WorkoutViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4vQ-oL-P66">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -356,6 +373,7 @@
                         <outlet property="workoutTitleLabel" destination="NEr-TP-cAT" id="CxU-aa-3Li"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qk4-8L-3EN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="675.36231884057975" y="219.29347826086959"/>
         </scene>
