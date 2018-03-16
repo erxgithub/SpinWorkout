@@ -138,10 +138,10 @@
             </objects>
             <point key="canvasLocation" x="-224.63768115942031" y="-81.521739130434796"/>
         </scene>
-        <!--Graph View Controller-->
+        <!--View Controller-->
         <scene sceneID="OEc-TJ-pQV">
             <objects>
-                <viewController id="fRo-7d-GuL" customClass="GraphViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fRo-7d-GuL" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g4d-0d-4bx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

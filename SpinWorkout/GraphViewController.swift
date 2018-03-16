@@ -1,8 +1,9 @@
 //
 //  GraphViewController.swift
-//  
+//  SpinWorkout
 //
 //  Created by Eric Gregor on 2018-03-16.
+//  Copyright © 2018 Eric Gregor. All rights reserved.
 //
 
 import UIKit
