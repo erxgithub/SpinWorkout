@@ -208,19 +208,24 @@ class WorkoutViewController: UIViewController {
                     
                 } else {
                 
-                    if setAttribute >= 50 && setAttribute <= 66 {
+                    if setAttribute >= 50 && setAttribute <= 62 {
                         imageView.image = UIImage(named: "CADENCE1")
-                    } else if setAttribute >= 67 && setAttribute <= 83 {
+                    } else if setAttribute >= 63 && setAttribute <= 75 {
                         imageView.image = UIImage(named: "CADENCE2")
-                    } else if setAttribute >= 84 && setAttribute <= 100 {
+                    } else if setAttribute >= 76 && setAttribute <= 88 {
                         imageView.image = UIImage(named: "CADENCE3")
-                    } else if setAttribute >= 101 && setAttribute <= 117 {
+                    } else if setAttribute >= 89 && setAttribute <= 101 {
                         imageView.image = UIImage(named: "CADENCE4")
-                    } else if setAttribute >= 118 && setAttribute <= 134 {
+                    } else if setAttribute >= 102 && setAttribute <= 114 {
                         imageView.image = UIImage(named: "CADENCE5")
-                    } else {
+                    } else if setAttribute >= 115 && setAttribute <= 126 {
                         imageView.image = UIImage(named: "CADENCE6")
+                    } else if setAttribute >= 127 && setAttribute <= 139 {
+                        imageView.image = UIImage(named: "CADENCE7")
+                    } else {
+                        imageView.image = UIImage(named: "CADENCE8")
                     }
+                    
                 }
             }, completion: nil)
     }
@@ -309,8 +314,8 @@ class WorkoutViewController: UIViewController {
             transitionImageWithFlip(imageView: nextCadenceImageView, setAttribute: cadence, nextSetAttribute: nextCadence)
             
         } else {
-            nextGearLabel.text = " - "
-            nextCadenceLabel.text = " --"
+            nextGearLabel.text = "-"
+            nextCadenceLabel.text = "--"
         }
         
         currentSetTotalTime = seconds

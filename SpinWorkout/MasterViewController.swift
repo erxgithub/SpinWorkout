@@ -37,6 +37,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         tableView.backgroundColor = UIColor.clear
         tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
 
+       
         // Do any additional setup after loading the view.
         
         //***
@@ -67,6 +68,15 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        // XCode bug fix where button stays .selected when returning to view
+        navigationController?.navigationBar.tintAdjustmentMode = .normal
+        navigationController?.navigationBar.tintAdjustmentMode = .automatic
+        ///////
+    
     }
 
     @objc func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
@@ -385,8 +395,8 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
             duration += ws.seconds
         }
         
-        cell.workoutTitleLabel.text = workout.title
-        cell.setCountLabel.text = "\(count)"
+        cell.workoutTitleLabel.text = workout.title?.uppercased()
+        cell.setCountLabel.text = "SETS - \(count)"
         cell.totalDurationLabel.text = timeString(interval: duration, format: "")
         
         //***

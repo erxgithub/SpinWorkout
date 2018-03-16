@@ -19,9 +19,17 @@ class AddViewController: UIViewController {
     @IBOutlet weak var setNumberLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
     @IBOutlet weak var cadenceLabel: UILabel!
-    @IBOutlet weak var hoursLabel: UILabel!
-    @IBOutlet weak var minutesLabel: UILabel!
-    @IBOutlet weak var secondsLabel: UILabel!
+    
+    @IBOutlet weak var mainCircleView: UIView!
+    @IBOutlet weak var gearCircleView: UIView!
+    @IBOutlet weak var cadenceCircleView: UIView!
+    @IBOutlet weak var durationCircleView: UIView!
+    
+    var gearPickerView: UIPickerView!
+    var cadencePickerView: UIPickerView!
+    var hourPickerView: UIPickerView!
+    var minutePickerView: UIPickerView!
+    var secondPickerView: UIPickerView!
     
     var workoutTitle: String = ""
     var setNumber: Int = 0
@@ -35,6 +43,8 @@ class AddViewController: UIViewController {
 
     var delegate: SpinSetDelegate?
     var updateMode: Bool = false
+    
+    var mainCircleViewX: CGFloat!
     
     // pickers
     
@@ -59,36 +69,46 @@ class AddViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
-        workoutTitleLabel.text = workoutTitle
-        setNumberLabel.text = "\(setNumber)"
+        createPickers()
+        shapeViewsToCircle()
+        
+        gearPickerView.isHidden = true
+        cadencePickerView.isHidden = true
+        hourPickerView.isHidden = true
+        minutePickerView.isHidden = true
+        secondPickerView.isHidden = true
+        
+        mainCircleViewX = mainCircleView.frame.origin.x
+        mainCircleView.frame.origin.x -= 300
+        mainCircleView.alpha = 0
+        
+        if workoutTitle != ""  {
+            workoutTitleLabel.text = workoutTitle
+        } else {
+            workoutTitleLabel.text = "Workout Title"
+        }
+    
+        workoutTitleLabel.sizeToFit()
+        setNumberLabel.text = "SET \(setNumber)"
         
         if duration == 0.0 {
             duration = 1.0
         }
-
-        createGearPicker(centreX: view.center.x, centreY: gearLabel.center.y + 40, tag: 1, value: gear)
-
-        createCadencePicker(centreX: view.center.x, centreY: cadenceLabel.center.y + 40, tag: 2, value: cadence)
-        
-        hours = timeComponent(value: duration, component: "h")
-        minutes = timeComponent(value: duration, component: "m")
-        seconds = timeComponent(value: duration, component: "s")
-
-        createHoursPicker(centreX: view.center.x, centreY: hoursLabel.center.y + 40, tag: 3, value: hours)
-        
-        createMinutesPicker(centreX: view.center.x, centreY: minutesLabel.center.y + 40, tag: 4, value: minutes)
-        
-        createSecondsPicker(centreX: view.center.x, centreY: secondsLabel.center.y + 40, tag: 5, value: seconds)
-
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(_ animated: Bool) {
+        
+        UIView.animate(withDuration: 2.5, delay: 0, options: .curveEaseOut, animations: {
+            self.workoutTitleLabel.alpha = 1.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 2, delay: 0, options: .curveEaseOut, animations: {
+            self.mainCircleView.frame.origin.x = self.mainCircleViewX
+            self.mainCircleView.alpha = 1.0
+        }, completion: nil)
     }
+    
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         if delegate != nil {
@@ -123,19 +143,34 @@ class AddViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func shapeViewsToCircle() {
+        
+        let circleViewArray = [mainCircleView, gearCircleView, cadenceCircleView, durationCircleView]
+        
+        for element in circleViewArray {
+            if let element = element {
+                element.layer.cornerRadius = element.frame.size.width / 2
+                element.clipsToBounds = true
+            }
+        }
+    }
+    
+    func createPickers() {
+        
+        hours = timeComponent(value: duration, component: "h")
+        minutes = timeComponent(value: duration, component: "m")
+        seconds = timeComponent(value: duration, component: "s")
+        
+        createGearPicker(centreX: view.center.x, centreY: view.center.y, tag: 1, value: gear)
+        createCadencePicker(centreX: view.center.x, centreY: view.center.y, tag: 2, value: cadence)
+        createHoursPicker(centreX: view.center.x, centreY: view.center.y, tag: 3, value: hours)
+        createMinutesPicker(centreX: view.center.x, centreY: view.center.y, tag: 4, value: minutes)
+        createSecondsPicker(centreX: view.center.x, centreY: view.center.y, tag: 5, value: seconds)
+    }
     
     func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
         for i in 1...10 {
@@ -147,7 +182,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             gear = Int(gearList[0])!
         }
 
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+        gearPickerView = createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
     
     func createCadencePicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
@@ -162,7 +197,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             cadence = Int(cadenceList[0])!
         }
 
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+        cadencePickerView = createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
     
     func createHoursPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
@@ -175,7 +210,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             hours = Int(hourList[0])!
         }
 
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+        hourPickerView = createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
     
     func createMinutesPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
@@ -188,7 +223,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             minutes = Int(minuteList[0])!
         }
 
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+        minutePickerView = createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
     
     func createSecondsPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
@@ -203,10 +238,10 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             seconds = Int(secondList[0])!
         }
 
-        createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
+        secondPickerView = createCustomPicker(centreX: centreX, centreY: centreY, tag: tag, index: index)
     }
     
-    func createCustomPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, index: Int) {
+    func createCustomPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, index: Int) -> UIPickerView {
         let pickerView = UIPickerView()
         
         pickerView.dataSource = self
@@ -214,13 +249,10 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         pickerView.tag = tag
         
-        pickerView.layer.borderColor = UIColor.black.cgColor
-        pickerView.layer.borderWidth = 1.5
-        
         rotationAngle = -90 * (.pi / 180)
         pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
         
-        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width + 150, height: 50)
+        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width + 150, height: 100)
         //pickerView.center = self.view.center
         pickerView.center.x = centreX
         pickerView.center.y = centreY
@@ -230,6 +262,8 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         pickerView.selectRow(index, inComponent: 0, animated: true)
         
         self.view.addSubview(pickerView)
+        
+        return pickerView
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
