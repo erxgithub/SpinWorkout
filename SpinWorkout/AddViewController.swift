@@ -45,6 +45,9 @@ class AddViewController: UIViewController {
     var updateMode: Bool = false
     
     var mainCircleViewX: CGFloat!
+    var gearCircleFinalPosition: CGPoint!
+    var cadenceCircleFinalPosition: CGPoint!
+    var durationCircleFinalPosition: CGPoint!
     
     // pickers
     
@@ -79,9 +82,28 @@ class AddViewController: UIViewController {
         minutePickerView.isHidden = true
         secondPickerView.isHidden = true
         
+        // hold the position of view based on how the circle view is setup in storyboard
         mainCircleViewX = mainCircleView.frame.origin.x
+        gearCircleFinalPosition = gearCircleView.center
+        cadenceCircleFinalPosition = cadenceCircleView.center
+        durationCircleFinalPosition = durationCircleView.center
+        
+        // setup starting position of views
+        
         mainCircleView.frame.origin.x -= 300
+        
+        gearCircleView.frame.origin = mainCircleView.center
+        cadenceCircleView.frame.origin = mainCircleView.center
+        durationCircleView.frame.origin = mainCircleView.center
+        
         mainCircleView.alpha = 0
+        gearCircleView.alpha = 0
+        cadenceCircleView.alpha = 0
+        durationCircleView.alpha = 0
+        
+        workoutTitleLabel.alpha = 0
+        
+        //
         
         if workoutTitle != ""  {
             workoutTitleLabel.text = workoutTitle
@@ -99,14 +121,36 @@ class AddViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        UIView.animate(withDuration: 2.5, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 2.0, delay: 0, options: .curveEaseOut, animations: {
             self.workoutTitleLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 2, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 0.5, options: .curveEaseOut, animations: {
             self.mainCircleView.frame.origin.x = self.mainCircleViewX
             self.mainCircleView.alpha = 1.0
         }, completion: nil)
+        
+        UIView.animate(withDuration: 1.5, delay: 1.7, options: .curveEaseOut, animations: {
+            self.gearCircleView.center = self.gearCircleFinalPosition
+            self.gearCircleView.alpha = 1.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1.5, delay: 2.3, options: .curveEaseOut, animations: {
+            self.cadenceCircleView.center = self.cadenceCircleFinalPosition
+            self.cadenceCircleView.alpha = 1.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1.5, delay: 3.2, options: .curveEaseOut, animations: {
+            self.durationCircleView.center = self.durationCircleFinalPosition
+            self.durationCircleView.alpha = 1.0
+        }, completion: nil)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        // need this code to hide circleView or else circle will show in the previous view
+        mainCircleView.isHidden = true
     }
     
     
