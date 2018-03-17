@@ -19,11 +19,14 @@ class AddViewController: UIViewController {
     @IBOutlet weak var setNumberLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
     @IBOutlet weak var cadenceLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var saveAndDoneLabel: UILabel!
     
     @IBOutlet weak var mainCircleView: UIView!
     @IBOutlet weak var gearCircleView: UIView!
     @IBOutlet weak var cadenceCircleView: UIView!
     @IBOutlet weak var durationCircleView: UIView!
+    @IBOutlet weak var saveCircleView: UIView!
     
     var gearPickerView: UIPickerView!
     var cadencePickerView: UIPickerView!
@@ -49,6 +52,8 @@ class AddViewController: UIViewController {
     var cadenceCircleFinalPosition: CGPoint!
     var durationCircleFinalPosition: CGPoint!
     
+    var shapeLayer = CAShapeLayer()
+    
     // pickers
     
     var gearList: [String] = []
@@ -73,8 +78,14 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backgroundLayer = CALayer()
+        view.layer.backgroundColor = UIColor(red: 57.0/255.0, green: 61.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
+        view.layer.addSublayer(backgroundLayer)
+        
         createPickers()
         shapeViewsToCircle()
+        createRingLayer()
+        
         
         gearPickerView.isHidden = true
         cadencePickerView.isHidden = true
@@ -90,20 +101,21 @@ class AddViewController: UIViewController {
         
         // setup starting position of views
         
-        mainCircleView.frame.origin.x -= 300
-        
         gearCircleView.frame.origin = mainCircleView.center
         cadenceCircleView.frame.origin = mainCircleView.center
         durationCircleView.frame.origin = mainCircleView.center
-        
-        mainCircleView.alpha = 0
+
         gearCircleView.alpha = 0
         cadenceCircleView.alpha = 0
         durationCircleView.alpha = 0
+        saveCircleView.alpha = 0
         
         workoutTitleLabel.alpha = 0
-        
-        //
+        setNumberLabel.alpha = 0
+        gearLabel.alpha = 0
+        cadenceLabel.alpha = 0
+        durationLabel.alpha = 0
+        saveAndDoneLabel.alpha = 0
         
         if workoutTitle != ""  {
             workoutTitleLabel.text = workoutTitle
@@ -125,33 +137,77 @@ class AddViewController: UIViewController {
             self.workoutTitleLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 0.5, options: .curveEaseOut, animations: {
-            self.mainCircleView.frame.origin.x = self.mainCircleViewX
-            self.mainCircleView.alpha = 1.0
+        startLayerAnimation()
+        
+        UIView.animate(withDuration: 2.0, delay: 2, options: .curveEaseOut, animations: {
+            self.setNumberLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 1.7, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 2.6, options: .curveEaseOut, animations: {
             self.gearCircleView.center = self.gearCircleFinalPosition
             self.gearCircleView.alpha = 1.0
+            self.gearLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 2.3, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 3.3, options: .curveEaseOut, animations: {
             self.cadenceCircleView.center = self.cadenceCircleFinalPosition
             self.cadenceCircleView.alpha = 1.0
+            self.cadenceLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 3.2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 4.0, options: .curveEaseOut, animations: {
             self.durationCircleView.center = self.durationCircleFinalPosition
             self.durationCircleView.alpha = 1.0
+            self.durationLabel.alpha = 1.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 2, delay: 4.5, options: .curveEaseOut, animations: {
+            self.saveCircleView.alpha = 1.0
+            self.saveAndDoneLabel.alpha = 1.0
         }, completion: nil)
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        // need this code to hide circleView or else circle will show in the previous view
-        mainCircleView.isHidden = true
+        // need this code to hide ring or else ring will show in the previous view
+        shapeLayer.strokeColor = UIColor.clear.cgColor
+        saveCircleView.backgroundColor = UIColor.clear
     }
+    
+    
+    @IBAction func gearCircleViewTapped(_ sender: UITapGestureRecognizer) {
+        secondPickerView.isHidden = false
+    }
+    
+    private func createRingLayer() {
+        
+        let center = mainCircleView.center
+        
+        let circularPath = UIBezierPath(arcCenter: center, radius: mainCircleView.frame.width / 2, startAngle: -.pi, endAngle: .pi * 2, clockwise: true)
+        
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor(red: 214.0/255.0, green: 150.0/255.0, blue: 56.0/255.0, alpha: 1.0).cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 15
+        shapeLayer.lineCap = kCALineCapRound
+        shapeLayer.strokeEnd = 0
+        
+        view.layer.addSublayer(shapeLayer)
+    }
+    
+    private func startLayerAnimation() {
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        basicAnimation.fromValue = 0
+        basicAnimation.toValue = 1
+        basicAnimation.beginTime = CACurrentMediaTime() + 0.8
+        basicAnimation.duration = 3
+        basicAnimation.fillMode = kCAFillModeForwards
+        basicAnimation.isRemovedOnCompletion = false
+        
+        shapeLayer.add(basicAnimation, forKey: "layerAnimation")
+    }
+    
     
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
@@ -193,7 +249,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func shapeViewsToCircle() {
         
-        let circleViewArray = [mainCircleView, gearCircleView, cadenceCircleView, durationCircleView]
+        let circleViewArray = [gearCircleView, cadenceCircleView, durationCircleView, saveCircleView]
         
         for element in circleViewArray {
             if let element = element {
@@ -293,10 +349,10 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         pickerView.tag = tag
         
-        rotationAngle = -90 * (.pi / 180)
-        pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+//        rotationAngle = -90 * (.pi / 180)
+//        pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
         
-        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width + 150, height: 100)
+        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width / 5, height: 300)
         //pickerView.center = self.view.center
         pickerView.center.x = centreX
         pickerView.center.y = centreY
@@ -368,7 +424,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         view.addSubview(label)
         
-        view.transform = CGAffineTransform(rotationAngle: 90 * (.pi / 180))
+//        view.transform = CGAffineTransform(rotationAngle: 90 * (.pi / 180))
         
         return view
     }
