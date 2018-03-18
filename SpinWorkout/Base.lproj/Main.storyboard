@@ -588,7 +588,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Cadence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCy-m4-kjB">
-                                        <rect key="frame" x="84" y="0.0" width="67.666666666666686" height="23.333333333333332"/>
+                                        <rect key="frame" x="83.999999999999972" y="0.0" width="67.666666666666657" height="23.333333333333332"/>
                                         <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="19"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -721,6 +721,10 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94511419534683228" green="0.90463101863861084" blue="0.12846744060516357" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="V2W-qH-fap" appends="YES" id="a50-mV-HYz"/>
+                                </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DURATION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Rx-zs-T4b">
                                 <rect key="frame" x="254" y="593" width="113" height="25"/>
@@ -781,6 +785,11 @@
                 <tapGestureRecognizer id="ODD-ci-gVh">
                     <connections>
                         <action selector="cadenceCircleViewTapped:" destination="4zg-X7-llc" id="aAR-ib-wDf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="V2W-qH-fap">
+                    <connections>
+                        <action selector="durationCircleViewTapped:" destination="4zg-X7-llc" id="nfU-yM-6c1"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

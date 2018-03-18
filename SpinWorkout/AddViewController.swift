@@ -54,6 +54,9 @@ class AddViewController: UIViewController {
     var durationCircleFinalPosition: CGPoint!
     
     var shapeLayer = CAShapeLayer()
+    var hourLabel = UILabel()
+    var minuteLabel = UILabel()
+    var secondLabel = UILabel()
     
     // pickers
     
@@ -86,13 +89,11 @@ class AddViewController: UIViewController {
         createPickers()
         shapeViewsToCircle()
         createRingLayer()
-        
-        gearPickerView.alpha = 0
-        cadencePickerView.alpha = 0
-        hourPickerView.alpha = 0
-        minutePickerView.alpha = 0
-        secondPickerView.alpha = 0
-        
+        hourLabel = createLabel(pickerView: hourPickerView, labelText: "Hour")
+        minuteLabel = createLabel(pickerView: minutePickerView, labelText: "Min")
+        secondLabel = createLabel(pickerView: secondPickerView, labelText: "Sec")
+    
+    
         // hold the position of view based on how the circle view is setup in storyboard
         mainCircleViewX = mainCircleView.frame.origin.x
         gearCircleFinalPosition = gearCircleView.center
@@ -134,35 +135,37 @@ class AddViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        UIView.animate(withDuration: 2.0, delay: 0, options: .curveEaseOut, animations: {
+        startLayerAnimation()
+        
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
             self.workoutTitleLabel.alpha = 1.0
         }, completion: nil)
         
-        startLayerAnimation()
         
-        UIView.animate(withDuration: 2.0, delay: 2, options: .curveEaseOut, animations: {
+        
+        UIView.animate(withDuration: 2.0, delay: 0.3, options: .curveEaseOut, animations: {
             self.setNumberLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 2.6, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 0.5, options: .curveEaseOut, animations: {
             self.gearCircleView.center = self.gearCircleFinalPosition
             self.gearCircleView.alpha = 1.0
             self.gearLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 3.3, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 0.8, options: .curveEaseOut, animations: {
             self.cadenceCircleView.center = self.cadenceCircleFinalPosition
             self.cadenceCircleView.alpha = 1.0
             self.cadenceLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 1.5, delay: 4.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 1.0, options: .curveEaseOut, animations: {
             self.durationCircleView.center = self.durationCircleFinalPosition
             self.durationCircleView.alpha = 1.0
             self.durationLabel.alpha = 1.0
         }, completion: nil)
         
-        UIView.animate(withDuration: 2, delay: 4.5, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 2, delay: 1.3, options: .curveEaseOut, animations: {
             self.saveCircleView.alpha = 1.0
             self.saveAndDoneButton.alpha = 1.0
         }, completion: nil)
@@ -174,6 +177,9 @@ class AddViewController: UIViewController {
         // need this code to hide circle or else circle will show in the previous view
         shapeLayer.strokeColor = UIColor.clear.cgColor
         saveCircleView.backgroundColor = UIColor.clear
+        gearCircleView.backgroundColor = UIColor.clear
+        cadenceCircleView.backgroundColor = UIColor.clear
+        durationCircleView.backgroundColor = UIColor.clear
     }
     
     
@@ -189,13 +195,13 @@ class AddViewController: UIViewController {
             self.gearCircleView.transform = CGAffineTransform(scaleX: 3, y: 3)
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn, animations: {
             self.cadenceCircleView.center = self.mainCircleView.center
             self.cadenceCircleView.alpha = 0
             self.cadenceLabel.alpha = 0
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.5, options: .curveEaseIn, animations: {
             self.durationCircleView.center = self.mainCircleView.center
             self.durationCircleView.alpha = 0
             self.durationLabel.alpha = 0
@@ -203,7 +209,7 @@ class AddViewController: UIViewController {
         }, completion: nil)
         
         // FADE IN
-        UIView.animate(withDuration: 1.0, delay: 1, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.75, options: .curveEaseIn, animations: {
             
             self.gearPickerView.alpha = 1.0
             self.saveAndDoneButton.setTitle("DONE", for: .normal)
@@ -221,7 +227,7 @@ class AddViewController: UIViewController {
         // FADE OUT
         cadenceCircleView.isUserInteractionEnabled = false
         
-        UIView.animate(withDuration: 0.8, delay: 0, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
             self.cadenceCircleView.center = self.mainCircleView.center
             self.cadenceLabel.alpha = 0
             self.setNumberLabel.alpha = 0
@@ -230,13 +236,13 @@ class AddViewController: UIViewController {
             self.shapeLayer.isHidden = true
         })
         
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn, animations: {
             self.gearCircleView.center = self.mainCircleView.center
             self.gearCircleView.alpha = 0
             self.gearLabel.alpha = 0
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.5, options: .curveEaseIn, animations: {
             self.durationCircleView.center = self.mainCircleView.center
             self.durationCircleView.alpha = 0
             self.durationLabel.alpha = 0
@@ -246,7 +252,7 @@ class AddViewController: UIViewController {
         // FADE IN
          self.workoutElementLabel.frame.origin.x -= 20 // adjust label to give space for picker
         
-        UIView.animate(withDuration: 1.0, delay: 1, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.75, options: .curveEaseIn, animations: {
             
             self.cadencePickerView.alpha = 1.0
             self.saveAndDoneButton.setTitle("DONE", for: .normal)
@@ -257,6 +263,62 @@ class AddViewController: UIViewController {
             
         }, completion: nil)
     }
+    
+    @IBAction func durationCircleViewTapped(_ sender: UITapGestureRecognizer) {
+        
+        // FADE OUT
+        durationCircleView.isUserInteractionEnabled = false
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
+            self.durationCircleView.center = self.mainCircleView.center
+            self.durationLabel.alpha = 0
+            self.setNumberLabel.alpha = 0
+            self.durationCircleView.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
+        }, completion: { (true) in
+            self.shapeLayer.isHidden = true
+        })
+        
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn, animations: {
+            self.gearCircleView.center = self.mainCircleView.center
+            self.gearCircleView.alpha = 0
+            self.gearLabel.alpha = 0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.5, options: .curveEaseIn, animations: {
+            self.cadenceCircleView.center = self.mainCircleView.center
+            self.cadenceCircleView.alpha = 0
+            self.cadenceLabel.alpha = 0
+        }, completion: nil)
+        
+        // FADE IN
+         self.workoutElementLabel.frame.origin.x -= 30 // adjust label to give space for picker
+        
+        UIView.animate(withDuration: 0.5, delay: 0.75, options: .curveEaseIn, animations: {
+            
+            self.saveAndDoneButton.setTitle("DONE", for: .normal)
+            self.workoutElementLabel.text = "DURATION"
+            self.saveAndDoneButton.sizeToFit()
+            self.saveAndDoneButton.alpha = 1.0
+            self.workoutElementLabel.alpha = 1.0
+            
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.25, delay: 1, options: .curveEaseIn, animations: {
+            self.hourPickerView.alpha = 1.0
+            self.hourLabel.alpha = 1.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.25, delay: 1.2, options: .curveEaseIn, animations: {
+            self.minutePickerView.alpha = 1.0
+            self.minuteLabel.alpha = 1.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.25, delay: 1.4, options: .curveEaseIn, animations: {
+            self.secondPickerView.alpha = 1.0
+            self.secondLabel.alpha = 1.0
+        }, completion: nil)
+    }
+    
     
     @IBAction func SaveAndDoneButtonTapped(_ sender: UIButton) {
         
@@ -280,7 +342,7 @@ class AddViewController: UIViewController {
                 })
                 
                 //FADE IN
-                UIView.animate(withDuration: 1.0, delay: 0.2, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: {
                     self.gearCircleView.transform = CGAffineTransform.identity
                     self.gearCircleView.center = self.gearCircleFinalPosition
                     self.gearCircleView.alpha = 1.0
@@ -289,13 +351,13 @@ class AddViewController: UIViewController {
                     self.gearLabel.alpha = 1.0
                 }, completion: nil)
                 
-                UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                     self.cadenceCircleView.center = self.cadenceCircleFinalPosition
                     self.cadenceCircleView.alpha = 1.0
                     self.cadenceLabel.alpha = 1.0
                 }, completion: nil)
                 
-                UIView.animate(withDuration: 1.0, delay: 0.8, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveEaseOut, animations: {
                     self.durationCircleView.center = self.durationCircleFinalPosition
                     self.durationCircleView.alpha = 1.0
                     self.durationLabel.alpha = 1.0
@@ -322,7 +384,7 @@ class AddViewController: UIViewController {
                 })
                 
                 //FADE IN
-                UIView.animate(withDuration: 1.0, delay: 0.2, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: {
                     self.cadenceCircleView.transform = CGAffineTransform.identity
                     self.cadenceCircleView.center = self.cadenceCircleFinalPosition
                     self.cadenceCircleView.alpha = 1.0
@@ -331,13 +393,13 @@ class AddViewController: UIViewController {
                     self.cadenceLabel.alpha = 1.0
                 }, completion: nil)
                 
-                UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                     self.gearCircleView.center = self.gearCircleFinalPosition
                     self.gearCircleView.alpha = 1.0
                     self.gearLabel.alpha = 1.0
                 }, completion: nil)
                 
-                UIView.animate(withDuration: 1.0, delay: 0.8, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveEaseOut, animations: {
                     self.durationCircleView.center = self.durationCircleFinalPosition
                     self.durationCircleView.alpha = 1.0
                     self.durationLabel.alpha = 1.0
@@ -347,6 +409,54 @@ class AddViewController: UIViewController {
                 }, completion: { (true) in
                     self.workoutElementLabel.frame.origin.x += 20 // adjust label back to start position
                 })
+            }
+            
+            if durationCircleView.transform != CGAffineTransform.identity {
+                
+                durationCircleView.isUserInteractionEnabled = true
+                
+                // FADE OUT
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                    self.hourPickerView.alpha = 0
+                    self.hourLabel.alpha = 0
+                    self.minutePickerView.alpha = 0
+                    self.minuteLabel.alpha = 0
+                    self.secondPickerView.alpha = 0
+                    self.secondLabel.alpha = 0
+                    self.workoutElementLabel.alpha = 0
+                    self.saveAndDoneButton.alpha = 0
+                }, completion: { (true) in
+                    self.shapeLayer.isHidden = false
+                })
+                
+                // FADE IN
+                UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: {
+                    self.durationCircleView.transform = CGAffineTransform.identity
+                    self.durationCircleView.center = self.durationCircleFinalPosition
+                    self.durationCircleView.alpha = 1.0
+                    self.durationLabel.font = UIFont(name: self.gearLabel.font.fontName, size: 30)
+                    self.durationLabel.sizeToFit()
+                    self.durationLabel.text = "\(self.hours)h \(self.minutes)m \(self.seconds)s"
+                    self.durationLabel.alpha = 1.0
+                }, completion: nil)
+                
+                UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+                    self.gearCircleView.center = self.gearCircleFinalPosition
+                    self.gearCircleView.alpha = 1.0
+                    self.gearLabel.alpha = 1.0
+                }, completion: nil)
+                
+                UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveEaseOut, animations: {
+                    self.cadenceCircleView.center = self.cadenceCircleFinalPosition
+                    self.cadenceCircleView.alpha = 1.0
+                    self.cadenceLabel.alpha = 1.0
+                    self.setNumberLabel.alpha = 1.0
+                    self.saveAndDoneButton.setTitle("SAVE", for: .normal)
+                    self.saveAndDoneButton.alpha = 1.0
+                }, completion: { (true) in
+                    self.workoutElementLabel.frame.origin.x += 30 // adjust label back to start position
+                })
+                
             }
             
 
@@ -413,12 +523,40 @@ class AddViewController: UIViewController {
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation.fromValue = 0
         basicAnimation.toValue = 1
-        basicAnimation.beginTime = CACurrentMediaTime() + 0.8
-        basicAnimation.duration = 3
+        basicAnimation.duration = 1.5
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
         
         shapeLayer.add(basicAnimation, forKey: "layerAnimation")
+    }
+    
+    private func createAttributedString(string: String) -> NSMutableAttributedString {
+        
+        let mutableString = NSMutableAttributedString(
+            string: string,
+            attributes: [NSAttributedStringKey.font:UIFont(
+                name: "UniversLT-CondensedBold",
+                size: 17.0)!])
+        mutableString.addAttribute(NSAttributedStringKey.font, value: UIFont(
+            name: "UniversLT-CondensedBold",
+            size: 42.0)!, range: NSRange(location: 0, length: 1))
+        
+        return mutableString
+    }
+    
+    private func createLabel(pickerView: UIPickerView, labelText: String) -> UILabel {
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        
+        label.center = CGPoint(x: pickerView.frame.origin.x + pickerView.frame.width / 2,
+                               y: pickerView.frame.origin.y + label.frame.height - 70)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.alpha = 0
+        label.attributedText = createAttributedString(string: labelText)
+        view.addSubview(label)
+        
+        return label
     }
 
 }
@@ -446,9 +584,9 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         createGearPicker(centreX: view.center.x + 100, centreY: workoutElementLabelCentreY, tag: 1, value: gear)
         createCadencePicker(centreX: view.center.x + 100, centreY: workoutElementLabelCentreY, tag: 2, value: cadence)
-        createHoursPicker(centreX: view.center.x, centreY: view.center.y, tag: 3, value: hours)
-        createMinutesPicker(centreX: view.center.x, centreY: view.center.y, tag: 4, value: minutes)
-        createSecondsPicker(centreX: view.center.x + 100, centreY: view.center.y, tag: 5, value: seconds)
+        createHoursPicker(centreX: view.center.x + 20 , centreY: view.center.y/1.25, tag: 3, value: hours)
+        createMinutesPicker(centreX: view.center.x + 80, centreY: workoutElementLabel.frame.origin.y, tag: 4, value: minutes)
+        createSecondsPicker(centreX: view.center.x + 142, centreY: view.center.y*1.43, tag: 5, value: seconds)
     }
     
     func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
@@ -506,7 +644,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func createSecondsPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
-        var i = 0
+        var i = 5
         while i <= 55 {
             secondList.append("\(i)")
             i += 5
@@ -527,12 +665,15 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         pickerView.delegate = self
         
         pickerView.tag = tag
-
-        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width / 5, height: 450)
+        
+        if pickerView.tag == 1 || pickerView.tag == 2 {
+            pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width / 5, height: 450)
+        } else {
+            pickerView.frame = CGRect(x: 0 - 75, y: 0, width: 50, height: 200)
+        }
         pickerView.center.x = centreX
         pickerView.center.y = centreY
-        
-        pickerView.tag = tag
+        pickerView.alpha = 0
         
         pickerView.selectRow(index, inComponent: 0, animated: true)
         
@@ -563,7 +704,13 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 60
+        
+        if pickerView.tag == 1 || pickerView.tag == 2 {
+            return 75
+        } else {
+            
+        return 45
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
@@ -573,14 +720,18 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let view = UIView()
         
+        let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: width, height: height)
         label.textAlignment = .center
-        label.font = UIFont(name: "UniversLT-CondensedBold", size: 60)
+        if pickerView.tag == 1 || pickerView.tag == 2 {
+            label.font = UIFont(name: "UniversLT-CondensedBold", size: 60)
+        } else {
+             label.font = UIFont(name: "UniversLT-CondensedBold", size: 30)
+        }
         label.textColor = UIColor.white
         
         switch pickerView.tag {
