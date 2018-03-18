@@ -232,9 +232,7 @@ class AddViewController: UIViewController {
             self.cadenceLabel.alpha = 0
             self.setNumberLabel.alpha = 0
             self.cadenceCircleView.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
-        }, completion: { (true) in
-            self.shapeLayer.isHidden = true
-        })
+        }, completion: nil)
         
         UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn, animations: {
             self.gearCircleView.center = self.mainCircleView.center
@@ -260,7 +258,7 @@ class AddViewController: UIViewController {
             self.saveAndDoneButton.sizeToFit()
             self.saveAndDoneButton.alpha = 1.0
             self.workoutElementLabel.alpha = 1.0
-            
+            self.shapeLayer.isHidden = true
         }, completion: nil)
     }
     
@@ -274,9 +272,7 @@ class AddViewController: UIViewController {
             self.durationLabel.alpha = 0
             self.setNumberLabel.alpha = 0
             self.durationCircleView.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
-        }, completion: { (true) in
-            self.shapeLayer.isHidden = true
-        })
+        }, completion: nil)
         
         UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseIn, animations: {
             self.gearCircleView.center = self.mainCircleView.center
@@ -300,7 +296,7 @@ class AddViewController: UIViewController {
             self.saveAndDoneButton.sizeToFit()
             self.saveAndDoneButton.alpha = 1.0
             self.workoutElementLabel.alpha = 1.0
-            
+            self.shapeLayer.isHidden = true
         }, completion: nil)
         
         UIView.animate(withDuration: 0.25, delay: 1, options: .curveEaseIn, animations: {
@@ -586,7 +582,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         createCadencePicker(centreX: view.center.x + 100, centreY: workoutElementLabelCentreY, tag: 2, value: cadence)
         createHoursPicker(centreX: view.center.x + 20 , centreY: view.center.y/1.25, tag: 3, value: hours)
         createMinutesPicker(centreX: view.center.x + 80, centreY: workoutElementLabel.frame.origin.y, tag: 4, value: minutes)
-        createSecondsPicker(centreX: view.center.x + 142, centreY: view.center.y*1.43, tag: 5, value: seconds)
+        createSecondsPicker(centreX: view.center.x + 142, centreY: view.center.y*1.19, tag: 5, value: seconds)
     }
     
     func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
