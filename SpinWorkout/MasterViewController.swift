@@ -274,6 +274,12 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
             
             detailViewController.delegate = self
             
+        } else if segue.identifier == "history" {
+            guard let graphViewController = segue.destination as? GraphViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+
+            graphViewController.context = context
         }
 
     }
