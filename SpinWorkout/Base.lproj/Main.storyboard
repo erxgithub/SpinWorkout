@@ -658,6 +658,10 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94511419534683228" green="0.90463101863861084" blue="0.12846744060516357" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ODD-ci-gVh" appends="YES" id="3uM-hs-ZgC"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xda-9m-qnP">
                                 <rect key="frame" x="-93" y="228" width="280" height="280"/>
@@ -725,13 +729,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GEAR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7N-yF-Nz8">
-                                <rect key="frame" x="100" y="409" width="110" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="47"/>
-                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZi-jA-eut">
                                 <rect key="frame" x="48" y="674" width="63" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -743,6 +740,13 @@
                                     <action selector="SaveAndDoneButtonTapped:" destination="4zg-X7-llc" eventType="touchUpInside" id="Ibc-Dq-8hn"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DURATION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7N-yF-Nz8">
+                                <rect key="frame" x="56" y="409" width="207" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="47"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.22352941176470587" green="0.23921568627450979" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -752,13 +756,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XKH-rQ-3Dk"/>
                     </view>
-                    <navigationItem key="navigationItem" id="R5e-kX-qvL">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="5Cf-cn-7Rn">
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="4zg-X7-llc" id="VX4-kf-dQ1"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="R5e-kX-qvL"/>
                     <connections>
                         <outlet property="cadenceCircleView" destination="9f8-xf-4XX" id="AU6-40-IvM"/>
                         <outlet property="cadenceLabel" destination="6uc-2e-5Dg" id="0Em-ur-8c6"/>
@@ -778,6 +776,11 @@
                 <tapGestureRecognizer id="KVb-As-HkY">
                     <connections>
                         <action selector="gearCircleViewTapped:" destination="4zg-X7-llc" id="MXI-vK-Wxb"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ODD-ci-gVh">
+                    <connections>
+                        <action selector="cadenceCircleViewTapped:" destination="4zg-X7-llc" id="aAR-ib-wDf"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
