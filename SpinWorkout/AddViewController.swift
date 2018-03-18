@@ -20,7 +20,8 @@ class AddViewController: UIViewController {
     @IBOutlet weak var gearLabel: UILabel!
     @IBOutlet weak var cadenceLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet weak var saveAndDoneLabel: UILabel!
+    @IBOutlet weak var saveAndDoneButton: UIButton!
+    @IBOutlet weak var workoutElementLabel: UILabel!
     
     @IBOutlet weak var mainCircleView: UIView!
     @IBOutlet weak var gearCircleView: UIView!
@@ -86,12 +87,11 @@ class AddViewController: UIViewController {
         shapeViewsToCircle()
         createRingLayer()
         
-        
-        gearPickerView.isHidden = true
-        cadencePickerView.isHidden = true
-        hourPickerView.isHidden = true
-        minutePickerView.isHidden = true
-        secondPickerView.isHidden = true
+        gearPickerView.alpha = 0
+        cadencePickerView.alpha = 0
+        hourPickerView.alpha = 0
+        minutePickerView.alpha = 0
+        secondPickerView.alpha = 0
         
         // hold the position of view based on how the circle view is setup in storyboard
         mainCircleViewX = mainCircleView.frame.origin.x
@@ -115,7 +115,8 @@ class AddViewController: UIViewController {
         gearLabel.alpha = 0
         cadenceLabel.alpha = 0
         durationLabel.alpha = 0
-        saveAndDoneLabel.alpha = 0
+        saveAndDoneButton.alpha = 0
+        workoutElementLabel.alpha = 0
         
         if workoutTitle != ""  {
             workoutTitleLabel.text = workoutTitle
@@ -163,7 +164,7 @@ class AddViewController: UIViewController {
         
         UIView.animate(withDuration: 2, delay: 4.5, options: .curveEaseOut, animations: {
             self.saveCircleView.alpha = 1.0
-            self.saveAndDoneLabel.alpha = 1.0
+            self.saveAndDoneButton.alpha = 1.0
         }, completion: nil)
         
     }
@@ -177,7 +178,44 @@ class AddViewController: UIViewController {
     
     
     @IBAction func gearCircleViewTapped(_ sender: UITapGestureRecognizer) {
-        secondPickerView.isHidden = false
+        
+        // fade out
+        gearCircleView.isUserInteractionEnabled = false
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
+            self.gearCircleView.center = self.mainCircleView.center
+            self.gearLabel.alpha = 0
+            self.setNumberLabel.alpha = 0
+            self.gearCircleView.transform = CGAffineTransform(scaleX: 3, y: 3)
+            
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseIn, animations: {
+            self.cadenceCircleView.center = self.mainCircleView.center
+            self.cadenceCircleView.alpha = 0
+            self.cadenceLabel.alpha = 0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
+            self.durationCircleView.center = self.mainCircleView.center
+            self.durationCircleView.alpha = 0
+            self.durationLabel.alpha = 0
+            self.saveAndDoneButton.alpha = 0
+        }, completion: nil)
+        
+        // fade in
+        
+        UIView.animate(withDuration: 1.0, delay: 1, options: .curveEaseIn, animations: {
+            
+            self.gearPickerView.alpha = 1.0
+            self.saveAndDoneButton.setTitle("DONE", for: .normal)
+            self.workoutElementLabel.text = "GEAR"
+            self.saveAndDoneButton.sizeToFit()
+            self.saveAndDoneButton.alpha = 1.0
+            self.shapeLayer.isHidden = true
+            self.workoutElementLabel.alpha = 1.0
+            
+        }, completion: nil)
     }
     
     private func createRingLayer() {
@@ -209,36 +247,80 @@ class AddViewController: UIViewController {
     }
     
     
-    
-    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        if delegate != nil {
-            if gear > 0 && cadence > 0 && duration > 0.0 {
-                let duration = timeValue(hours: hours, minutes: minutes, seconds: seconds)
+    @IBAction func SaveAndDoneButtonTapped(_ sender: UIButton) {
+        
+        switch saveAndDoneButton.titleLabel?.text {
+        case "DONE"?:
+            
+            if gearCircleView.transform != CGAffineTransform.identity {
                 
-                let workoutSet = SpinSet(sequence: setNumber, gear: gear, cadence: cadence, seconds: duration)
-                
-                var alertTitle = ""
-                
-                if updateMode {
-                    delegate?.updateTableView(set: workoutSet!, index: self.setNumber - 1)
-                    alertTitle = "Workout set \(setNumber) updated."
-                } else {
-                    delegate?.addTableView(set: workoutSet!)
-                    alertTitle = "Workout set \(setNumber) added."
+                gearCircleView.isUserInteractionEnabled = true
+                if gearLabel.text == "GEAR" {
+                    gearLabel.text = "1"
                 }
                 
-                let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-                
-                let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                    if !self.updateMode {
-                        self.setNumber += 1
-                        self.setNumberLabel.text = "\(self.setNumber)"
-                    }
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                    self.gearPickerView.alpha = 0
+                    self.workoutElementLabel.alpha = 0
+                    self.saveAndDoneButton.alpha = 0
+                }, completion: { (true) in
+                    self.shapeLayer.isHidden = false
                 })
-                alert.addAction(ok)
                 
-                self.present(alert, animated: true)
+                UIView.animate(withDuration: 1.0, delay: 0.2, options: .curveEaseOut, animations: {
+                    self.gearCircleView.transform = CGAffineTransform.identity
+                    self.gearCircleView.center = self.gearCircleFinalPosition
+                    self.gearCircleView.alpha = 1.0
+                    self.gearLabel.font = UIFont(name: self.gearLabel.font.fontName, size: 53)
+                    self.gearLabel.sizeToFit()
+                    self.gearLabel.alpha = 1.0
+                }, completion: nil)
                 
+                UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut, animations: {
+                    self.cadenceCircleView.center = self.cadenceCircleFinalPosition
+                    self.cadenceCircleView.alpha = 1.0
+                    self.cadenceLabel.alpha = 1.0
+                }, completion: nil)
+                
+                UIView.animate(withDuration: 1.0, delay: 0.8, options: .curveEaseOut, animations: {
+                    self.durationCircleView.center = self.durationCircleFinalPosition
+                    self.durationCircleView.alpha = 1.0
+                    self.durationLabel.alpha = 1.0
+                    self.setNumberLabel.alpha = 1.0
+                    self.saveAndDoneButton.setTitle("SAVE", for: .normal)
+                    self.saveAndDoneButton.alpha = 1.0
+                }, completion: nil)
+            }
+            
+        default:
+            if delegate != nil {
+                if gear > 0 && cadence > 0 && duration > 0.0 {
+                    let duration = timeValue(hours: hours, minutes: minutes, seconds: seconds)
+                    
+                    let workoutSet = SpinSet(sequence: setNumber, gear: gear, cadence: cadence, seconds: duration)
+                    
+                    var alertTitle = ""
+                    
+                    if updateMode {
+                        delegate?.updateTableView(set: workoutSet!, index: self.setNumber - 1)
+                        alertTitle = "Workout set \(setNumber) updated."
+                    } else {
+                        delegate?.addTableView(set: workoutSet!)
+                        alertTitle = "Workout set \(setNumber) added."
+                    }
+                    
+                    let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+                    
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
+                        if !self.updateMode {
+                            self.setNumber += 1
+                            self.setNumberLabel.text = "\(self.setNumber)"
+                        }
+                    })
+                    alert.addAction(ok)
+                    
+                    self.present(alert, animated: true)
+                }
             }
         }
     }
@@ -250,7 +332,6 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func shapeViewsToCircle() {
         
         let circleViewArray = [gearCircleView, cadenceCircleView, durationCircleView, saveCircleView]
-        
         for element in circleViewArray {
             if let element = element {
                 element.layer.cornerRadius = element.frame.size.width / 2
@@ -265,11 +346,11 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         minutes = timeComponent(value: duration, component: "m")
         seconds = timeComponent(value: duration, component: "s")
         
-        createGearPicker(centreX: view.center.x, centreY: view.center.y, tag: 1, value: gear)
-        createCadencePicker(centreX: view.center.x, centreY: view.center.y, tag: 2, value: cadence)
+        createGearPicker(centreX: view.center.x + 100, centreY: workoutElementLabel.frame.origin.y + workoutElementLabel.frame.height / 2, tag: 1, value: gear)
+        createCadencePicker(centreX: view.center.x + 80, centreY: view.center.y, tag: 2, value: cadence)
         createHoursPicker(centreX: view.center.x, centreY: view.center.y, tag: 3, value: hours)
         createMinutesPicker(centreX: view.center.x, centreY: view.center.y, tag: 4, value: minutes)
-        createSecondsPicker(centreX: view.center.x, centreY: view.center.y, tag: 5, value: seconds)
+        createSecondsPicker(centreX: view.center.x + 100, centreY: view.center.y, tag: 5, value: seconds)
     }
     
     func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
@@ -349,11 +430,8 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         pickerView.tag = tag
         
-//        rotationAngle = -90 * (.pi / 180)
-//        pickerView.transform = CGAffineTransform(rotationAngle: rotationAngle)
-        
-        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width / 5, height: 300)
-        //pickerView.center = self.view.center
+
+        pickerView.frame = CGRect(x: 0 - 75, y: 0, width: view.frame.width / 5, height: 450)
         pickerView.center.x = centreX
         pickerView.center.y = centreY
         
@@ -388,12 +466,14 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 50
+        return 60
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return 50
     }
+    
+    
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let view = UIView()
@@ -403,7 +483,8 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: width, height: height)
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.font = UIFont(name: "UniversLT-CondensedBold", size: 60)
+        label.textColor = UIColor.white
         
         switch pickerView.tag {
         case 1:
@@ -424,8 +505,6 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         view.addSubview(label)
         
-//        view.transform = CGAffineTransform(rotationAngle: 90 * (.pi / 180))
-        
         return view
     }
     
@@ -433,6 +512,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         switch pickerView.tag {
         case 1:
             gear = Int(gearList[row])!
+            gearLabel.text = String(gear)
         case 2:
             cadence = Int(cadenceList[row])!
         case 3:
