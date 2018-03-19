@@ -724,7 +724,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         label.frame = CGRect(x: 0, y: 0, width: width, height: height)
         label.textAlignment = .center
         if pickerView.tag == 1 || pickerView.tag == 2 {
-            label.font = UIFont(name: "UniversLT-CondensedBold", size: 60)
+            label.font = UIFont(name: "UniversLT-CondensedBold", size: 58)
         } else {
              label.font = UIFont(name: "UniversLT-CondensedBold", size: 30)
         }

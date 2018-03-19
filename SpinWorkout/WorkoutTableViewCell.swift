@@ -18,26 +18,15 @@ class WorkoutTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        styleTextLabel(textLabel: workoutTitleLabel)
-        styleTextLabel(textLabel: setCountLabel)
-        styleTextLabel(textLabel: totalDurationLabel)
+        workoutTitleLabel.textColor = UIColor.white
+        setCountLabel.textColor = UIColor.white
+        totalDurationLabel.textColor = UIColor.white
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    private func styleTextLabel(textLabel: UILabel) {
-        
-        textLabel.layer.shadowColor = UIColor.black.cgColor
-        textLabel.layer.shadowOpacity = 0.75
-        textLabel.layer.shadowRadius = 3.0
-        textLabel.layer.shadowOffset = CGSize(width: 1.5, height: 2.5)
-        textLabel.layer.masksToBounds = false
-        textLabel.textColor = UIColor.white
-
     }
 
 }

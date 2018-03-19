@@ -242,7 +242,6 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         tableView.backgroundView = tableViewBackgroundView
         tableView.isOpaque = false
         tableView.backgroundColor = UIColor.clear
-        
     }
     
     
