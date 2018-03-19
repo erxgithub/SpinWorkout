@@ -65,10 +65,10 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
         let durationStringFormat = timeString(interval: duration ?? 0.0, format: "")
         totalDurationLabel.text = "Total Duration - \(durationStringFormat)"
         totalDurationLabel.sizeToFit()
-
+        
         addingWorkoutSets = false
         editingWorkoutSets = false
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,24 +79,36 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
             if delegate != nil {
                 var workoutTitle = workoutTitleTextField.text
                 let titleLength = workoutTitle?.count ?? 0
-                if titleLength == 0 {
-                    workoutTitle = "Unknown Title"
-                }
-                let workout = SpinWorkout(title: workoutTitle, sets: sets)
-                if updateMode {
-                    delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
-                } else {
-                    delegate?.addTableView(spinWorkout: workout!)
+                if let setsCount = sets?.count {
+                    
+                    if setsCount > 0 {
+                        
+                        if titleLength == 0 {
+                            workoutTitle = "Unknown Title"
+                        }
+                        
+                        let workout = SpinWorkout(title: workoutTitle, sets: sets)
+                        if updateMode {
+                            delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
+                        } else {
+                            delegate?.addTableView(spinWorkout: workout!)
+                        }
+                    }
                 }
             }
         }
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
-        if let totalSets = workout?.sets?.count {
-            totalSetsLabel.text = "Total Sets - \(totalSets)"
-            totalSetsLabel.sizeToFit()
+        
+        let count = sets?.count ?? 0
+        for i in 0..<count {
+            sets![i].sequence = i + 1
         }
+        
+        totalSetsLabel.text = "Total Sets - \(count)"
+        totalSetsLabel.sizeToFit()
     }
     
 
@@ -238,14 +250,21 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
     
     private func updateLabelsAfterRowDelete() {
         
+        // working - update total duration lavel
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
         let totalDuration = timeString(interval: duration ?? 0.0, format: "")
         totalDurationLabel.text = "Total Duration - \(totalDuration)"
         
-        if let totalSets = workout?.sets?.count {
-            totalSetsLabel.text = "Total Sets - \(totalSets)"
-            totalSetsLabel.sizeToFit()
+        let count = sets?.count ?? 0
+        for i in 0..<count {
+            sets![i].sequence = i + 1
         }
+        
+        // not really working... - update total sets label
+        totalSetsLabel.text = "Total Sets - \(count)"
+        totalSetsLabel.sizeToFit()
+        
+        tableView.reloadData()
     }
     
     // MARK: - Delegates
