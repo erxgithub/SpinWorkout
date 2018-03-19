@@ -141,10 +141,10 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
         // return the data for each plot
         
-        if pointIndex >= history.count || pointIndex >= numberOfDataItems {
+        if pointIndex >= history.count {
             return 0
         }
-        
+
         switch(plot.identifier) {
         case "timeBar":
             return history[pointIndex].time
@@ -159,7 +159,11 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
     }
     
     func label(atIndex pointIndex: Int) -> String {
-        if pointIndex >= history.count || pointIndex >= numberOfDataItems {
+//        if pointIndex >= history.count || pointIndex >= numberOfDataItems {
+//            return ""
+//        }
+
+        if pointIndex >= history.count {
             return ""
         }
 
@@ -167,7 +171,7 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM"
-        
+
         let dateValue = history[pointIndex].date
 //        let dateValue = xAxisLabelData[pointIndex]
         let day = Calendar.current.component(.day, from: dateValue!)
@@ -182,7 +186,12 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
     }
     
     func numberOfPoints() -> Int {
-        return numberOfDataItems
+        //return numberOfDataItems
+        if history.count < numberOfDataItems {
+            return numberOfDataItems
+        } else {
+            return history.count
+        }
     }
     
     // sample data generation
