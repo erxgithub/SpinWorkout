@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate, WorkoutDelegate {
+class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate, WorkoutDelegate, HistoryDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addDetailButton: UIBarButtonItem!
@@ -223,13 +223,14 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 let spinSet = SpinSet(sequence: Int(ws.sequence), gear: Int(ws.gear), cadence: Int(ws.cadence), seconds: ws.seconds)
                 workoutSets.append(spinSet!)
             }
-            
-            workoutSets.sort(by: {$0.sequence < $1.sequence})
 
             workoutSets.sort(by: {$0.sequence < $1.sequence})
             
             let spinWorkout = SpinWorkout(title: workoutTitle, sets: workoutSets)
+            
             workoutViewController.workout = spinWorkout
+            workoutViewController.delegate = self
+            workoutViewController.workoutNumber = indexPath.row
 
             //***
 //            let selectedWorkout = workouts![indexPath.row]
@@ -274,6 +275,12 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
             
             detailViewController.delegate = self
             
+        } else if segue.identifier == "history" {
+            guard let graphViewController = segue.destination as? GraphViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+
+            graphViewController.context = context
         }
 
     }
@@ -314,7 +321,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         if index < 0 || index >= self.workouts.count {
             return
         }
-
+        
 //        let workout = Workout(context: context)
 //
 //        for workoutSet in workout.sets! {
@@ -345,6 +352,56 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
 
         try? context.save()
         fetchWorkout()
+    }
+    
+    func addToHistory(index: Int) {
+        if index < 0 || index >= self.workouts.count {
+            return
+        }
+
+        let alertTitle = "Save workout session to history?"
+        
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+        
+        let yes = UIAlertAction(title: "Yes", style: .default, handler: { action in
+            let workout = self.workouts[index]
+            
+            let title = workout.title
+            
+            var totalTime = 0.0
+            var totalPower = 0.0
+            
+            for workoutSet in workout.sets! {
+                let ws = workoutSet as! Set
+                
+                let gear = Double(ws.gear)
+                let cadence = Double(ws.cadence)
+                let seconds = ws.seconds
+                
+                let timeValue = (seconds / 60)
+                let powerValue = timeValue * pow(gear, 2) * (cadence / 2000)
+                
+                totalTime += timeValue
+                totalPower += powerValue
+            }
+
+            let history = History(context: self.context)
+
+            history.date = Date()
+            history.title = title
+            history.time = totalTime
+            history.power = totalPower
+            
+            try? self.context.save()
+        })
+        alert.addAction(yes)
+        
+        let no = UIAlertAction(title: "No", style: .default, handler: { action in
+
+        })
+        alert.addAction(no)
+        
+        self.present(alert, animated: true)
     }
 
     // MARK: - Fetched results controller

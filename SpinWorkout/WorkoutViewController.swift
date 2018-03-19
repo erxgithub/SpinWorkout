@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HistoryDelegate {
+    func addToHistory(index: Int)
+}
+
 class WorkoutViewController: UIViewController {
     
     @IBOutlet weak var workoutTitleLabel: UILabel!
@@ -25,6 +29,9 @@ class WorkoutViewController: UIViewController {
     @IBOutlet weak var nextCadenceImageView: UIImageView!
     @IBOutlet weak var nextGearImageView: UIImageView!
     
+    var delegate: HistoryDelegate?
+    var workoutNumber: Int = 0
+
     var timer = Timer()
     var timerCountDown: Bool = true
     var timerPause: Bool = false
@@ -94,7 +101,6 @@ class WorkoutViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
-        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -365,6 +371,11 @@ class WorkoutViewController: UIViewController {
             if totalTimeRemaining <= 0 {
                 timer.invalidate()
                 resetWorkout()
+
+                if delegate != nil {
+                    delegate?.addToHistory(index: workoutNumber)
+                }
+                
             } else {
                 setIndex += 1
                 nextWorkoutSet()
