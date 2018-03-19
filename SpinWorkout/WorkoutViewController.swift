@@ -63,14 +63,13 @@ class WorkoutViewController: UIViewController {
         
         workoutTitleLabel.text = workout?.title
         
-        styleTextLabel(textLabel: workoutTitleLabel)
-        styleTextLabel(textLabel: workoutTimerLabel)
-        styleTextLabel(textLabel: setTimerLabel)
-        styleTextLabel(textLabel: currentSetLabel)
-        styleTextLabel(textLabel: gearLabel)
-        styleTextLabel(textLabel: nextGearLabel)
-        styleTextLabel(textLabel: cadenceLabel)
-        styleTextLabel(textLabel: nextCadenceLabel)
+        let labelArray = [workoutTitleLabel, workoutTimerLabel, setTimerLabel, currentSetLabel, gearLabel, nextGearLabel, cadenceLabel, nextCadenceLabel]
+        
+        for element in labelArray {
+            if let element = element {
+                styleTextLabel(textLabel: element)
+            }
+        }
         
         createGradientLayer()
         createRingLayer()

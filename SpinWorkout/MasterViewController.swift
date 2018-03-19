@@ -22,6 +22,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
     //***
     
     var gradientLayer: CAGradientLayer!
+    var navBarLayer: CAGradientLayer!
 
     fileprivate var sourceIndexPath: IndexPath?
     fileprivate var snapshot: UIView?
@@ -31,13 +32,13 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(longPress:)))
         self.tableView.addGestureRecognizer(longPress)
+        
         createGradientLayer()
-        tableView.backgroundView = nil
-        tableView.isOpaque = false
-        tableView.backgroundColor = UIColor.clear
-        tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        createNavBarLayer()
+        setupTableView()
+        
+        navigationController?.navigationBar.tintColor = UIColor.white
 
-       
         // Do any additional setup after loading the view.
         
         //***
@@ -103,6 +104,11 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 snapshot.center = center
                 snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
                 snapshot.alpha = 0.98
+                snapshot.layer.backgroundColor = UIColor(red: 84.0/255.0, green: 89.0/255.0, blue: 115.0/255.0, alpha: 1.0).cgColor
+                snapshot.layer.masksToBounds = false
+                snapshot.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+                snapshot.layer.shadowRadius = 5.5
+                snapshot.layer.shadowOpacity = 0.75
                 cell.alpha = 0.0
             }, completion: { (finished) in
                 cell.isHidden = true
@@ -184,16 +190,60 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         self.snapshot = nil
     }
 
-    func createGradientLayer() {
+    private func createGradientLayer() {
         
-        let topColor = UIColor(red: 61.0/255.0, green: 65.0/255.0, blue: 86.0/255.0, alpha: 1.0).cgColor
-        let bottomColor = UIColor(red: 36.0/255.0, green: 48.0/255.0, blue: 74.0/255.0, alpha: 1.0).cgColor
+        let topColor = UIColor(red: 57.0/255.0, green: 61.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 49.0/255.0, green: 47.0/255.0, blue: 57.0/255.0, alpha: 1.0).cgColor
         
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [topColor, bottomColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    private func createNavBarLayer() {
+
+        let topColor = UIColor(red: 214.0/255.0, green: 150.0/255.0, blue: 56.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 178.0/255.0, green: 127.0/255.0, blue: 43.0/255.0, alpha: 1.0).cgColor
+
+        navBarLayer = CAGradientLayer()
+        if let navigationController = navigationController {
+            let navFrame = navigationController.navigationBar.frame
+            let newFrame = CGRect(origin: .zero, size: CGSize(width: navFrame.width, height: navFrame.height + UIApplication.shared.statusBarFrame.height))
+            navBarLayer.frame = newFrame
+            navBarLayer.locations = [0.4, 1.0]
+            navBarLayer.colors = [topColor, bottomColor]
+            navigationController.navigationBar.setBackgroundImage(createGradientImage(layer: navBarLayer), for: .default)
+        }
+    }
+    
+    private func createGradientImage(layer: CALayer) -> UIImage {
+    
+        UIGraphicsBeginImageContext(layer.frame.size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()!
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage
+    }
+    
+    private func setupTableView() {
+        
+        let imageView =  UIImageView(image: UIImage(named: "background-screen-table"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.frame = CGRect(x: 0,
+                                       y: tableView.frame.origin.y + (tableView.frame.height / 2),
+                                       width: tableView.frame.width,
+                                       height: tableView.frame.height / 2)
+        
+        let tableViewBackgroundView = UIView()
+        tableViewBackgroundView.addSubview(imageView)
+        tableView.backgroundView = tableViewBackgroundView
+        tableView.isOpaque = false
+        tableView.backgroundColor = UIColor.clear
+    }
+    
     
     // MARK: - Navigation
 

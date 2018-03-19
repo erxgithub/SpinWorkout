@@ -18,7 +18,8 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
     @IBOutlet weak var workoutTitleTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var totalDurationLabel: UILabel!
-
+    @IBOutlet weak var totalSetsLabel: UILabel!
+    
     var workout: SpinWorkout?
     var sets: [SpinSet]? = []
 
@@ -38,6 +39,7 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
 
         workoutTitleTextField.delegate = self
         createGradientLayer()
+        setupTableView()
         
         let border = CALayer()
         let width = CGFloat(2.0)
@@ -89,20 +91,39 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        if let totalSets = workout?.sets?.count {
+            totalSetsLabel.text = "Total Sets - \(totalSets)"
+            totalSetsLabel.sizeToFit()
+        }
     }
+    
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         workoutTitleTextField.resignFirstResponder()
         return false
     }
     
-    func createGradientLayer() {
+    private func setupTableView() {
         
-        let topColor = UIColor(red: 53.0/255.0, green: 72.0/255.0, blue: 118.0/255.0, alpha: 1.0).cgColor
-        let bottomColor = UIColor(red: 32.0/255.0, green: 41.0/255.0, blue: 62.0/255.0, alpha: 1.0).cgColor
+        let imageView =  UIImageView(image: UIImage(named: "background-screen-table"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.frame = CGRect(x: 0,
+                                       y: tableView.bounds.origin.y + (tableView.frame.height / 2),
+                                       width: tableView.frame.width,
+                                       height: tableView.frame.height / 2)
+        
+        let tableViewBackgroundView = UIView()
+        tableViewBackgroundView.addSubview(imageView)
+        tableView.backgroundView = tableViewBackgroundView
+        tableView.isOpaque = false
+        tableView.backgroundColor = UIColor.clear
+    }
+    
+    private func createGradientLayer() {
+        
+        let topColor = UIColor(red: 57.0/255.0, green: 61.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 49.0/255.0, green: 47.0/255.0, blue: 57.0/255.0, alpha: 1.0).cgColor
         
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
@@ -134,6 +155,11 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
                 snapshot.center = center
                 snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
                 snapshot.alpha = 0.98
+                snapshot.layer.backgroundColor = UIColor(red: 84.0/255.0, green: 89.0/255.0, blue: 115.0/255.0, alpha: 1.0).cgColor
+                snapshot.layer.masksToBounds = false
+                snapshot.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+                snapshot.layer.shadowRadius = 5.5
+                snapshot.layer.shadowOpacity = 0.75
                 cell.alpha = 0.0
             }, completion: { (finished) in
                 cell.isHidden = true
@@ -209,6 +235,18 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
         self.snapshot = nil
     }
     
+    private func updateLabelsAfterRowDelete() {
+        
+        let duration = self.sets?.reduce(0) { $0 + $1.seconds }
+        let totalDuration = timeString(interval: duration ?? 0.0, format: "")
+        totalDurationLabel.text = "Total Duration - \(totalDuration)"
+        
+        if let totalSets = workout?.sets?.count {
+            totalSetsLabel.text = "Total Sets - \(totalSets)"
+            totalSetsLabel.sizeToFit()
+        }
+    }
+    
     // MARK: - Delegates
 
     func addTableView(set: SpinSet) {
@@ -216,7 +254,8 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
         tableView.reloadData()
 
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
-        totalDurationLabel.text = timeString(interval: duration ?? 0.0, format: "hms")
+        let totalDuration = timeString(interval: duration ?? 0.0, format: "")
+        totalDurationLabel.text = "Total Duration - \(totalDuration)"
     }
     
     func updateTableView(set: SpinSet, index: Int) {
@@ -231,7 +270,8 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
         tableView.reloadData()
         
         let duration = self.sets?.reduce(0) { $0 + $1.seconds }
-        totalDurationLabel.text = timeString(interval: duration ?? 0.0, format: "hms")
+        let totalDuration = timeString(interval: duration ?? 0.0, format: "")
+        totalDurationLabel.text = "Total Duration - \(totalDuration)"
     }
 
     // MARK: - Navigation
@@ -325,6 +365,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete", handler: { (UITableViewRowAction, IndexPath) -> Void in
             self.sets?.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.updateLabelsAfterRowDelete()
         })
         deleteAction.backgroundColor = UIColor.red
         
