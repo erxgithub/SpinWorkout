@@ -150,8 +150,7 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
             return history[pointIndex].time
             //return timeBarData[pointIndex] / 2
         case "powerBar":
-            return history[pointIndex].power +
-                history[pointIndex].time
+            return history[pointIndex].power
 //            return (powerBarData[pointIndex] + timeBarData[pointIndex]) / 2
         default:
             return 0
@@ -206,7 +205,7 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
             let timeNumber = Double(arc4random_uniform(max - min + 1) + min)
             timeBarData.append(timeNumber)
             
-            let powerNumber = Double(arc4random_uniform(max - min + 1) + min)
+            let powerNumber = timeNumber + Double(arc4random_uniform(max - min + 1) + min)
             powerBarData.append(powerNumber)
             
             let dateValue = Calendar.current.date(byAdding: .day, value: i, to: startDate!)
