@@ -159,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="co1-bd-EL1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-306" y="625"/>
+            <point key="canvasLocation" x="-225" y="721"/>
         </scene>
         <!--Workout View Controller-->
         <scene sceneID="7Dl-3q-f7q">
@@ -296,13 +296,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CADENCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCK-k4-S75">
-                                                <rect key="frame" x="70.666666666666657" y="137.33333333333337" width="66.666666666666657" height="16.333333333333343"/>
+                                                <rect key="frame" x="80.666666666666657" y="137.33333333333337" width="66.666666666666657" height="16.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="135" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="VMm-FW-Ft0">
-                                                <rect key="frame" x="66.333333333333343" y="51" width="75.333333333333343" height="52"/>
+                                                <rect key="frame" x="76.666666666666686" y="51" width="75.333333333333314" height="52"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="45"/>
                                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -314,23 +314,23 @@
                                             <constraint firstItem="tgc-jl-pr2" firstAttribute="centerX" secondItem="sed-DI-jiZ" secondAttribute="centerX" id="BbU-sl-MHt"/>
                                             <constraint firstItem="tgc-jl-pr2" firstAttribute="centerY" secondItem="sed-DI-jiZ" secondAttribute="centerY" id="E4e-kb-tq0"/>
                                             <constraint firstItem="VMm-FW-Ft0" firstAttribute="centerY" secondItem="tgc-jl-pr2" secondAttribute="centerY" id="GJh-ym-w2n"/>
-                                            <constraint firstItem="VMm-FW-Ft0" firstAttribute="centerX" secondItem="tgc-jl-pr2" secondAttribute="centerX" id="Qdc-If-b5Q"/>
+                                            <constraint firstItem="VMm-FW-Ft0" firstAttribute="centerX" secondItem="tgc-jl-pr2" secondAttribute="centerX" multiplier="1.1" id="Qdc-If-b5Q"/>
                                             <constraint firstAttribute="bottom" secondItem="LCK-k4-S75" secondAttribute="bottom" id="cfG-nX-2a8"/>
-                                            <constraint firstItem="LCK-k4-S75" firstAttribute="centerX" secondItem="sed-DI-jiZ" secondAttribute="centerX" id="gyV-vS-YDA"/>
+                                            <constraint firstItem="LCK-k4-S75" firstAttribute="centerX" secondItem="sed-DI-jiZ" secondAttribute="centerX" multiplier="1.1" id="gyV-vS-YDA"/>
                                         </constraints>
                                     </view>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9v3-gr-6x3" userLabel="Next Cadence View">
                                         <rect key="frame" x="0.0" y="153.66666666666663" width="207.33333333333334" height="140"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ARROWUP" translatesAutoresizingMaskIntoConstraints="NO" id="lHv-iF-Sdg">
-                                                <rect key="frame" x="53.333333333333343" y="38.666666666666742" width="100" height="63"/>
+                                                <rect key="frame" x="64" y="38.666666666666742" width="100" height="63"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="OVw-0g-qOg"/>
                                                     <constraint firstAttribute="height" constant="63" id="zTf-R0-Cux"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="od9-6B-erN">
-                                                <rect key="frame" x="68.333333333333343" y="37.333333333333378" width="70.333333333333343" height="64.666666666666686"/>
+                                                <rect key="frame" x="79" y="37.333333333333378" width="70.333333333333314" height="64.666666666666686"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="150" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8n-Yi-Psf">
                                                         <rect key="frame" x="0.0" y="0.0" width="70.333333333333329" height="48.333333333333336"/>
@@ -349,9 +349,9 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="od9-6B-erN" firstAttribute="centerX" secondItem="9v3-gr-6x3" secondAttribute="centerX" id="dnF-Pr-E9V"/>
+                                            <constraint firstItem="od9-6B-erN" firstAttribute="centerX" secondItem="9v3-gr-6x3" secondAttribute="centerX" multiplier="1.1" id="dnF-Pr-E9V"/>
                                             <constraint firstItem="lHv-iF-Sdg" firstAttribute="centerY" secondItem="9v3-gr-6x3" secondAttribute="centerY" id="qM4-0g-Vue"/>
-                                            <constraint firstItem="lHv-iF-Sdg" firstAttribute="centerX" secondItem="9v3-gr-6x3" secondAttribute="centerX" id="r2U-XE-ndJ"/>
+                                            <constraint firstItem="lHv-iF-Sdg" firstAttribute="centerX" secondItem="9v3-gr-6x3" secondAttribute="centerX" multiplier="1.1" id="r2U-XE-ndJ"/>
                                             <constraint firstItem="od9-6B-erN" firstAttribute="centerY" secondItem="9v3-gr-6x3" secondAttribute="centerY" id="rGC-TD-fcM"/>
                                         </constraints>
                                     </view>
@@ -448,7 +448,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qk4-8L-3EN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="982.60869565217399" y="219.29347826086959"/>
+            <point key="canvasLocation" x="677" y="209"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="sVF-JF-vwb">
@@ -541,25 +541,6 @@
                                     <outlet property="delegate" destination="8j8-Qy-V3m" id="rhy-eR-pb6"/>
                                 </connections>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Workout Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MUH-9m-fIR" customClass="FloatLabelTextField" customModule="SpinWorkout" customModuleProvider="target">
-                                <rect key="frame" x="20" y="91" width="374" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="23"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="hintYPadding">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="titleYPadding">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
-                                        <color key="value" red="0.83933138847351074" green="0.6161537766456604" blue="0.07790856808423996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur5-bW-fBl">
                                 <rect key="frame" x="20" y="168" width="107" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -592,7 +573,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Cadence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCy-m4-kjB">
-                                        <rect key="frame" x="84" y="0.0" width="67.666666666666686" height="23.333333333333332"/>
+                                        <rect key="frame" x="83.999999999999972" y="0.0" width="67.666666666666657" height="23.333333333333332"/>
                                         <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="19"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -605,6 +586,25 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Workout Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MUH-9m-fIR" customClass="FloatLabelTextField" customModule="SpinWorkout" customModuleProvider="target">
+                                <rect key="frame" x="20" y="48" width="374" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="23"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="hintYPadding">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleYPadding">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
+                                        <color key="value" red="0.83933138847351074" green="0.6161537766456604" blue="0.07790856808423996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="nQc-YU-G5A"/>
@@ -703,11 +703,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rJ-Dd-m3X">
-                                <rect key="frame" x="-119" y="589" width="205" height="205"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.80584496259689331" green="0.60489147901535034" blue="0.29401418566703796" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CADENCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uc-2e-5Dg">
                                 <rect key="frame" x="293" y="323" width="94" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -744,8 +739,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rJ-Dd-m3X">
+                                <rect key="frame" x="-99" y="585" width="205" height="205"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.80584496259689331" green="0.60489147901535034" blue="0.29401418566703796" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZi-jA-eut">
-                                <rect key="frame" x="27" y="598" width="72" height="55"/>
+                                <rect key="frame" x="39" y="596" width="72" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="26"/>
                                 <state key="normal" title="SAVE">
@@ -797,7 +797,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1818.840579710145" y="-511.95652173913049"/>
+            <point key="canvasLocation" x="1571" y="-512"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Q6-t1-Moz">

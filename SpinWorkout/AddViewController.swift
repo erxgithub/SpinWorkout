@@ -174,12 +174,12 @@ class AddViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        // need this code to hide circle or else circle will show in the previous view
+        // need these code to hide circle or else circle will show in the previous view when user clicks back
         shapeLayer.strokeColor = UIColor.clear.cgColor
-        saveCircleView.backgroundColor = UIColor.clear
-        gearCircleView.backgroundColor = UIColor.clear
-        cadenceCircleView.backgroundColor = UIColor.clear
-        durationCircleView.backgroundColor = UIColor.clear
+        saveCircleView.isHidden = true
+        cadenceCircleView.isHidden = true
+        gearCircleView.isHidden = true
+        durationCircleView.isHidden = true
     }
     
     
@@ -580,9 +580,9 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         
         createGearPicker(centreX: view.center.x + 100, centreY: workoutElementLabelCentreY, tag: 1, value: gear)
         createCadencePicker(centreX: view.center.x + 100, centreY: workoutElementLabelCentreY, tag: 2, value: cadence)
-        createHoursPicker(centreX: view.center.x + 20 , centreY: view.center.y/1.25, tag: 3, value: hours)
+        createHoursPicker(centreX: view.center.x + 20 , centreY: view.center.y/1.35, tag: 3, value: hours)
         createMinutesPicker(centreX: view.center.x + 80, centreY: workoutElementLabel.frame.origin.y, tag: 4, value: minutes)
-        createSecondsPicker(centreX: view.center.x + 142, centreY: view.center.y*1.19, tag: 5, value: seconds)
+        createSecondsPicker(centreX: view.center.x + 142, centreY: view.center.y*1.22, tag: 5, value: seconds)
     }
     
     func createGearPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {

@@ -104,6 +104,11 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 snapshot.center = center
                 snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
                 snapshot.alpha = 0.98
+                snapshot.layer.backgroundColor = UIColor(red: 84.0/255.0, green: 89.0/255.0, blue: 115.0/255.0, alpha: 1.0).cgColor
+                snapshot.layer.masksToBounds = false
+                snapshot.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+                snapshot.layer.shadowRadius = 5.5
+                snapshot.layer.shadowOpacity = 0.75
                 cell.alpha = 0.0
             }, completion: { (finished) in
                 cell.isHidden = true
