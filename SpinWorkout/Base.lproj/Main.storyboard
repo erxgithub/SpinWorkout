@@ -156,7 +156,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFx-GP-QIj">
-                                <rect key="frame" x="0.0" y="64" width="414" height="628"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="628"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-Xt-0Wo">
                                         <rect key="frame" x="265" y="24" width="125" height="75"/>
@@ -542,7 +542,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dmf-d9-eqV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dmf-d9-eqV">
                                 <rect key="frame" x="0.0" y="185.99999999999997" width="414" height="485.33333333333326"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -609,7 +609,7 @@
                                             <outlet property="durationLabel" destination="oBg-2g-fjR" id="BBB-KH-Vxr"/>
                                             <outlet property="gearLabel" destination="fIp-sf-Wet" id="wbj-aD-kZz"/>
                                             <outlet property="setLabel" destination="85D-wJ-Hur" id="vCU-0J-hPO"/>
-                                            <segue destination="4zg-X7-llc" kind="show" identifier="editSet" id="86z-4z-JCJ"/>
+                                            <segue destination="4zg-X7-llc" kind="show" identifier="editSet" id="DBh-Lc-jKr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -951,6 +951,6 @@
         <image name="top-bar" width="1727" height="575"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="86z-4z-JCJ"/>
+        <segue reference="DBh-Lc-jKr"/>
     </inferredMetricsTieBreakers>
 </document>

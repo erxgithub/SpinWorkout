@@ -77,15 +77,16 @@ class DetailViewController: UIViewController, SpinSetDelegate, UITextFieldDelega
             editingWorkoutSets = false
         } else {
             if delegate != nil {
-                let workoutTitle = workoutTitleTextField.text
+                var workoutTitle = workoutTitleTextField.text
                 let titleLength = workoutTitle?.count ?? 0
-                if titleLength > 0 {
-                    let workout = SpinWorkout(title: workoutTitle, sets: sets)
-                    if updateMode {
-                        delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
-                    } else {
-                        delegate?.addTableView(spinWorkout: workout!)
-                    }
+                if titleLength == 0 {
+                    workoutTitle = "Unknown Title"
+                }
+                let workout = SpinWorkout(title: workoutTitle, sets: sets)
+                if updateMode {
+                    delegate?.updateTableView(spinWorkout: workout!, index: workoutNumber)
+                } else {
+                    delegate?.addTableView(spinWorkout: workout!)
                 }
             }
         }

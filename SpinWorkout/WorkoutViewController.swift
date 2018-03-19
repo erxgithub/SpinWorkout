@@ -97,6 +97,7 @@ class WorkoutViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        stopTimer()
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -111,7 +112,7 @@ class WorkoutViewController: UIViewController {
             
             if firstTime == true {   // only ever fired once when it first starts timer
                 firstTime = false
-                
+
                 startTimer()
                 startAnimation()
                 
@@ -302,6 +303,7 @@ class WorkoutViewController: UIViewController {
         let gear = workout?.sets![setIndex].gear ?? 0
         let cadence = workout?.sets![setIndex].cadence ?? 0
         let seconds = workout?.sets![setIndex].seconds ?? 0.0
+        print("SET INDEX: \(setIndex)")
         
         gearLabel.text = "\(gear)"
         cadenceLabel.text = "\(cadence)"
@@ -309,6 +311,7 @@ class WorkoutViewController: UIViewController {
         transitionImageWithCrossDissolve(imageView: cadenceImageView, setAttribute: cadence)
         
         if (setIndex + 1) < setCount {
+            
             
             let nextGear = workout?.sets![setIndex + 1 ].gear ?? 0
             let nextCadence = workout?.sets![setIndex + 1].cadence ?? 0
@@ -337,7 +340,6 @@ class WorkoutViewController: UIViewController {
             workoutTimerLabel.text = timeString(interval: totalTimeRemaining, format: "hm")
             setTimerLabel.text = timeString(interval: setTimeCount, format: "hms")
         }
-        
     }
     
     func resetWorkout() {
@@ -349,11 +351,12 @@ class WorkoutViewController: UIViewController {
             totalTimeRemaining = 0.0
         }
         
-        timerPause = false
+        currentTimeElapsed = 0
+        paused = true
+        firstTime = true
     }
     
     private func percentElapsedTime()-> TimeInterval {
-    
             totalTimeRemaining = (totalTime - currentTimeElapsed)
             return totalTimeRemaining / totalTime
     }
@@ -370,11 +373,13 @@ class WorkoutViewController: UIViewController {
             if totalTimeRemaining <= 0 {
                 timer.invalidate()
                 resetWorkout()
-
-                if delegate != nil {
-                    delegate?.addToHistory(index: workoutNumber)
-                }
+                nextWorkoutSet()
                 
+                if delegate != nil {
+                    if totalTime > 0 {
+                        delegate?.addToHistory(index: workoutNumber)
+                    }
+                }
             } else {
                 setIndex += 1
                 nextWorkoutSet()
