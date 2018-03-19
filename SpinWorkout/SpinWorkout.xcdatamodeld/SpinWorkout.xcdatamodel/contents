@@ -3,7 +3,7 @@
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="power" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="seconds" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Set" representedClassName="Set" syncable="YES" codeGenerationType="class">
@@ -19,8 +19,8 @@
         <relationship name="sets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="workout" inverseEntity="Set" syncable="YES"/>
     </entity>
     <elements>
+        <element name="History" positionX="477" positionY="54" width="128" height="105"/>
         <element name="Set" positionX="594" positionY="8" width="128" height="118"/>
         <element name="Workout" positionX="358" positionY="26" width="128" height="90"/>
-        <element name="History" positionX="477" positionY="54" width="128" height="105"/>
     </elements>
 </model>

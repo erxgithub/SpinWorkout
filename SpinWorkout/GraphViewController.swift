@@ -40,7 +40,6 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
         if history.count == 0 {
             generateSampleData()
         }
-        //print(history.count)
 
         graphView = createBarGraph(self.view.frame)
         graphSubview.addSubview(graphView)
@@ -91,13 +90,15 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
         referenceLines.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
         referenceLines.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
         referenceLines.referenceLineLabelColor = UIColor.white
-        
         referenceLines.dataPointLabelColor = UIColor.white.withAlphaComponent(0.5)
+        referenceLines.referenceLineNumberOfDecimalPlaces = 1
         
         // setup the graph
         
         graphView.backgroundFillColor = UIColor(hexString: "#333333")!
         graphView.shouldAnimateOnStartup = true
+        graphView.shouldAdaptRange = true
+        graphView.shouldRangeAlwaysStartAtZero = true
         
         graphView.rangeMax = 100
         graphView.rangeMin = 0
@@ -140,13 +141,17 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
         // return the data for each plot
         
+        if pointIndex >= history.count || pointIndex >= numberOfDataItems {
+            return 0
+        }
+        
         switch(plot.identifier) {
         case "timeBar":
-            return history[pointIndex].seconds / 2
+            return history[pointIndex].time
             //return timeBarData[pointIndex] / 2
         case "powerBar":
-            return (history[pointIndex].power +
-                history[pointIndex].seconds) / 2
+            return history[pointIndex].power +
+                history[pointIndex].time
 //            return (powerBarData[pointIndex] + timeBarData[pointIndex]) / 2
         default:
             return 0
@@ -154,6 +159,10 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
     }
     
     func label(atIndex pointIndex: Int) -> String {
+        if pointIndex >= history.count || pointIndex >= numberOfDataItems {
+            return ""
+        }
+
         var xAxisLabel = ""
         
         let formatter = DateFormatter()
@@ -184,15 +193,6 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
         
         let startDate = Calendar.current.date(byAdding: .day, value: (numberOfDataItems - 1) * -1, to: Date())
 
-//        var index = history.count - 1
-//
-//        while index >= 0 {
-//            context.delete(history[index])
-//            history.remove(at: index)
-//            index -= 1
-//        }
-
-        //print(history.count)
         for i in 0 ..< numberOfDataItems {
             let timeNumber = Double(arc4random_uniform(max - min + 1) + min)
             timeBarData.append(timeNumber)
@@ -207,7 +207,7 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
             
             workout.date = dateValue
             workout.title = "Demo Workout"
-            workout.seconds = timeNumber
+            workout.time = timeNumber
             workout.power = powerNumber
             
             history.append(workout)
@@ -215,13 +215,38 @@ class GraphViewController: UIViewController, ScrollableGraphViewDataSource {
         }
 
         fetchHistory()
-        //print(history.count)
-
-        //graphView.reload()
 
         return
     }
 
+    @IBAction func resetHistoryData(_ sender: UIBarButtonItem) {
+        let alertTitle = "Reset all saved history?"
+        
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+        
+        let yes = UIAlertAction(title: "Yes", style: .default, handler: { action in
+            var index = self.history.count - 1
+            
+            while index >= 0 {
+                self.context.delete(self.history[index])
+                self.history.remove(at: index)
+                index -= 1
+            }
+            
+            try? self.context.save()
+            self.graphView.reload()
+
+        })
+        alert.addAction(yes)
+        
+        let no = UIAlertAction(title: "No", style: .default, handler: { action in
+            
+        })
+        alert.addAction(no)
+        
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - Fetched results controller
     
     func fetchHistory() {

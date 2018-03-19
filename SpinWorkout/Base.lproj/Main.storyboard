@@ -125,7 +125,7 @@
                     <navigationItem key="navigationItem" id="Hlu-Le-LRC">
                         <barButtonItem key="leftBarButtonItem" title="Graph" id="ZQB-i7-zSY">
                             <connections>
-                                <segue destination="2hM-q7-bvT" kind="show" identifier="history" id="kuU-qI-cOW"/>
+                                <segue destination="2hM-q7-bvT" kind="show" identifier="history" id="Uhj-Qh-tet"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mLd-Oc-lMg">
@@ -152,7 +152,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFx-GP-QIj">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="628"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-Xt-0Wo">
                                         <rect key="frame" x="265" y="24" width="125" height="75"/>
@@ -219,6 +219,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hSy-eU-zLj"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="0Rc-E6-DJH">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="bYC-5K-xWT">
+                            <connections>
+                                <action selector="resetHistoryData:" destination="2hM-q7-bvT" id="OgP-Jc-P4q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="graphSubview" destination="fFx-GP-QIj" id="6Co-MC-Xb8"/>
                         <outlet property="legendView" destination="UnC-Xt-0Wo" id="FuG-Fv-kES"/>
@@ -230,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="co1-bd-EL1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-225" y="807"/>
+            <point key="canvasLocation" x="-225" y="673"/>
         </scene>
         <!--Workout View Controller-->
         <scene sceneID="7Dl-3q-f7q">
@@ -663,7 +672,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Cadence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCy-m4-kjB">
-                                        <rect key="frame" x="83.999999999999972" y="0.0" width="67.666666666666657" height="23.333333333333332"/>
+                                        <rect key="frame" x="84" y="0.0" width="67.666666666666686" height="23.333333333333332"/>
                                         <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="19"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
