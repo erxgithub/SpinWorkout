@@ -429,7 +429,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 let seconds = ws.seconds
                 
                 let timeValue = (seconds / 60)
-                let powerValue = timeValue * pow(gear, 2) * (cadence / 2000)
+                let powerValue = timeValue + (timeValue * pow(gear, 2) * (cadence / 2000))
                 
                 totalTime += timeValue
                 totalPower += powerValue
