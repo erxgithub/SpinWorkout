@@ -127,6 +127,27 @@ class AddViewController: UIViewController {
     
         workoutTitleLabel.sizeToFit()
         setNumberLabel.text = "SET \(setNumber)"
+        setNumberLabel.sizeToFit()
+        
+        if updateMode {
+            if gear > 0 {
+                gearLabel.text = "\(gear)"
+                gearLabel.font = UIFont(name: gearLabel.font.fontName, size: 53)
+                gearLabel.sizeToFit()
+            }
+            
+            if cadence > 0 {
+                cadenceLabel.text = "\(cadence)"
+                cadenceLabel.font = UIFont(name: cadenceLabel.font.fontName, size: 53)
+                cadenceLabel.sizeToFit()
+            }
+            
+            if duration > 0.0 {
+                durationLabel.text = timeString(interval: duration, format: "")
+                durationLabel.font = UIFont(name: durationLabel.font.fontName, size: 30)
+                durationLabel.sizeToFit()
+            }
+        }
         
         if duration == 0.0 {
             duration = 1.0
@@ -485,6 +506,7 @@ class AddViewController: UIViewController {
                             }, completion: { (true) in
                                 UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
                                     self.setNumberLabel.text = "SET \(self.setNumber)"
+                                    self.setNumberLabel.sizeToFit()
                                     self.setNumberLabel.alpha = 1.0
                                 }, completion: nil)
                                 
