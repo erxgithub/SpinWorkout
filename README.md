@@ -1,5 +1,5 @@
-##Lighthouse Labs
-##iOS Development Bootcamp - Final Project
+## Lighthouse Labs
+## iOS Development Bootcamp - Final Project
 
 Project Title:   **Spin Workout**
 
@@ -24,3 +24,5 @@ __Technologies Used__
 Swift, TableView, ScrollableGraphView, core data, timer, animations.
 
 __Screen Shots__
+
+![alt text](/ScreenShots/Workout.png "Workout")

@@ -640,7 +640,7 @@ extension AddViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func createSecondsPicker(centreX: CGFloat, centreY: CGFloat, tag: Int, value: Int) {
-        var i = 5
+        var i = 0
         while i <= 55 {
             secondList.append("\(i)")
             i += 5
