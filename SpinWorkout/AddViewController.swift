@@ -389,6 +389,7 @@ class AddViewController: UIViewController {
                 cadenceCircleView.isUserInteractionEnabled = true
                 if cadenceLabel.text == "CADENCE" {
                     cadenceLabel.text = "50"
+                    cadenceLabel.sizeToFit()
                 }
                 
                 //FADE OUT
@@ -420,6 +421,7 @@ class AddViewController: UIViewController {
                     self.durationCircleView.center = self.durationCircleFinalPosition
                     self.durationCircleView.alpha = 1.0
                     self.durationLabel.alpha = 1.0
+                    self.durationLabel.sizeToFit()
                     self.setNumberLabel.alpha = 1.0
                     self.saveAndDoneButton.setTitle("SAVE", for: .normal)
                     self.saveAndDoneButton.alpha = 1.0
@@ -452,9 +454,9 @@ class AddViewController: UIViewController {
                     self.durationCircleView.center = self.durationCircleFinalPosition
                     self.durationCircleView.alpha = 1.0
                     self.durationLabel.font = UIFont(name: self.gearLabel.font.fontName, size: 30)
-                    self.durationLabel.sizeToFit()
                     self.durationLabel.text = "\(self.hours)h \(self.minutes)m \(self.seconds)s"
                     self.durationLabel.alpha = 1.0
+                    self.durationLabel.sizeToFit()
                 }, completion: nil)
                 
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {

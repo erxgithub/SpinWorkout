@@ -125,6 +125,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 return
             }
             if indexPath != sourceIndexPath {
+                
                 workouts.swapAt(indexPath.row, sourceIndexPath.row)
                 self.tableView.moveRow(at: sourceIndexPath, to: indexPath)
                 self.sourceIndexPath = indexPath
@@ -141,7 +142,6 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
                 
                 try? context.save()
                 fetchWorkout()
-
             }
             break
         default:
