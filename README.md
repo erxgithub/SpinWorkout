@@ -7,11 +7,11 @@ Team Members:   Aaron Chong, Eric Gregor
 
 Date:   March 19, 2018
 
-__Description__
+# Description
 
 For people with busy lifestyles, looking for indoor spinning classes at the gym that fit your schedule and budget is not always that easy. Trying to do indoor spinning workouts yourself at home on a stationary bike requires a lot of discipline and can also be quite boring and mentally challenging. So, a spin workout app would be just the thing to help with this by becoming your personal spin coach whenever you need it.
 
-__User Stories__
+# User Stories
 
 1.	Users want to be able to create their own custom spin workouts based on cadence and strength exercises.
 2.	Users should have the ability to update the workouts that they have created.
@@ -19,10 +19,14 @@ __User Stories__
 4.	Workouts should have the ability to be paused and restarted.
 5.	Workout history should be saved to that progress can be displayed graphically.
 
-__Technologies Used__
+# Technologies Used
 
 Swift, TableView, ScrollableGraphView, core data, timer, animations.
 
-__Screen Shots__
+# Screen Shots
 
 ![alt text](/ScreenShots/Workout.png "Workout")
+![alt text](/ScreenShots/WorkoutList.png "Workout list")
+![alt text](/ScreenShots/WorkoutSets.png "Workout sets")
+![alt text](/ScreenShots/WorkoutSetAdd.png "Adding a workout set")
+![alt text](/ScreenShots/HistoryGraph.png "History graph")
