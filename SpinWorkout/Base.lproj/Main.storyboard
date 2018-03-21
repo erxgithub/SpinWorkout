@@ -632,7 +632,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Sets - 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRt-ju-inF">
-                                        <rect key="frame" x="20" y="105" width="89" height="21"/>
+                                        <rect key="frame" x="20.000000000000007" y="105" width="88.666666666666686" height="21"/>
                                         <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -661,7 +661,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="ur5-bW-fBl" firstAttribute="leading" secondItem="fRt-ju-inF" secondAttribute="trailing" constant="-89" id="8L5-og-OZy"/>
                                     <constraint firstAttribute="height" constant="138" id="B7f-7f-oWE"/>
                                     <constraint firstAttribute="trailing" secondItem="MUH-9m-fIR" secondAttribute="trailing" constant="8" id="EPQ-g9-Z1L"/>
                                     <constraint firstItem="MUH-9m-fIR" firstAttribute="top" secondItem="xR5-YP-cJH" secondAttribute="top" constant="8" id="Fco-Hh-inK"/>
@@ -669,6 +668,8 @@
                                     <constraint firstItem="ur5-bW-fBl" firstAttribute="top" secondItem="MUH-9m-fIR" secondAttribute="bottom" constant="19" id="PXw-yL-qGm"/>
                                     <constraint firstItem="MUH-9m-fIR" firstAttribute="leading" secondItem="xR5-YP-cJH" secondAttribute="leading" constant="20" id="fn6-Db-QBN"/>
                                     <constraint firstItem="fRt-ju-inF" firstAttribute="leading" secondItem="xR5-YP-cJH" secondAttribute="leading" constant="20" id="jUz-GX-egn"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fRt-ju-inF" secondAttribute="trailing" constant="20" symbolic="YES" id="oAT-7b-urz"/>
+                                    <constraint firstItem="fRt-ju-inF" firstAttribute="top" secondItem="ur5-bW-fBl" secondAttribute="bottom" id="ogS-8N-IaB"/>
                                     <constraint firstItem="ur5-bW-fBl" firstAttribute="leading" secondItem="xR5-YP-cJH" secondAttribute="leading" constant="20" id="zSb-oO-VBp"/>
                                     <constraint firstAttribute="bottom" secondItem="fRt-ju-inF" secondAttribute="bottom" constant="12" id="zju-eA-oGU"/>
                                 </constraints>
