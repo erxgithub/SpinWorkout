@@ -28,7 +28,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Spinster-->
+        <!--Spin It!-->
         <scene sceneID="QYX-gK-xCT">
             <objects>
                 <viewController id="P9G-ZL-vJC" customClass="MasterViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
@@ -126,7 +126,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m8X-cL-aua"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Spinster" id="Hlu-Le-LRC">
+                    <navigationItem key="navigationItem" title="Spin It!" id="Hlu-Le-LRC">
                         <barButtonItem key="leftBarButtonItem" title="History " id="ZQB-i7-zSY">
                             <connections>
                                 <segue destination="2hM-q7-bvT" kind="show" identifier="history" id="Uhj-Qh-tet"/>
