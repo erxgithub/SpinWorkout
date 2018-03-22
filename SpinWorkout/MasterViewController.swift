@@ -38,6 +38,7 @@ class MasterViewController: UIViewController, NSFetchedResultsControllerDelegate
         setupTableView()
         
         navigationController?.navigationBar.tintColor = UIColor.white
+      
 
         // Do any additional setup after loading the view.
         
@@ -527,9 +528,8 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (UITableViewRowAction, IndexPath) -> Void in
             self.performSegue(withIdentifier: "detail", sender: tableView.cellForRow(at: indexPath))
-            
         })
-        editAction.backgroundColor = UIColor.blue
+        editAction.backgroundColor = UIColor(red: 46.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
         
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete", handler: { (UITableViewRowAction, IndexPath) -> Void in
             self.context.delete(self.workouts[indexPath.row])
@@ -546,7 +546,7 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
             self.fetchWorkout()
 
         })
-        deleteAction.backgroundColor = UIColor.red
+        deleteAction.backgroundColor = UIColor(red: 114.0/255.0, green: 5.0/255.0, blue: 5.0/255.0, alpha: 1.0)
 
         if tableView.isEditing {
             return [deleteAction]

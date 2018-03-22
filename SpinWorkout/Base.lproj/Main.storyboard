@@ -28,7 +28,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Master View Controller-->
+        <!--Spinster-->
         <scene sceneID="QYX-gK-xCT">
             <objects>
                 <viewController id="P9G-ZL-vJC" customClass="MasterViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
@@ -126,8 +126,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m8X-cL-aua"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Hlu-Le-LRC">
-                        <barButtonItem key="leftBarButtonItem" title="Graph" id="ZQB-i7-zSY">
+                    <navigationItem key="navigationItem" title="Spinster" id="Hlu-Le-LRC">
+                        <barButtonItem key="leftBarButtonItem" title="History " id="ZQB-i7-zSY">
                             <connections>
                                 <segue destination="2hM-q7-bvT" kind="show" identifier="history" id="Uhj-Qh-tet"/>
                             </connections>
@@ -147,7 +147,7 @@
             </objects>
             <point key="canvasLocation" x="-224.63768115942031" y="-81.521739130434796"/>
         </scene>
-        <!--Graph View Controller-->
+        <!--Workout History-->
         <scene sceneID="sfN-wd-Q5j">
             <objects>
                 <viewController id="2hM-q7-bvT" customClass="GraphViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
@@ -224,7 +224,7 @@
                         <viewLayoutGuide key="safeArea" id="hSy-eU-zLj"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="0Rc-E6-DJH">
+                    <navigationItem key="navigationItem" title="Workout History" id="0Rc-E6-DJH">
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="bYC-5K-xWT">
                             <connections>
                                 <action selector="resetHistoryData:" destination="2hM-q7-bvT" id="OgP-Jc-P4q"/>
@@ -299,12 +299,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hca-Hu-lfM">
-                                        <rect key="frame" x="5" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="14" y="10" width="35" height="35"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="jvH-Gj-rX6"/>
-                                            <constraint firstAttribute="height" constant="44" id="uyW-jb-s9Q"/>
+                                            <constraint firstAttribute="height" constant="35" id="GeS-Fy-951"/>
+                                            <constraint firstAttribute="width" constant="35" id="RZV-wN-wme"/>
                                         </constraints>
-                                        <state key="normal" image="ic_arrow_back"/>
+                                        <state key="normal" image="icons8-back-44"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="8TN-7I-g1g" eventType="touchUpInside" id="WAh-FE-dae"/>
                                         </connections>
@@ -314,11 +314,10 @@
                                 <constraints>
                                     <constraint firstItem="QuZ-Bp-waj" firstAttribute="centerY" secondItem="sj2-O8-1N4" secondAttribute="centerY" id="4J7-Y8-XpP"/>
                                     <constraint firstAttribute="bottom" secondItem="LCM-WX-zJ8" secondAttribute="bottom" id="TDB-Tf-Nwo"/>
-                                    <constraint firstItem="Hca-Hu-lfM" firstAttribute="leading" secondItem="sj2-O8-1N4" secondAttribute="leading" constant="5" id="Wea-SY-Uwg"/>
+                                    <constraint firstItem="Hca-Hu-lfM" firstAttribute="leading" secondItem="sj2-O8-1N4" secondAttribute="leading" constant="14" id="Wea-SY-Uwg"/>
                                     <constraint firstItem="NEr-TP-cAT" firstAttribute="centerX" secondItem="sj2-O8-1N4" secondAttribute="centerX" id="fFY-dw-DRA"/>
                                     <constraint firstItem="LCM-WX-zJ8" firstAttribute="centerX" secondItem="sj2-O8-1N4" secondAttribute="centerX" id="ivn-6D-JZ9"/>
                                     <constraint firstItem="NEr-TP-cAT" firstAttribute="top" secondItem="sj2-O8-1N4" secondAttribute="top" constant="26" id="jd2-vc-HS2"/>
-                                    <constraint firstItem="Hca-Hu-lfM" firstAttribute="top" secondItem="sj2-O8-1N4" secondAttribute="top" id="otD-lW-QIA"/>
                                     <constraint firstItem="QuZ-Bp-waj" firstAttribute="centerX" secondItem="sj2-O8-1N4" secondAttribute="centerX" id="q09-ig-bqI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -508,6 +507,7 @@
                             <constraint firstItem="sj2-O8-1N4" firstAttribute="leading" secondItem="ijw-cm-fuS" secondAttribute="leading" id="RHm-g5-bOc"/>
                             <constraint firstItem="sj2-O8-1N4" firstAttribute="top" secondItem="ijw-cm-fuS" secondAttribute="top" id="Vyn-Y5-Ece"/>
                             <constraint firstItem="sj2-O8-1N4" firstAttribute="trailing" secondItem="ijw-cm-fuS" secondAttribute="trailing" id="cBy-Q1-Ezk"/>
+                            <constraint firstItem="Hca-Hu-lfM" firstAttribute="top" secondItem="ijw-cm-fuS" secondAttribute="top" constant="10" id="iMu-Lp-Wac"/>
                             <constraint firstItem="vh0-su-d1f" firstAttribute="top" secondItem="sj2-O8-1N4" secondAttribute="bottom" id="nub-Vp-3Rc"/>
                             <constraint firstItem="vh0-su-d1f" firstAttribute="leading" secondItem="4vQ-oL-P66" secondAttribute="leading" id="uWT-Ss-YWI"/>
                         </constraints>
@@ -532,9 +532,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qk4-8L-3EN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="677" y="209"/>
+            <point key="canvasLocation" x="676.81159420289862" y="208.69565217391306"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Sets-->
         <scene sceneID="sVF-JF-vwb">
             <objects>
                 <viewController id="8j8-Qy-V3m" customClass="DetailViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
@@ -638,7 +638,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Workout Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MUH-9m-fIR" customClass="FloatLabelTextField" customModule="SpinWorkout" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="8" width="386" height="57"/>
+                                        <rect key="frame" x="20" y="8" width="374" height="57"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="57" id="Nab-JA-UMm"/>
@@ -662,7 +662,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="138" id="B7f-7f-oWE"/>
-                                    <constraint firstAttribute="trailing" secondItem="MUH-9m-fIR" secondAttribute="trailing" constant="8" id="EPQ-g9-Z1L"/>
+                                    <constraint firstAttribute="trailing" secondItem="MUH-9m-fIR" secondAttribute="trailing" constant="20" id="EPQ-g9-Z1L"/>
                                     <constraint firstItem="MUH-9m-fIR" firstAttribute="top" secondItem="xR5-YP-cJH" secondAttribute="top" constant="8" id="Fco-Hh-inK"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ur5-bW-fBl" secondAttribute="trailing" constant="20" symbolic="YES" id="OoX-Ya-idh"/>
                                     <constraint firstItem="ur5-bW-fBl" firstAttribute="top" secondItem="MUH-9m-fIR" secondAttribute="bottom" constant="19" id="PXw-yL-qGm"/>
@@ -741,7 +741,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="direction" value="vertical"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <navigationItem key="navigationItem" id="xbH-Uv-lGB">
+                    <navigationItem key="navigationItem" title="Sets" id="xbH-Uv-lGB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WLx-So-Z4V">
                             <connections>
                                 <segue destination="4zg-X7-llc" kind="show" identifier="addSet" id="aWs-Iu-khz"/>
@@ -759,7 +759,7 @@
             </objects>
             <point key="canvasLocation" x="676.81159420289862" y="-511.95652173913049"/>
         </scene>
-        <!--Add View Controller-->
+        <!--Create Sets-->
         <scene sceneID="wCN-td-eo7">
             <objects>
                 <viewController id="4zg-X7-llc" customClass="AddViewController" customModule="SpinWorkout" customModuleProvider="target" sceneMemberID="viewController">
@@ -888,7 +888,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XKH-rQ-3Dk"/>
                     </view>
-                    <navigationItem key="navigationItem" id="R5e-kX-qvL"/>
+                    <navigationItem key="navigationItem" title="Create Sets" id="R5e-kX-qvL"/>
                     <connections>
                         <outlet property="cadenceCircleView" destination="9f8-xf-4XX" id="AU6-40-IvM"/>
                         <outlet property="cadenceLabel" destination="6uc-2e-5Dg" id="0Em-ur-8c6"/>
@@ -932,6 +932,10 @@
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.83921568627450982" green="0.58823529411764708" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="UniversLT-CondensedBold" family="Univers LT 47 CondensedLt" pointSize="18"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -951,7 +955,7 @@
         <image name="DURATION(transparent)" width="714" height="714"/>
         <image name="GEAR(transparent)" width="378" height="378"/>
         <image name="GEAR0" width="492" height="473"/>
-        <image name="ic_arrow_back" width="24" height="24"/>
+        <image name="icons8-back-44" width="44" height="44"/>
         <image name="top-bar" width="1727" height="575"/>
     </resources>
     <inferredMetricsTieBreakers>

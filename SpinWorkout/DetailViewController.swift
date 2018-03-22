@@ -380,14 +380,14 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             self.performSegue(withIdentifier: "editSet", sender: tableView.cellForRow(at: indexPath))
             
         })
-        editAction.backgroundColor = UIColor.blue
+        editAction.backgroundColor = UIColor(red: 46.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
         
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete", handler: { (UITableViewRowAction, IndexPath) -> Void in
             self.sets?.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             self.updateLabelsAfterRowDelete()
         })
-        deleteAction.backgroundColor = UIColor.red
+        deleteAction.backgroundColor = UIColor(red: 114.0/255.0, green: 5.0/255.0, blue: 5.0/255.0, alpha: 1.0)
         
         if tableView.isEditing {
             return [deleteAction]
